@@ -1159,7 +1159,7 @@
     };
 
     const params = new URLSearchParams(location.search);
-    const isPreviewMode = params.get("preview") === "1";
+    const isPreviewMode = params.get("preview") === "1" || params.has("device");
     if (isPreviewMode) {
       document.body.classList.add("preview-mode");
       const previewButtons = [...document.querySelectorAll("[data-device]")];
@@ -1168,6 +1168,7 @@
       const previewExit = document.querySelector("[data-preview-exit]");
       const frameParams = new URLSearchParams(location.search);
       frameParams.delete("preview");
+      frameParams.delete("device");
       const frameQuery = frameParams.toString();
       const frameHash = location.hash || "#worship";
       const frameSrc = location.pathname + (frameQuery ? "?" + frameQuery : "") + frameHash;
