@@ -489,6 +489,107 @@
       .view { display: block; }
       .card, .list-card { break-inside: avoid; }
     }
+
+    body.preview-mode {
+      min-height: 100svh;
+      background: #201b1c;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    body.preview-mode > .app {
+      display: none;
+    }
+
+    .preview-lab {
+      display: none;
+    }
+
+    body.preview-mode .preview-lab {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      min-height: 100svh;
+    }
+
+    .preview-toolbar {
+      display: grid;
+      gap: 10px;
+      padding: calc(12px + env(safe-area-inset-top)) 12px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, .12);
+      background: rgba(32, 27, 28, .96);
+    }
+
+    .preview-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .preview-title a {
+      color: #ffd5c7;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .preview-devices {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .preview-devices::-webkit-scrollbar {
+      display: none;
+    }
+
+    .preview-devices button {
+      flex: 0 0 auto;
+      min-height: 34px;
+      padding: 0 10px;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .08);
+      color: rgba(255, 255, 255, .82);
+      font-size: 12px;
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .preview-devices button[aria-selected="true"] {
+      border-color: var(--orange);
+      background: linear-gradient(135deg, var(--red), var(--orange));
+      color: #fff;
+    }
+
+    .preview-stage {
+      min-width: 0;
+      min-height: 0;
+      overflow: auto;
+      padding: 22px 16px 42px;
+    }
+
+    .preview-device {
+      width: var(--device-width);
+      height: var(--device-height);
+      max-width: calc(100vw - 32px);
+      margin: 0 auto;
+      border: 10px solid #111;
+      border-radius: 26px;
+      background: #fff;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .45);
+      overflow: hidden;
+    }
+
+    .preview-frame {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #fff;
+    }
   </style>
 </head>
 <body>
@@ -1025,7 +1126,69 @@
     </nav>
   </div>
 
+  <div class="preview-lab" aria-label="디바이스 미리보기">
+    <div class="preview-toolbar">
+      <div class="preview-title">
+        <span>모바일 미리보기</span>
+        <a data-preview-exit href="./index.html#worship">주보로 돌아가기</a>
+      </div>
+      <div class="preview-devices" aria-label="미리보기 기기 선택">
+        <button type="button" data-device="iphone" aria-selected="true">iPhone 15</button>
+        <button type="button" data-device="galaxy">Galaxy S</button>
+        <button type="button" data-device="foldCover">Fold 커버</button>
+        <button type="button" data-device="foldOpen">Fold 펼침</button>
+        <button type="button" data-device="flip">Flip</button>
+        <button type="button" data-device="flipFlex">Flip Flex</button>
+      </div>
+    </div>
+    <div class="preview-stage">
+      <div class="preview-device">
+        <iframe class="preview-frame" title="모바일 주보 미리보기"></iframe>
+      </div>
+    </div>
+  </div>
+
   <script>
+    const previewDevices = {
+      iphone: { width: 393, height: 852 },
+      galaxy: { width: 384, height: 854 },
+      foldCover: { width: 344, height: 882 },
+      foldOpen: { width: 812, height: 882 },
+      flip: { width: 360, height: 880 },
+      flipFlex: { width: 360, height: 440 },
+    };
+
+    const params = new URLSearchParams(location.search);
+    const isPreviewMode = params.get("preview") === "1";
+    if (isPreviewMode) {
+      document.body.classList.add("preview-mode");
+      const previewButtons = [...document.querySelectorAll("[data-device]")];
+      const previewDevice = document.querySelector(".preview-device");
+      const previewFrame = document.querySelector(".preview-frame");
+      const previewExit = document.querySelector("[data-preview-exit]");
+      const frameParams = new URLSearchParams(location.search);
+      frameParams.delete("preview");
+      const frameQuery = frameParams.toString();
+      const frameHash = location.hash || "#worship";
+      const frameSrc = location.pathname + (frameQuery ? "?" + frameQuery : "") + frameHash;
+      previewFrame.src = frameSrc;
+      previewExit.href = frameSrc;
+
+      function setPreviewDevice(name) {
+        const device = previewDevices[name] || previewDevices.iphone;
+        previewDevice.style.setProperty("--device-width", device.width + "px");
+        previewDevice.style.setProperty("--device-height", device.height + "px");
+        previewButtons.forEach((button) => {
+          button.setAttribute("aria-selected", String(button.dataset.device === name));
+        });
+      }
+
+      previewButtons.forEach((button) => {
+        button.addEventListener("click", () => setPreviewDevice(button.dataset.device));
+      });
+      setPreviewDevice(params.get("device") || "iphone");
+    }
+
     const tabButtons = [...document.querySelectorAll("[data-tab]")];
     const views = [...document.querySelectorAll("[data-view]")];
 
