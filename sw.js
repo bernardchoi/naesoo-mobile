@@ -1,4 +1,4 @@
-const CACHE_NAME = "naesoo-mobile-v1";
+const CACHE_NAME = "naesoo-mobile-v2";
 const CORE_ASSETS = ["./", "./index.html", "./manifest.json", "./app-icon.svg", "./app-icon.png"];
 
 self.addEventListener("install", (event) => {
