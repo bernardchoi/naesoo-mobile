@@ -1,0 +1,19 @@
+{
+  "name": "내수동교회 모바일 주보",
+  "short_name": "내수동 주보",
+  "description": "내수동교회 주일예배와 교회소식을 확인하는 모바일 주보입니다.",
+  "lang": "ko-KR",
+  "start_url": "./index.html#home",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#faf8f5",
+  "theme_color": "#13823f",
+  "icons": [
+    {
+      "src": "./app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
