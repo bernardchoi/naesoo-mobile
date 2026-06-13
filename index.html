@@ -277,7 +277,7 @@
 
     .worship-row {
       display: grid;
-      grid-template-columns: 82px 1fr;
+      grid-template-columns: 92px minmax(0, 1fr);
       gap: 0;
       border-top: 1px solid var(--line);
     }
@@ -290,6 +290,7 @@
       color: var(--ink);
       font-size: 14px;
       font-weight: 850;
+      word-break: keep-all;
     }
 
     .worship-label span {
@@ -303,26 +304,45 @@
 
     .worship-body {
       display: grid;
-      gap: 5px;
-      padding: 8px;
+      gap: 6px;
+      padding: 7px;
       align-content: start;
     }
 
     .part {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      min-height: 40px;
       padding: 7px 8px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: #fff;
       white-space: pre-line;
       font-size: 15px;
+      word-break: keep-all;
     }
 
     .part strong {
-      display: block;
-      color: var(--muted);
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      min-height: 22px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: var(--green-soft);
+      color: var(--green);
       font-size: 12px;
       line-height: 1.2;
-      margin-bottom: 3px;
+      margin-top: 1px;
+    }
+
+    .part.is-long {
+      display: block;
+    }
+
+    .part.is-long strong {
+      margin: 0 0 4px;
     }
 
     .grid {
@@ -394,6 +414,75 @@
 
     .list-card.is-hidden {
       display: none;
+    }
+
+    .meeting-groups {
+      display: grid;
+      gap: 14px;
+    }
+
+    .meeting-group {
+      display: grid;
+      gap: 8px;
+    }
+
+    .meeting-group-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--green);
+      font-size: 15px;
+      font-weight: 850;
+    }
+
+    .meeting-group-title::before {
+      content: "";
+      width: 6px;
+      height: 18px;
+      border-radius: 999px;
+      background: var(--green);
+    }
+
+    .meeting-card {
+      display: grid;
+      grid-template-columns: 104px minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
+      padding: 9px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .meeting-card h3 {
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.3;
+    }
+
+    .meeting-meta {
+      display: grid;
+      gap: 4px;
+    }
+
+    .meeting-meta p {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 6px;
+      align-items: start;
+      color: #3d3635;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .meeting-meta span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    @media (max-width: 360px) {
+      .meeting-card { grid-template-columns: 96px minmax(0, 1fr); }
     }
 
     .list-card {
@@ -556,6 +645,12 @@
       .two-col { grid-template-columns: repeat(2, 1fr); }
       .worship-body { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
       .bottom-nav { max-width: 760px; margin: 0 auto; }
+    }
+
+    @media (max-width: 360px) {
+      .worship-row { grid-template-columns: 90px minmax(0, 1fr); }
+      .worship-label { padding-inline: 7px; }
+      .part { padding-inline: 7px; }
     }
 
     @media print {
@@ -759,7 +854,7 @@
     <div class="worship-row">
       <div class="worship-label"><span>09</span>축도</div>
       <div class="worship-body">
-        <div class="part"><strong>1~3부</strong>하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서!</div>
+        <div class="part is-long"><strong>1~3부</strong>하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서!</div>
       </div>
     </div>
   
@@ -989,86 +1084,144 @@
             <h2>예배 및 모임 안내</h2>
           </div>
         </div>
-        <article class="card">
-          <div class="table-list">
-            
-              <div class="table-item">
-                <strong>유아부(2-4세)</strong>
-                <div>오전 11:00<br /><span class="muted">본관 4층/유아부실</span></div>
-              </div>
-            
-              <div class="table-item">
-                <strong>유치부(5-7세)</strong>
-                <div>오전 11:00<br /><span class="muted">본관 5층/유치부실</span></div>
-              </div>
-            
-              <div class="table-item">
-                <strong>유년부(1-3학년)</strong>
-                <div>오전 11:00<br /><span class="muted">교육관 2층/유년부실</span></div>
-              </div>
-            
-              <div class="table-item">
-                <strong>초등부(4-6학년)</strong>
-                <div>1부 오전 9:00 / 2부 오전 11:00<br /><span class="muted">본관 4층/비전홀</span></div>
-              </div>
-            
-              <div class="table-item">
-                <strong>어와나(10-13세)</strong>
-                <div>오후 12:50<br /><span class="muted">교육관 3층/중등부실</span></div>
-              </div>
-            
-              <div class="table-item">
-                <strong>중등부</strong>
-                <div>오전 9:00<br /><span class="muted">교육관 3층/중등부실</span></div>
-              </div>
-            
-              <div class="table-item">
-                <strong>고등부</strong>
-                <div>오전 9:00<br /><span class="muted">교육관 4층/고등부실</span></div>
-              </div>
-            
-              <div class="table-item">
-                <strong>대학부</strong>
-                <div>오후 2:50<br /><span class="muted">교육관 3층/대학부실</span></div>
-              </div>
-            
-              <div class="table-item">
-                <strong>청년부</strong>
-                <div>오후 2:50<br /><span class="muted">본관 2층/본당</span></div>
-              </div>
-            
-              <div class="table-item">
-                <strong>신혼교구</strong>
-                <div>오후 1:30<br /><span class="muted">비전센터</span></div>
-              </div>
-            
-              <div class="table-item">
-                <strong>30세대 공동체</strong>
-                <div>오후 1:30<br /><span class="muted">본관 4층/유아부실</span></div>
-              </div>
-            
-              <div class="table-item">
-                <strong>40세대 공동체</strong>
-                <div>오후 1:30<br /><span class="muted">본관 5층/유치부실</span></div>
-              </div>
-            
-              <div class="table-item">
-                <strong>50세대 공동체</strong>
-                <div>오후 1:00<br /><span class="muted">(첫째주) 교육관 3층/중등부실</span></div>
-              </div>
-            
-              <div class="table-item">
-                <strong>60세대 공동체</strong>
-                <div>오후 1:00<br /><span class="muted">(셋째주) 교육관 3층/중등부실</span></div>
-              </div>
-            
-              <div class="table-item">
-                <strong>시니어 공동체</strong>
-                <div>오전 10:30<br /><span class="muted">(수) 본관 2층/본당</span></div>
-              </div>
-            
-          </div>
-        </article>
+        <div class="meeting-groups">
+          
+            <div class="meeting-group">
+              <h3 class="meeting-group-title">다음세대</h3>
+              
+                <article class="meeting-card">
+                  <h3>유아부(2-4세)</h3>
+                  <div class="meeting-meta">
+                    <p><span>시간</span>오전 11:00</p>
+                    <p><span>장소</span>본관 4층/유아부실</p>
+                  </div>
+                </article>
+              
+                <article class="meeting-card">
+                  <h3>유치부(5-7세)</h3>
+                  <div class="meeting-meta">
+                    <p><span>시간</span>오전 11:00</p>
+                    <p><span>장소</span>본관 5층/유치부실</p>
+                  </div>
+                </article>
+              
+                <article class="meeting-card">
+                  <h3>유년부(1-3학년)</h3>
+                  <div class="meeting-meta">
+                    <p><span>시간</span>오전 11:00</p>
+                    <p><span>장소</span>교육관 2층/유년부실</p>
+                  </div>
+                </article>
+              
+                <article class="meeting-card">
+                  <h3>초등부(4-6학년)</h3>
+                  <div class="meeting-meta">
+                    <p><span>시간</span>1부 오전 9:00 / 2부 오전 11:00</p>
+                    <p><span>장소</span>본관 4층/비전홀</p>
+                  </div>
+                </article>
+              
+                <article class="meeting-card">
+                  <h3>어와나(10-13세)</h3>
+                  <div class="meeting-meta">
+                    <p><span>시간</span>오후 12:50</p>
+                    <p><span>장소</span>교육관 3층/중등부실</p>
+                  </div>
+                </article>
+              
+                <article class="meeting-card">
+                  <h3>중등부</h3>
+                  <div class="meeting-meta">
+                    <p><span>시간</span>오전 9:00</p>
+                    <p><span>장소</span>교육관 3층/중등부실</p>
+                  </div>
+                </article>
+              
+                <article class="meeting-card">
+                  <h3>고등부</h3>
+                  <div class="meeting-meta">
+                    <p><span>시간</span>오전 9:00</p>
+                    <p><span>장소</span>교육관 4층/고등부실</p>
+                  </div>
+                </article>
+              
+            </div>
+          
+            <div class="meeting-group">
+              <h3 class="meeting-group-title">청년·대학</h3>
+              
+                <article class="meeting-card">
+                  <h3>대학부</h3>
+                  <div class="meeting-meta">
+                    <p><span>시간</span>오후 2:50</p>
+                    <p><span>장소</span>교육관 3층/대학부실</p>
+                  </div>
+                </article>
+              
+                <article class="meeting-card">
+                  <h3>청년부</h3>
+                  <div class="meeting-meta">
+                    <p><span>시간</span>오후 2:50</p>
+                    <p><span>장소</span>본관 2층/본당</p>
+                  </div>
+                </article>
+              
+            </div>
+          
+            <div class="meeting-group">
+              <h3 class="meeting-group-title">공동체</h3>
+              
+                <article class="meeting-card">
+                  <h3>신혼교구</h3>
+                  <div class="meeting-meta">
+                    <p><span>시간</span>오후 1:30</p>
+                    <p><span>장소</span>비전센터</p>
+                  </div>
+                </article>
+              
+                <article class="meeting-card">
+                  <h3>30세대 공동체</h3>
+                  <div class="meeting-meta">
+                    <p><span>시간</span>오후 1:30</p>
+                    <p><span>장소</span>본관 4층/유아부실</p>
+                  </div>
+                </article>
+              
+                <article class="meeting-card">
+                  <h3>40세대 공동체</h3>
+                  <div class="meeting-meta">
+                    <p><span>시간</span>오후 1:30</p>
+                    <p><span>장소</span>본관 5층/유치부실</p>
+                  </div>
+                </article>
+              
+                <article class="meeting-card">
+                  <h3>50세대 공동체</h3>
+                  <div class="meeting-meta">
+                    <p><span>시간</span>오후 1:00</p>
+                    <p><span>장소</span>(첫째주) 교육관 3층/중등부실</p>
+                  </div>
+                </article>
+              
+                <article class="meeting-card">
+                  <h3>60세대 공동체</h3>
+                  <div class="meeting-meta">
+                    <p><span>시간</span>오후 1:00</p>
+                    <p><span>장소</span>(셋째주) 교육관 3층/중등부실</p>
+                  </div>
+                </article>
+              
+                <article class="meeting-card">
+                  <h3>시니어 공동체</h3>
+                  <div class="meeting-meta">
+                    <p><span>시간</span>오전 10:30</p>
+                    <p><span>장소</span>(수) 본관 2층/본당</p>
+                  </div>
+                </article>
+              
+            </div>
+          
+        </div>
       </section>
 
       <section id="guide" class="view" data-view="guide">
