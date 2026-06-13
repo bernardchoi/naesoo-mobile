@@ -233,21 +233,35 @@
 
     .home-card strong {
       color: var(--green);
-      font-size: 13px;
+      font-size: 15px;
+      line-height: 1.25;
     }
 
     .home-card span {
       color: var(--ink);
-      font-size: 15px;
-      font-weight: 800;
+      font-size: 14px;
+      font-weight: 750;
       line-height: 1.35;
     }
 
     .home-card small {
       color: var(--muted);
-      font-size: 12px;
+      font-size: 12.5px;
       font-weight: 700;
       line-height: 1.35;
+    }
+
+    .home-service-times {
+      display: grid;
+      gap: 3px;
+      align-self: end;
+    }
+
+    .home-service-times span {
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.3;
     }
 
     .home-news {
@@ -965,8 +979,9 @@
             <div class="home-grid">
               <button class="home-card" type="button" data-tab="worship">
                 <strong>주일예배</strong>
-                <span>1부 오전 9:00</span>
-                <small>2부 오전 11:00 · 3부 오후 1:30</small>
+                <div class="home-service-times">
+                  <span>1부 오전 9:00</span><span>2부 오전 11:00</span><span>3부 오후 1:30</span>
+                </div>
               </button>
               <button class="home-card" type="button" data-tab="sermon">
                 <strong>설교</strong>
