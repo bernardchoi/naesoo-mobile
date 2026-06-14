@@ -269,6 +269,34 @@
       line-height: 1.3;
     }
 
+    .verse-card {
+      display: grid;
+      gap: 9px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+
+    .verse-card .section-head {
+      margin-bottom: 0;
+    }
+
+    .verse-text {
+      color: var(--ink);
+      font-size: 17px;
+      font-weight: 600;
+      line-height: 1.52;
+      word-break: keep-all;
+    }
+
+    .verse-reference {
+      justify-self: start;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
     .home-news {
       display: grid;
       gap: 7px;
@@ -1065,6 +1093,17 @@
             </div>
           </article>
 
+          <section class="verse-card" aria-label="오늘의 말씀">
+            <div class="section-head">
+              <div>
+                <div class="eyebrow">Scripture</div>
+                <h2>오늘의 말씀</h2>
+              </div>
+            </div>
+            <p class="verse-text" data-verse-text>말씀을 불러오는 중입니다.</p>
+            <span class="verse-reference" data-verse-reference>개역개정</span>
+          </section>
+
           <section class="search-panel" aria-label="주보 검색">
             <div class="section-head">
               <div>
@@ -1781,10 +1820,13 @@
     const newsFilterButtons = [...document.querySelectorAll("[data-news-filter]")];
     const newsCards = [...document.querySelectorAll("[data-news-category]")];
     const searchItems = [{"tab":"worship","target":"worship-1","type":"예배","title":"사회","body":"고민영 목사 고민영 목사 고민영 목사"},{"tab":"worship","target":"worship-2","type":"예배","title":"입례송 / 신앙고백","body":"고개 들어 / 사도신경 고개 들어 / 사도신경 경배와 찬양"},{"tab":"worship","target":"worship-3","type":"예배","title":"찬양","body":"경배와 찬양 경배와 찬양 경배와 찬양"},{"tab":"worship","target":"worship-4","type":"예배","title":"대표기도","body":"김의로 안수집사 김흥주 장로 김흥주 장로"},{"tab":"worship","target":"worship-5","type":"예배","title":"찬양","body":"임마누엘 찬양대\n너 예수께 조용히 나가 글로리아 찬양대\n만입이 내게 있으면 글로리아 찬양대\n만입이 내게 있으면"},{"tab":"worship","target":"worship-6","type":"예배","title":"성경본문","body":"시편 42:1-11 시편 42:1-11 시편 42:1-11"},{"tab":"worship","target":"worship-7","type":"예배","title":"설교","body":"내 영이 살아나게 하소서(2)\n박지웅 담임목사 내 영이 살아나게 하소서(2)\n박지웅 담임목사 내 영이 살아나게 하소서(2)\n박지웅 담임목사"},{"tab":"worship","target":"worship-8","type":"예배","title":"찬송","body":"찬송가 455장, 주님의 마음을 본받는 자 찬송가 455장, 주님의 마음을 본받는 자 찬송가 455장, 주님의 마음을 본받는 자"},{"tab":"worship","target":"worship-9","type":"예배","title":"축도","body":"하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서! 하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서! 하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서!"},{"tab":"worship","target":"weekly-1","type":"주중예배","title":"새벽예배","body":"월~금 오전 5:30 월 고민영 목사 · 화 김재달 목사 · 수 전용구 목사 · 목 이정우 목사 · 금 조계웅 목사"},{"tab":"worship","target":"weekly-2","type":"주중예배","title":"수요 오전예배","body":"오전 10:30 김재달 목사"},{"tab":"worship","target":"weekly-3","type":"주중예배","title":"수요 저녁예배","body":"오후 7:00 빛된 삶 · 에베소서 5:7-10 · 최정현 목사"},{"tab":"worship","target":"weekly-4","type":"주중예배","title":"Center Worship","body":"오후 8:00 이정우 목사"},{"tab":"worship","target":"weekly-5","type":"주중예배","title":"금요부흥집회","body":"오후 8:00 고민영 목사"},{"tab":"news","target":"news-1","type":"오늘","title":"2026 중직자 선거 공동의회","body":"오늘 1~3부 예배 후 중직자(장로) 선거를 위한 공동의회(3차 투표)가 진행됩니다. 본 교회 등록된 세례교인께서는 모두 투표에 참여해 주시기 바랍니다. 투표는 오늘 배부해 드린 공식 투표지만 가능합니다. 지난주 배부된 예비 투표지에 기표한 경우 무효 처리되오니 유의해 주시기 바랍니다."},{"tab":"news","target":"news-2","type":"일정","title":"하계 특별새벽예배 안내","body":"2026년 하계 특별새벽예배는 대학·청년부 주관으로 드려집니다. 새벽이슬 같은 청년들이 말씀으로 깨어나고 받은 사명에 다시 뜨거워질 수 있도록 기도와 참여를 부탁드립니다. 주제: 사명 - 처음 그 소원, 끝까지 그 길(빌 2:13) 일시/장소: 6월 29일(월)~7월 4일(토) 오전 5시 20분, 본당 대상: 모든 성도 강사: 6월 29일 박지웅 담임목사, 6월 30일~7월 2일 문현진 목사, 7월 3일 이정우 목사, 7월 4일 연한흠 목사 평일에는 예배 후 간식이 제공되며, 토요일에는 자원하신 성도님들께서 식사를 준비해 주십니다."},{"tab":"news","target":"news-3","type":"일정","title":"목양국 사역 일정","body":"60세대 공동체 수련회: 6월 27일(토)~6월 28일(주일), 김회수양관 전체 국장·마을장·목자 중간모임: 7월 11일(토) 오전 9시 30분~12시, 본당 구역 종강모임: 7월 12일(주일)~7월 18일(토)"},{"tab":"news","target":"news-4","type":"일정","title":"2026년도 상반기 정기 회계감사 실시","body":"기간: 6월 14일(주일)~6월 28일(주일) 내용: 예산 집행 및 회계 처리 실태 기타: 각 부서 및 전체 감사는 하반기 실시 예정입니다."},{"tab":"news","target":"news-5","type":"신청","title":"2026년 하반기 주일 지정주차 신청","body":"36개월 이하 유아 동반 다자녀 가정과 장애인 및 노약자들을 위한 2026년 하반기 본관 지정주차 신청을 받습니다. 우선순위에 따라 배정될 예정입니다. 신청 기간: 6월 7일~6월 21일(3주간) 기존 주일 지정주차카드를 가지고 계신 분들도 다시 신청하고 배정받아야 합니다. 주일에는 지정주차카드가 있는 차량에 한해 본관/뉴문 주차장 이용이 가능합니다."},{"tab":"news","target":"news-6","type":"동정","title":"선교사 동정","body":"말레이시아에서 사역하시는 양사무엘&안나 선교사님이 6월 11일 입국하셨고, 6월 28일 사역지로 귀임 예정입니다."},{"tab":"news","target":"news-7","type":"동정","title":"담임목사 동정","body":"담임목사님께서 조지아 및 튀르키예 지역의 파송 선교사님들을 방문하십니다. 현지 교회 예배 인도, 말씀 선포, 난민 사역 현장 방문, 한인 사역자 및 선교사 대상 세미나 등의 일정이 진행될 예정입니다. 기간: 6월 15일(월)~6월 26일(금)"},{"tab":"news","target":"news-8","type":"동정","title":"임명","body":"임마누엘 찬양대 - 이미조 성도"},{"tab":"news","target":"news-9","type":"동정","title":"소천","body":"하나님의 위로와 평강이 유가족들에게 함께하시기를 바랍니다. 박선진A 집사(손승근 집사)의 부친 박현우 권사(박진석A 집사)의 부친"},{"tab":"news","target":"news-10","type":"동정","title":"축복기도","body":"하나님의 은혜와 사랑 안에서 자녀들이 믿음과 지혜로 건강하게 자라가도록 함께 축복하며 기도해 주시기 바랍니다. 고병훈 집사(마유선 집사) 가정의 딸, 고연서(2부)"},{"tab":"news","target":"news-11","type":"동정","title":"결혼","body":"최시영 형제 · 박수지B 자매(청년부) 6월 20일(토) 오전 11시, 남서울교회 본당 강민욱 형제 · 윤희수 자매(청년부) 6월 27일(토) 오전 11시 20분, 더파티움 여의도 조제영 형제(청년부) · 지혜린 자매(청년부) 6월 27일(토) 오후 3시 30분, 지타워컨벤션 임재성 형제 · 홍서경 자매(한소환 성도 자녀) 6월 27일(토) 오후 5시, 노블발렌티 삼성"},{"tab":"news","target":"news-12","type":"동정","title":"출산","body":"산모와 아이가 모두 건강하도록 기도해 주시고, 가정에 하나님의 은혜와 기쁨이 가득하기를 축복합니다. 장준순 집사(이지민A 집사) 득남"},{"tab":"sermon","target":"sermon-main","type":"말씀","title":"내 영이 살아나게 하소서(2)","body":"시편 42:1-11 박지웅 담임목사 인간은 영, 혼, 몸으로 이루어졌습니다. 영의 본질은 하나님께로부터 왔으며, 하나님과 교제하는 자아입니다. 시인은 매우 어려운 상황을 맞았습니다. 본문은 자신에게 있는 고난이 폭포와 파도처럼 자신을 둘러싸고 있음을 보여줍니다. 그는 자신을 향하여 말합니다. ‘내 영혼아, 네가 어찌하여 낙망하며’라는 고백은 감정에 휘둘리지 않고 영이 혼을 다스리도록 부르는 말씀입니다. 우리도 감정에 휘둘리지 말고, 하나님의 말씀과 성령의 뜻이 내 영을 통해 흘러나와 모든 것을 다스리고 통제하도록 해야 합니다. 5, 11절 말씀의 화자는 누구이며, 청자는 누구인지 구분해 봅시다. 감정이 상한 자아가 불평의 소리를 할 때 어떻게 해야 합니까? 감정이 상한 자아가 자신에게 말하는 불평과 원망을 듣는 것이 아니라, 나의 본래 자아가 감정이 상한 자아에게 말해야 한다는 설명을 다시 표현해 봅시다. 내 속의 감정이 상한 자아가 원망과 불평을 말할 때 어떻게 하십니까? 오늘 말씀을 적용하여 서로 나누어 봅시다."},{"tab":"meeting","target":"meeting-1","type":"모임","title":"유아부(2~4세)","body":"오전 11:00 본관 4층/유아부실"},{"tab":"meeting","target":"meeting-2","type":"모임","title":"유치부(5~7세)","body":"오전 11:00 본관 5층/유치부실"},{"tab":"meeting","target":"meeting-3","type":"모임","title":"유년부(1~3학년)","body":"오전 11:00 교육관 2층/유년부실"},{"tab":"meeting","target":"meeting-4","type":"모임","title":"초등부(4~6학년)","body":"1부 오전 9:00 / 2부 오전 11:00 본관 4층/비전홀"},{"tab":"meeting","target":"meeting-5","type":"모임","title":"어와나(10~13세)","body":"오후 12:50 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-6","type":"모임","title":"중등부","body":"오전 9:00 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-7","type":"모임","title":"고등부","body":"오전 9:00 교육관 4층/고등부실"},{"tab":"meeting","target":"meeting-8","type":"모임","title":"대학부","body":"오후 2:50 교육관 3층/대학부실"},{"tab":"meeting","target":"meeting-9","type":"모임","title":"청년부","body":"오후 2:50 본관 2층/본당"},{"tab":"meeting","target":"meeting-10","type":"모임","title":"신혼교구","body":"오후 1:30 비전센터"},{"tab":"meeting","target":"meeting-11","type":"모임","title":"30세대 공동체","body":"오후 1:30 본관 4층/유아부실"},{"tab":"meeting","target":"meeting-12","type":"모임","title":"40세대 공동체","body":"오후 1:30 본관 5층/유치부실"},{"tab":"meeting","target":"meeting-13","type":"모임","title":"50세대 공동체","body":"오후 1:00 (첫째 주) 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-14","type":"모임","title":"60세대 공동체","body":"오후 1:00 (셋째 주) 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-15","type":"모임","title":"시니어 공동체","body":"오전 10:30 (수) 본관 2층/본당"},{"tab":"guide","target":"guide-1","type":"안내","title":"지하철","body":"5호선 광화문역 8번 출구 하차, 서울지방경찰청 방향 도보 10분. 3호선 경복궁역 7번 출구 하차, 서울지방경찰청 방향 도보 10분."},{"tab":"guide","target":"guide-2","type":"안내","title":"버스","body":"세종문화회관 하차 후 서울지방경찰청 방향 도보 10분. 사직공원 앞 하차 후 교회 방향으로 이동."},{"tab":"guide","target":"guide-3","type":"안내","title":"주차","body":"주차권은 사무실로 문의. 국민카드 지하주차장, 경희궁의아침 3단지 오피스텔, 경희궁의아침 4단지 오피스텔 이용 가능."}];
+    const fallbackScriptureVerses = [{"reference":"시편 23:1","text":"여호와는 나의 목자시니 내게 부족함이 없으리로다"},{"reference":"시편 27:1","text":"여호와는 나의 빛이요 나의 구원이시니 내가 누구를 두려워하리요"},{"reference":"시편 46:1","text":"하나님은 우리의 피난처시요 힘이시니 환난 중에 만날 큰 도움이시라"},{"reference":"시편 73:28","text":"하나님께 가까이 함이 내게 복이라"},{"reference":"시편 119:105","text":"주의 말씀은 내 발에 등이요 내 길에 빛이니이다"}];
     const searchInput = document.querySelector("[data-search-input]");
     const searchResults = document.querySelector("[data-search-results]");
     const shareButton = document.querySelector("[data-share-button]");
     const shortcutButtons = [...document.querySelectorAll("[data-scroll-target]")];
+    const verseText = document.querySelector("[data-verse-text]");
+    const verseReference = document.querySelector("[data-verse-reference]");
     const storageKey = "naesoo-mobile-state";
 
     function readState() {
@@ -1817,6 +1859,52 @@
       target.classList.remove("jump-highlight");
       window.setTimeout(() => target.classList.add("jump-highlight"), 120);
       window.setTimeout(() => target.classList.remove("jump-highlight"), 1900);
+    }
+
+    function getSeoulDateKey(date = new Date()) {
+      const parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Seoul",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      }).formatToParts(date).reduce((result, part) => {
+        result[part.type] = part.value;
+        return result;
+      }, {});
+      return parts.year + "-" + parts.month + "-" + parts.day;
+    }
+
+    function hashString(value) {
+      let hash = 0;
+      for (let index = 0; index < value.length; index += 1) {
+        hash = ((hash << 5) - hash + value.charCodeAt(index)) | 0;
+      }
+      return Math.abs(hash);
+    }
+
+    function selectDailyVerse(verses) {
+      const validVerses = verses.filter((verse) => verse && verse.reference && verse.text);
+      if (validVerses.length === 0) return null;
+      return validVerses[hashString(getSeoulDateKey()) % validVerses.length];
+    }
+
+    function renderDailyVerse(verses) {
+      if (!verseText || !verseReference) return;
+      const verse = selectDailyVerse(verses);
+      if (!verse) return;
+      verseText.textContent = "“" + verse.text + "”";
+      verseReference.textContent = verse.reference + " · 개역개정";
+    }
+
+    async function loadDailyVerse() {
+      try {
+        const response = await fetch("./verses.json", { cache: "no-cache" });
+        if (!response.ok) throw new Error("Verse data unavailable");
+        const data = await response.json();
+        renderDailyVerse(Array.isArray(data.verses) ? data.verses : fallbackScriptureVerses);
+      } catch {
+        renderDailyVerse(fallbackScriptureVerses);
+      }
     }
 
     function activateTab(name, options = {}) {
@@ -1895,6 +1983,8 @@
     shortcutButtons.forEach((button) => {
       button.addEventListener("click", () => scrollToTarget(button.dataset.scrollTarget));
     });
+
+    loadDailyVerse();
 
     if (searchInput) {
       searchInput.addEventListener("input", () => renderSearchResults(searchInput.value));
