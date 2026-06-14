@@ -1,5 +1,5 @@
-const CACHE_NAME = "naesoo-mobile-v2";
-const CORE_ASSETS = ["./", "./index.html", "./manifest.json", "./app-icon.svg", "./app-icon.png"];
+const CACHE_NAME = "naesoo-mobile-v3";
+const CORE_ASSETS = ["./", "./index.html", "./manifest.json", "./app-icon.svg", "./app-icon.png", "./verses.json"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE_ASSETS)));
