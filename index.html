@@ -103,7 +103,7 @@
       position: relative;
       z-index: 1;
       margin-top: 6px;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
     }
 
@@ -124,7 +124,7 @@
       border: 1px solid rgba(255, 255, 255, .72);
       border-left: 4px solid var(--green-2);
       color: rgba(255, 255, 255, .92);
-      font-size: 11px;
+      font-size: 12.5px;
       font-weight: 600;
     }
 
@@ -133,7 +133,7 @@
       z-index: 1;
       margin-top: 6px;
       color: rgba(255, 255, 255, .82);
-      font-size: 12px;
+      font-size: 13px;
     }
 
     .hero-contact {
@@ -143,7 +143,7 @@
       gap: 1px;
       margin-top: 6px;
       color: rgba(255, 255, 255, .82);
-      font-size: 12px;
+      font-size: 13px;
       line-height: 1.35;
     }
 
@@ -215,7 +215,7 @@
     .home-date {
       flex: 0 0 auto;
       color: var(--muted);
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
       text-align: right;
     }
@@ -251,7 +251,7 @@
 
     .home-card small {
       color: var(--muted);
-      font-size: 12.5px;
+      font-size: 13.5px;
       font-weight: 500;
       line-height: 1.35;
     }
@@ -282,6 +282,18 @@
       margin-bottom: 0;
     }
 
+    .text-action {
+      min-height: 34px;
+      padding: 0 10px;
+      border: 1px solid rgba(19, 130, 63, .22);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
     .verse-text {
       color: var(--ink);
       font-size: 17px;
@@ -293,7 +305,7 @@
     .verse-reference {
       justify-self: start;
       color: var(--green);
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
     }
 
@@ -325,7 +337,7 @@
       border-radius: 999px;
       background: var(--green-soft);
       color: var(--green);
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
     }
 
@@ -380,13 +392,13 @@
 
     .search-result span {
       color: var(--muted);
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
     }
 
     .search-empty {
       color: var(--muted);
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
     }
 
@@ -404,7 +416,23 @@
     .archive-note {
       margin-top: 7px;
       color: var(--muted);
-      font-size: 12.5px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.45;
+    }
+
+    .install-card {
+      display: grid;
+      gap: 8px;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+
+    .install-card p {
+      color: var(--muted);
+      font-size: 14px;
       font-weight: 500;
       line-height: 1.45;
     }
@@ -470,7 +498,7 @@
       border-radius: 999px;
       background: var(--warm);
       color: var(--green);
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
     }
 
@@ -542,7 +570,7 @@
       display: block;
       margin-bottom: 3px;
       color: var(--green);
-      font-size: 11px;
+      font-size: 12px;
       line-height: 1;
       letter-spacing: .04em;
     }
@@ -577,7 +605,7 @@
       border-radius: 999px;
       background: var(--green-soft);
       color: var(--green);
-      font-size: 12px;
+      font-size: 12.5px;
       line-height: 1.2;
       font-weight: 600;
       margin-top: 1px;
@@ -672,7 +700,7 @@
       border-radius: 999px;
       background: var(--surface);
       color: var(--muted);
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
     }
@@ -681,6 +709,50 @@
       border-color: var(--green);
       background: var(--green);
       color: #fff;
+    }
+
+    .news-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 7px;
+    }
+
+    .news-tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 22px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--green-soft);
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .news-tag.is-priority {
+      background: var(--warm);
+      color: var(--red);
+    }
+
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0 10px 10px;
+    }
+
+    .card-action {
+      min-height: 32px;
+      padding: 0 10px;
+      border: 1px solid rgba(19, 130, 63, .22);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
     }
 
     .list-card.is-hidden {
@@ -749,7 +821,7 @@
 
     .meeting-meta span {
       color: var(--muted);
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
     }
 
@@ -809,7 +881,7 @@
     .mini time,
     .muted {
       color: var(--muted);
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
     }
 
@@ -902,7 +974,7 @@
       border-radius: 8px;
       background: transparent;
       color: var(--muted);
-      font-size: 11px;
+      font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
     }
@@ -1099,6 +1171,7 @@
                 <div class="eyebrow">Scripture</div>
                 <h2>오늘의 말씀</h2>
               </div>
+              <button class="text-action" type="button" data-verse-share>공유</button>
             </div>
             <p class="verse-text" data-verse-text>말씀을 불러오는 중입니다.</p>
             <span class="verse-reference" data-verse-reference>개역개정</span>
@@ -1149,10 +1222,10 @@
                 <h2>이전 주보 찾아보기</h2>
               </div>
             </div>
-            <select class="archive-select" aria-label="이전 주보 날짜 선택">
-              <option selected>2026.06.14 · 2026년 6월 14일 · 제73권 24호</option>
+            <select class="archive-select" aria-label="이전 주보 날짜 선택" data-archive-select>
+              <option value="2026-06-14" data-url="./index.html#home" selected>2026.06.14 · 2026년 6월 14일 · 제73권 24호</option>
             </select>
-            <p class="archive-note">다음 주보부터 날짜별 데이터가 추가되면 이곳에서 이전 주보를 바로 전환할 수 있습니다.</p>
+            <p class="archive-note" data-archive-note>이전 주보 데이터가 추가되면 이곳에서 날짜별로 바로 이동할 수 있습니다.</p>
           </section>
 
           <section class="action-grid" aria-label="빠른 실행">
@@ -1162,6 +1235,17 @@
             <a class="action-link secondary" href="https://m.instagram.com/naesoodong_church/" target="_blank" rel="noopener">인스타그램</a>
             <a class="action-link secondary" href="http://naesoo.or.kr" target="_blank" rel="noopener">홈페이지</a>
             <button class="action-link secondary" type="button" data-share-button>공유</button>
+          </section>
+
+          <section class="install-card" data-install-card>
+            <div class="section-head">
+              <div>
+                <div class="eyebrow">App</div>
+                <h2>홈 화면에 추가</h2>
+              </div>
+            </div>
+            <p>휴대폰 홈 화면에 추가하면 매주 주보를 더 빠르게 열 수 있습니다.</p>
+            <button class="action-link secondary" type="button" data-install-button>추가 안내 보기</button>
           </section>
         </div>
       </section>
@@ -1316,79 +1400,96 @@
         <div class="filter-bar" aria-label="교회소식 필터">
           <button type="button" data-news-filter="all" aria-selected="true">전체</button><button type="button" data-news-filter="today" aria-selected="false">오늘</button><button type="button" data-news-filter="schedule" aria-selected="false">일정</button><button type="button" data-news-filter="apply" aria-selected="false">신청</button><button type="button" data-news-filter="care" aria-selected="false">동정</button>
         </div>
-        
-          <article class="list-card" id="news-1" data-news-category="today" data-jump-target>
+                  <article class="list-card" id="news-1" data-news-category="today" data-jump-target>
+            <div class="news-meta">
+              <span class="news-tag">오늘</span>
+              <span class="news-tag is-priority">중요</span>
+            </div>
             <h3>2026 중직자 선거 공동의회</h3>
             <p>오늘 1~3부 예배 후 중직자(장로) 선거를 위한 공동의회(3차 투표)가 진행됩니다. 본 교회 등록된 세례교인께서는 모두 투표에 참여해 주시기 바랍니다.</p>
             <ul><li>투표는 오늘 배부해 드린 공식 투표지만 가능합니다.</li><li>지난주 배부된 예비 투표지에 기표한 경우 무효 처리되오니 유의해 주시기 바랍니다.</li></ul>
-          </article>
-        
-          <article class="list-card" id="news-2" data-news-category="schedule" data-jump-target>
+            <div class="card-actions"><button class="card-action" type="button" data-calendar-index="0">캘린더 추가</button></div>
+          </article>          <article class="list-card" id="news-2" data-news-category="schedule" data-jump-target>
+            <div class="news-meta">
+              <span class="news-tag">일정</span>
+            </div>
             <h3>하계 특별새벽예배 안내</h3>
             <p>2026년 하계 특별새벽예배는 대학·청년부 주관으로 드려집니다. 새벽이슬 같은 청년들이 말씀으로 깨어나고 받은 사명에 다시 뜨거워질 수 있도록 기도와 참여를 부탁드립니다.</p>
             <ul><li>주제: 사명 - 처음 그 소원, 끝까지 그 길(빌 2:13)</li><li>일시/장소: 6월 29일(월)~7월 4일(토) 오전 5시 20분, 본당</li><li>대상: 모든 성도</li><li>강사: 6월 29일 박지웅 담임목사, 6월 30일~7월 2일 문현진 목사, 7월 3일 이정우 목사, 7월 4일 연한흠 목사</li><li>평일에는 예배 후 간식이 제공되며, 토요일에는 자원하신 성도님들께서 식사를 준비해 주십니다.</li></ul>
-          </article>
-        
-          <article class="list-card" id="news-3" data-news-category="schedule" data-jump-target>
+            <div class="card-actions"><button class="card-action" type="button" data-calendar-index="1">캘린더 추가</button></div>
+          </article>          <article class="list-card" id="news-3" data-news-category="schedule" data-jump-target>
+            <div class="news-meta">
+              <span class="news-tag">일정</span>
+            </div>
             <h3>목양국 사역 일정</h3>
-            
             <ul><li>60세대 공동체 수련회: 6월 27일(토)~6월 28일(주일), 김회수양관</li><li>전체 국장·마을장·목자 중간모임: 7월 11일(토) 오전 9시 30분~12시, 본당</li><li>구역 종강모임: 7월 12일(주일)~7월 18일(토)</li></ul>
-          </article>
-        
-          <article class="list-card" id="news-4" data-news-category="schedule" data-jump-target>
+          </article>          <article class="list-card" id="news-4" data-news-category="schedule" data-jump-target>
+            <div class="news-meta">
+              <span class="news-tag">일정</span>
+              <span class="news-tag is-priority">확인</span>
+            </div>
             <h3>2026년도 상반기 정기 회계감사 실시</h3>
-            
             <ul><li>기간: 6월 14일(주일)~6월 28일(주일)</li><li>내용: 예산 집행 및 회계 처리 실태</li><li>기타: 각 부서 및 전체 감사는 하반기 실시 예정입니다.</li></ul>
-          </article>
-        
-          <article class="list-card" id="news-5" data-news-category="apply" data-jump-target>
+          </article>          <article class="list-card" id="news-5" data-news-category="apply" data-jump-target>
+            <div class="news-meta">
+              <span class="news-tag">신청</span>
+            </div>
             <h3>2026년 하반기 주일 지정주차 신청</h3>
             <p>36개월 이하 유아 동반 다자녀 가정과 장애인 및 노약자들을 위한 2026년 하반기 본관 지정주차 신청을 받습니다. 우선순위에 따라 배정될 예정입니다.</p>
             <ul><li>신청 기간: 6월 7일~6월 21일(3주간)</li><li>기존 주일 지정주차카드를 가지고 계신 분들도 다시 신청하고 배정받아야 합니다.</li><li>주일에는 지정주차카드가 있는 차량에 한해 본관/뉴문 주차장 이용이 가능합니다.</li></ul>
-          </article>
-        
-          <article class="list-card" id="news-6" data-news-category="care" data-jump-target>
+          </article>          <article class="list-card" id="news-6" data-news-category="care" data-jump-target>
+            <div class="news-meta">
+              <span class="news-tag">동정</span>
+            </div>
             <h3>선교사 동정</h3>
             <p>말레이시아에서 사역하시는 양사무엘&안나 선교사님이 6월 11일 입국하셨고, 6월 28일 사역지로 귀임 예정입니다.</p>
-            
-          </article>
-        
-          <article class="list-card" id="news-7" data-news-category="care" data-jump-target>
+          </article>          <article class="list-card" id="news-7" data-news-category="care" data-jump-target>
+            <div class="news-meta">
+              <span class="news-tag">동정</span>
+              <span class="news-tag is-priority">기도</span>
+            </div>
             <h3>담임목사 동정</h3>
             <p>담임목사님께서 조지아 및 튀르키예 지역의 파송 선교사님들을 방문하십니다. 현지 교회 예배 인도, 말씀 선포, 난민 사역 현장 방문, 한인 사역자 및 선교사 대상 세미나 등의 일정이 진행될 예정입니다.</p>
             <ul><li>기간: 6월 15일(월)~6월 26일(금)</li></ul>
-          </article>
-        
-          <article class="list-card" id="news-8" data-news-category="care" data-jump-target>
+          </article>          <article class="list-card" id="news-8" data-news-category="care" data-jump-target>
+            <div class="news-meta">
+              <span class="news-tag">동정</span>
+              <span class="news-tag is-priority">임명</span>
+            </div>
             <h3>임명</h3>
-            
             <ul><li>임마누엘 찬양대 - 이미조 성도</li></ul>
-          </article>
-        
-          <article class="list-card" id="news-9" data-news-category="care" data-jump-target>
+          </article>          <article class="list-card" id="news-9" data-news-category="care" data-jump-target>
+            <div class="news-meta">
+              <span class="news-tag">동정</span>
+              <span class="news-tag is-priority">위로</span>
+            </div>
             <h3>소천</h3>
             <p>하나님의 위로와 평강이 유가족들에게 함께하시기를 바랍니다.</p>
             <ul><li>박선진A 집사(손승근 집사)의 부친</li><li>박현우 권사(박진석A 집사)의 부친</li></ul>
-          </article>
-        
-          <article class="list-card" id="news-10" data-news-category="care" data-jump-target>
+          </article>          <article class="list-card" id="news-10" data-news-category="care" data-jump-target>
+            <div class="news-meta">
+              <span class="news-tag">동정</span>
+              <span class="news-tag is-priority">기도</span>
+            </div>
             <h3>축복기도</h3>
             <p>하나님의 은혜와 사랑 안에서 자녀들이 믿음과 지혜로 건강하게 자라가도록 함께 축복하며 기도해 주시기 바랍니다.</p>
             <ul><li>고병훈 집사(마유선 집사) 가정의 딸, 고연서(2부)</li></ul>
-          </article>
-        
-          <article class="list-card" id="news-11" data-news-category="care" data-jump-target>
+          </article>          <article class="list-card" id="news-11" data-news-category="care" data-jump-target>
+            <div class="news-meta">
+              <span class="news-tag">동정</span>
+              <span class="news-tag is-priority">일정</span>
+            </div>
             <h3>결혼</h3>
-            
             <ul><li>최시영 형제 · 박수지B 자매(청년부) 6월 20일(토) 오전 11시, 남서울교회 본당</li><li>강민욱 형제 · 윤희수 자매(청년부) 6월 27일(토) 오전 11시 20분, 더파티움 여의도</li><li>조제영 형제(청년부) · 지혜린 자매(청년부) 6월 27일(토) 오후 3시 30분, 지타워컨벤션</li><li>임재성 형제 · 홍서경 자매(한소환 성도 자녀) 6월 27일(토) 오후 5시, 노블발렌티 삼성</li></ul>
-          </article>
-        
-          <article class="list-card" id="news-12" data-news-category="care" data-jump-target>
+          </article>          <article class="list-card" id="news-12" data-news-category="care" data-jump-target>
+            <div class="news-meta">
+              <span class="news-tag">동정</span>
+              <span class="news-tag is-priority">축하</span>
+            </div>
             <h3>출산</h3>
             <p>산모와 아이가 모두 건강하도록 기도해 주시고, 가정에 하나님의 은혜와 기쁨이 가득하기를 축복합니다.</p>
             <ul><li>장준순 집사(이지민A 집사) 득남</li></ul>
           </article>
-        
       </section>
 
       <section id="sermon" class="view" data-view="sermon">
@@ -1652,6 +1753,8 @@
           <div class="action-grid">
             <a class="action-link" href="tel:027376351">전화 걸기</a>
             <a class="action-link" href="https://m.place.naver.com/place/12212845/home" target="_blank" rel="noopener">지도 열기</a>
+            <a class="action-link secondary" href="https://m.youtube.com/@NSCH1954" target="_blank" rel="noopener">유튜브</a>
+            <a class="action-link secondary" href="https://m.instagram.com/naesoodong_church/" target="_blank" rel="noopener">인스타그램</a>
             <a class="action-link secondary" href="http://naesoo.or.kr" target="_blank" rel="noopener">홈페이지</a>
             <a class="action-link secondary" href="mailto:nsch1954@naver.com">메일 보내기</a>
           </div>
@@ -1820,6 +1923,7 @@
     const newsFilterButtons = [...document.querySelectorAll("[data-news-filter]")];
     const newsCards = [...document.querySelectorAll("[data-news-category]")];
     const searchItems = [{"tab":"worship","target":"worship-1","type":"예배","title":"사회","body":"고민영 목사 고민영 목사 고민영 목사"},{"tab":"worship","target":"worship-2","type":"예배","title":"입례송 / 신앙고백","body":"고개 들어 / 사도신경 고개 들어 / 사도신경 경배와 찬양"},{"tab":"worship","target":"worship-3","type":"예배","title":"찬양","body":"경배와 찬양 경배와 찬양 경배와 찬양"},{"tab":"worship","target":"worship-4","type":"예배","title":"대표기도","body":"김의로 안수집사 김흥주 장로 김흥주 장로"},{"tab":"worship","target":"worship-5","type":"예배","title":"찬양","body":"임마누엘 찬양대\n너 예수께 조용히 나가 글로리아 찬양대\n만입이 내게 있으면 글로리아 찬양대\n만입이 내게 있으면"},{"tab":"worship","target":"worship-6","type":"예배","title":"성경본문","body":"시편 42:1-11 시편 42:1-11 시편 42:1-11"},{"tab":"worship","target":"worship-7","type":"예배","title":"설교","body":"내 영이 살아나게 하소서(2)\n박지웅 담임목사 내 영이 살아나게 하소서(2)\n박지웅 담임목사 내 영이 살아나게 하소서(2)\n박지웅 담임목사"},{"tab":"worship","target":"worship-8","type":"예배","title":"찬송","body":"찬송가 455장, 주님의 마음을 본받는 자 찬송가 455장, 주님의 마음을 본받는 자 찬송가 455장, 주님의 마음을 본받는 자"},{"tab":"worship","target":"worship-9","type":"예배","title":"축도","body":"하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서! 하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서! 하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서!"},{"tab":"worship","target":"weekly-1","type":"주중예배","title":"새벽예배","body":"월~금 오전 5:30 월 고민영 목사 · 화 김재달 목사 · 수 전용구 목사 · 목 이정우 목사 · 금 조계웅 목사"},{"tab":"worship","target":"weekly-2","type":"주중예배","title":"수요 오전예배","body":"오전 10:30 김재달 목사"},{"tab":"worship","target":"weekly-3","type":"주중예배","title":"수요 저녁예배","body":"오후 7:00 빛된 삶 · 에베소서 5:7-10 · 최정현 목사"},{"tab":"worship","target":"weekly-4","type":"주중예배","title":"Center Worship","body":"오후 8:00 이정우 목사"},{"tab":"worship","target":"weekly-5","type":"주중예배","title":"금요부흥집회","body":"오후 8:00 고민영 목사"},{"tab":"news","target":"news-1","type":"오늘","title":"2026 중직자 선거 공동의회","body":"오늘 1~3부 예배 후 중직자(장로) 선거를 위한 공동의회(3차 투표)가 진행됩니다. 본 교회 등록된 세례교인께서는 모두 투표에 참여해 주시기 바랍니다. 투표는 오늘 배부해 드린 공식 투표지만 가능합니다. 지난주 배부된 예비 투표지에 기표한 경우 무효 처리되오니 유의해 주시기 바랍니다."},{"tab":"news","target":"news-2","type":"일정","title":"하계 특별새벽예배 안내","body":"2026년 하계 특별새벽예배는 대학·청년부 주관으로 드려집니다. 새벽이슬 같은 청년들이 말씀으로 깨어나고 받은 사명에 다시 뜨거워질 수 있도록 기도와 참여를 부탁드립니다. 주제: 사명 - 처음 그 소원, 끝까지 그 길(빌 2:13) 일시/장소: 6월 29일(월)~7월 4일(토) 오전 5시 20분, 본당 대상: 모든 성도 강사: 6월 29일 박지웅 담임목사, 6월 30일~7월 2일 문현진 목사, 7월 3일 이정우 목사, 7월 4일 연한흠 목사 평일에는 예배 후 간식이 제공되며, 토요일에는 자원하신 성도님들께서 식사를 준비해 주십니다."},{"tab":"news","target":"news-3","type":"일정","title":"목양국 사역 일정","body":"60세대 공동체 수련회: 6월 27일(토)~6월 28일(주일), 김회수양관 전체 국장·마을장·목자 중간모임: 7월 11일(토) 오전 9시 30분~12시, 본당 구역 종강모임: 7월 12일(주일)~7월 18일(토)"},{"tab":"news","target":"news-4","type":"일정","title":"2026년도 상반기 정기 회계감사 실시","body":"기간: 6월 14일(주일)~6월 28일(주일) 내용: 예산 집행 및 회계 처리 실태 기타: 각 부서 및 전체 감사는 하반기 실시 예정입니다."},{"tab":"news","target":"news-5","type":"신청","title":"2026년 하반기 주일 지정주차 신청","body":"36개월 이하 유아 동반 다자녀 가정과 장애인 및 노약자들을 위한 2026년 하반기 본관 지정주차 신청을 받습니다. 우선순위에 따라 배정될 예정입니다. 신청 기간: 6월 7일~6월 21일(3주간) 기존 주일 지정주차카드를 가지고 계신 분들도 다시 신청하고 배정받아야 합니다. 주일에는 지정주차카드가 있는 차량에 한해 본관/뉴문 주차장 이용이 가능합니다."},{"tab":"news","target":"news-6","type":"동정","title":"선교사 동정","body":"말레이시아에서 사역하시는 양사무엘&안나 선교사님이 6월 11일 입국하셨고, 6월 28일 사역지로 귀임 예정입니다."},{"tab":"news","target":"news-7","type":"동정","title":"담임목사 동정","body":"담임목사님께서 조지아 및 튀르키예 지역의 파송 선교사님들을 방문하십니다. 현지 교회 예배 인도, 말씀 선포, 난민 사역 현장 방문, 한인 사역자 및 선교사 대상 세미나 등의 일정이 진행될 예정입니다. 기간: 6월 15일(월)~6월 26일(금)"},{"tab":"news","target":"news-8","type":"동정","title":"임명","body":"임마누엘 찬양대 - 이미조 성도"},{"tab":"news","target":"news-9","type":"동정","title":"소천","body":"하나님의 위로와 평강이 유가족들에게 함께하시기를 바랍니다. 박선진A 집사(손승근 집사)의 부친 박현우 권사(박진석A 집사)의 부친"},{"tab":"news","target":"news-10","type":"동정","title":"축복기도","body":"하나님의 은혜와 사랑 안에서 자녀들이 믿음과 지혜로 건강하게 자라가도록 함께 축복하며 기도해 주시기 바랍니다. 고병훈 집사(마유선 집사) 가정의 딸, 고연서(2부)"},{"tab":"news","target":"news-11","type":"동정","title":"결혼","body":"최시영 형제 · 박수지B 자매(청년부) 6월 20일(토) 오전 11시, 남서울교회 본당 강민욱 형제 · 윤희수 자매(청년부) 6월 27일(토) 오전 11시 20분, 더파티움 여의도 조제영 형제(청년부) · 지혜린 자매(청년부) 6월 27일(토) 오후 3시 30분, 지타워컨벤션 임재성 형제 · 홍서경 자매(한소환 성도 자녀) 6월 27일(토) 오후 5시, 노블발렌티 삼성"},{"tab":"news","target":"news-12","type":"동정","title":"출산","body":"산모와 아이가 모두 건강하도록 기도해 주시고, 가정에 하나님의 은혜와 기쁨이 가득하기를 축복합니다. 장준순 집사(이지민A 집사) 득남"},{"tab":"sermon","target":"sermon-main","type":"말씀","title":"내 영이 살아나게 하소서(2)","body":"시편 42:1-11 박지웅 담임목사 인간은 영, 혼, 몸으로 이루어졌습니다. 영의 본질은 하나님께로부터 왔으며, 하나님과 교제하는 자아입니다. 시인은 매우 어려운 상황을 맞았습니다. 본문은 자신에게 있는 고난이 폭포와 파도처럼 자신을 둘러싸고 있음을 보여줍니다. 그는 자신을 향하여 말합니다. ‘내 영혼아, 네가 어찌하여 낙망하며’라는 고백은 감정에 휘둘리지 않고 영이 혼을 다스리도록 부르는 말씀입니다. 우리도 감정에 휘둘리지 말고, 하나님의 말씀과 성령의 뜻이 내 영을 통해 흘러나와 모든 것을 다스리고 통제하도록 해야 합니다. 5, 11절 말씀의 화자는 누구이며, 청자는 누구인지 구분해 봅시다. 감정이 상한 자아가 불평의 소리를 할 때 어떻게 해야 합니까? 감정이 상한 자아가 자신에게 말하는 불평과 원망을 듣는 것이 아니라, 나의 본래 자아가 감정이 상한 자아에게 말해야 한다는 설명을 다시 표현해 봅시다. 내 속의 감정이 상한 자아가 원망과 불평을 말할 때 어떻게 하십니까? 오늘 말씀을 적용하여 서로 나누어 봅시다."},{"tab":"meeting","target":"meeting-1","type":"모임","title":"유아부(2~4세)","body":"오전 11:00 본관 4층/유아부실"},{"tab":"meeting","target":"meeting-2","type":"모임","title":"유치부(5~7세)","body":"오전 11:00 본관 5층/유치부실"},{"tab":"meeting","target":"meeting-3","type":"모임","title":"유년부(1~3학년)","body":"오전 11:00 교육관 2층/유년부실"},{"tab":"meeting","target":"meeting-4","type":"모임","title":"초등부(4~6학년)","body":"1부 오전 9:00 / 2부 오전 11:00 본관 4층/비전홀"},{"tab":"meeting","target":"meeting-5","type":"모임","title":"어와나(10~13세)","body":"오후 12:50 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-6","type":"모임","title":"중등부","body":"오전 9:00 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-7","type":"모임","title":"고등부","body":"오전 9:00 교육관 4층/고등부실"},{"tab":"meeting","target":"meeting-8","type":"모임","title":"대학부","body":"오후 2:50 교육관 3층/대학부실"},{"tab":"meeting","target":"meeting-9","type":"모임","title":"청년부","body":"오후 2:50 본관 2층/본당"},{"tab":"meeting","target":"meeting-10","type":"모임","title":"신혼교구","body":"오후 1:30 비전센터"},{"tab":"meeting","target":"meeting-11","type":"모임","title":"30세대 공동체","body":"오후 1:30 본관 4층/유아부실"},{"tab":"meeting","target":"meeting-12","type":"모임","title":"40세대 공동체","body":"오후 1:30 본관 5층/유치부실"},{"tab":"meeting","target":"meeting-13","type":"모임","title":"50세대 공동체","body":"오후 1:00 (첫째 주) 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-14","type":"모임","title":"60세대 공동체","body":"오후 1:00 (셋째 주) 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-15","type":"모임","title":"시니어 공동체","body":"오전 10:30 (수) 본관 2층/본당"},{"tab":"guide","target":"guide-1","type":"안내","title":"지하철","body":"5호선 광화문역 8번 출구 하차, 서울지방경찰청 방향 도보 10분. 3호선 경복궁역 7번 출구 하차, 서울지방경찰청 방향 도보 10분."},{"tab":"guide","target":"guide-2","type":"안내","title":"버스","body":"세종문화회관 하차 후 서울지방경찰청 방향 도보 10분. 사직공원 앞 하차 후 교회 방향으로 이동."},{"tab":"guide","target":"guide-3","type":"안내","title":"주차","body":"주차권은 사무실로 문의. 국민카드 지하주차장, 경희궁의아침 3단지 오피스텔, 경희궁의아침 4단지 오피스텔 이용 가능."}];
+    const calendarEvents = [{"title":"내수동교회 2026 중직자 선거 공동의회","start":"2026-06-14T12:20:00+09:00","end":"2026-06-14T13:00:00+09:00","location":"내수동교회","description":"1~3부 예배 후 중직자(장로) 선거 공동의회가 진행됩니다.","sourceIndex":0,"sourceTitle":"2026 중직자 선거 공동의회"},{"title":"내수동교회 하계 특별새벽예배","start":"2026-06-29T05:20:00+09:00","end":"2026-07-04T06:20:00+09:00","location":"내수동교회 본당","description":"주제: 사명 - 처음 그 소원, 끝까지 그 길(빌 2:13)","sourceIndex":1,"sourceTitle":"하계 특별새벽예배 안내"}];
     const fallbackScriptureVerses = [{"reference":"시편 23:1","text":"여호와는 나의 목자시니 내게 부족함이 없으리로다"},{"reference":"시편 27:1","text":"여호와는 나의 빛이요 나의 구원이시니 내가 누구를 두려워하리요"},{"reference":"시편 46:1","text":"하나님은 우리의 피난처시요 힘이시니 환난 중에 만날 큰 도움이시라"},{"reference":"시편 73:28","text":"하나님께 가까이 함이 내게 복이라"},{"reference":"시편 119:105","text":"주의 말씀은 내 발에 등이요 내 길에 빛이니이다"}];
     const searchInput = document.querySelector("[data-search-input]");
     const searchResults = document.querySelector("[data-search-results]");
@@ -1827,7 +1931,13 @@
     const shortcutButtons = [...document.querySelectorAll("[data-scroll-target]")];
     const verseText = document.querySelector("[data-verse-text]");
     const verseReference = document.querySelector("[data-verse-reference]");
+    const verseShareButton = document.querySelector("[data-verse-share]");
+    const archiveSelect = document.querySelector("[data-archive-select]");
+    const archiveNote = document.querySelector("[data-archive-note]");
+    const installCard = document.querySelector("[data-install-card]");
+    const installButton = document.querySelector("[data-install-button]");
     const storageKey = "naesoo-mobile-state";
+    let deferredInstallPrompt = null;
 
     function readState() {
       try {
@@ -1907,6 +2017,96 @@
       }
     }
 
+    function getActiveViewName() {
+      const activeView = views.find((view) => view.classList.contains("is-active"));
+      return activeView ? activeView.dataset.view : "home";
+    }
+
+    function getViewLabel(name) {
+      return {
+        home: "홈",
+        worship: "예배",
+        news: "교회소식",
+        sermon: "말씀",
+        meeting: "모임",
+        guide: "안내",
+      }[name] || "주보";
+    }
+
+    async function shareContent(data, feedbackButton) {
+      if (navigator.share) {
+        await navigator.share(data);
+        return;
+      }
+      if (navigator.clipboard) {
+        await navigator.clipboard.writeText(data.url || data.text);
+        if (feedbackButton) {
+          const previousText = feedbackButton.textContent;
+          feedbackButton.textContent = "복사됨";
+          window.setTimeout(() => { feedbackButton.textContent = previousText; }, 1400);
+        }
+      }
+    }
+
+    function formatCalendarDate(value) {
+      return new Date(value).toISOString().replaceAll("-", "").replaceAll(":", "").replace(".000", "");
+    }
+
+    function escapeCalendarText(value) {
+      return String(value || "")
+        .replaceAll("\\", "\\\\")
+        .replaceAll(";", "\\;")
+        .replaceAll(",", "\\,")
+        .replaceAll("\n", "\\n");
+    }
+
+    function downloadCalendarEvent(eventData) {
+      const lines = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Naesoo Mobile Bulletin//KO",
+        "BEGIN:VEVENT",
+        "UID:" + Date.now() + "-" + eventData.sourceIndex + "@naesoo-mobile",
+        "DTSTAMP:" + formatCalendarDate(new Date()),
+        "DTSTART:" + formatCalendarDate(eventData.start),
+        "DTEND:" + formatCalendarDate(eventData.end),
+        "SUMMARY:" + escapeCalendarText(eventData.title),
+        "LOCATION:" + escapeCalendarText(eventData.location),
+        "DESCRIPTION:" + escapeCalendarText(eventData.description),
+        "END:VEVENT",
+        "END:VCALENDAR",
+      ];
+      const blob = new Blob([lines.join("\r\n")], { type: "text/calendar;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = (eventData.sourceTitle || eventData.title).replaceAll(/[\\/:*?"<>|]/g, "") + ".ics";
+      document.body.appendChild(link);
+      link.click();
+      URL.revokeObjectURL(link.href);
+      link.remove();
+    }
+
+    async function loadArchiveOptions() {
+      if (!archiveSelect) return;
+      try {
+        const response = await fetch("./archive.json", { cache: "no-cache" });
+        if (!response.ok) throw new Error("Archive unavailable");
+        const archive = await response.json();
+        if (!Array.isArray(archive.issues) || archive.issues.length === 0) return;
+        archiveSelect.innerHTML = archive.issues.map((issue) =>
+          '<option value="' + escapeClientHtml(issue.id) + '" data-url="' + escapeClientHtml(issue.url || "./index.html#home") + '">' +
+          escapeClientHtml(issue.label + " · " + issue.date + " · " + issue.volume) +
+          '</option>'
+        ).join("");
+        archiveSelect.value = archive.current || archive.issues[0].id;
+        if (archiveNote) {
+          archiveNote.textContent = archive.issues.length > 1
+            ? "원하는 날짜를 선택하면 해당 주보로 이동합니다."
+            : "이전 주보가 추가되면 이곳에서 날짜별로 바로 이동할 수 있습니다.";
+        }
+      } catch {}
+    }
+
     function activateTab(name, options = {}) {
       views.forEach((view) => {
         view.classList.toggle("is-active", view.dataset.view === name);
@@ -1984,7 +2184,59 @@
       button.addEventListener("click", () => scrollToTarget(button.dataset.scrollTarget));
     });
 
+    document.addEventListener("click", (event) => {
+      const calendarButton = event.target.closest("[data-calendar-index]");
+      if (!calendarButton) return;
+      const calendarEvent = calendarEvents[Number(calendarButton.dataset.calendarIndex)];
+      if (calendarEvent) downloadCalendarEvent(calendarEvent);
+    });
+
+    if (archiveSelect) {
+      archiveSelect.addEventListener("change", () => {
+        const selectedOption = archiveSelect.selectedOptions[0];
+        const url = selectedOption ? selectedOption.dataset.url : "";
+        if (url) location.href = url;
+      });
+      loadArchiveOptions();
+    }
+
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      if (installButton) installButton.textContent = "홈 화면에 추가";
+    });
+
+    if (window.matchMedia("(display-mode: standalone)").matches && installCard) {
+      installCard.hidden = true;
+    }
+
+    if (installButton) {
+      installButton.addEventListener("click", async () => {
+        if (deferredInstallPrompt) {
+          deferredInstallPrompt.prompt();
+          await deferredInstallPrompt.userChoice;
+          deferredInstallPrompt = null;
+          installButton.textContent = "추가됨";
+          return;
+        }
+        const previousText = installButton.textContent;
+        installButton.textContent = "공유 메뉴에서 추가";
+        window.setTimeout(() => { installButton.textContent = previousText; }, 1800);
+      });
+    }
+
     loadDailyVerse();
+
+    if (verseShareButton) {
+      verseShareButton.addEventListener("click", () => {
+        const text = [verseText?.textContent, verseReference?.textContent].filter(Boolean).join("\n");
+        shareContent({
+          title: "오늘의 말씀",
+          text,
+          url: location.origin + location.pathname + "#home",
+        }, verseShareButton).catch(() => {});
+      });
+    }
 
     if (searchInput) {
       searchInput.addEventListener("input", () => renderSearchResults(searchInput.value));
@@ -1996,18 +2248,14 @@
 
     if (shareButton) {
       shareButton.addEventListener("click", async () => {
+        const activeView = getActiveViewName();
+        const viewLabel = getViewLabel(activeView);
         const shareData = {
-          title: document.title,
-          text: "2026년 6월 14일 내수동교회 모바일 주보",
-          url: location.origin + location.pathname + location.hash,
+          title: "내수동교회 모바일 주보 · " + viewLabel,
+          text: "2026년 6월 14일 내수동교회 모바일 주보 " + viewLabel + " 페이지",
+          url: location.origin + location.pathname + "#" + activeView,
         };
-        if (navigator.share) {
-          await navigator.share(shareData);
-        } else if (navigator.clipboard) {
-          await navigator.clipboard.writeText(shareData.url);
-          shareButton.textContent = "복사됨";
-          setTimeout(() => { shareButton.textContent = "공유"; }, 1400);
-        }
+        shareContent(shareData, shareButton).catch(() => {});
       });
     }
 
