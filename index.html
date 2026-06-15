@@ -26,6 +26,9 @@
       --muted: #6c6364;
       --body-text: #3d3635;
       --line: #e4e1dc;
+      --card-line: #e4e1dc;
+      --card-line-strong: rgba(19, 130, 63, .20);
+      --card-utility: #f7faf7;
       --paper: #ffffff;
       --bg: #faf8f5;
       --accent: #f27522;
@@ -55,6 +58,9 @@
       --muted: #ada49e;
       --body-text: #dcd5cf;
       --line: #303a34;
+      --card-line: #3a463f;
+      --card-line-strong: rgba(96, 190, 128, .34);
+      --card-utility: #121814;
       --paper: #111613;
       --bg: #0d110f;
       --accent: #e88b48;
@@ -243,8 +249,8 @@
     .home-hero {
       display: grid;
       gap: 10px;
-      padding: 13px;
-      border: 1px solid var(--line);
+      padding: 15px;
+      border: 1px solid var(--card-line-strong);
       border-radius: 8px;
       background: linear-gradient(135deg, var(--surface-soft), var(--surface));
     }
@@ -299,8 +305,8 @@
       display: grid;
       gap: 4px;
       min-height: 88px;
-      padding: 11px;
-      border: 1px solid var(--line);
+      padding: 13px;
+      border: 1px solid var(--card-line);
       border-radius: 8px;
       background: var(--surface);
     }
@@ -341,8 +347,8 @@
     .verse-card {
       display: grid;
       gap: 9px;
-      padding: 12px;
-      border: 1px solid var(--line);
+      padding: 15px;
+      border: 1px solid var(--card-line-strong);
       border-radius: 8px;
       background: var(--surface);
     }
@@ -386,7 +392,7 @@
     .home-news-item {
       display: grid;
       gap: 3px;
-      padding: 10px;
+      padding: 12px;
       border: 1px solid var(--accent-border);
       border-left: 4px solid var(--orange);
       border-radius: 8px;
@@ -429,10 +435,10 @@
     .search-panel {
       display: grid;
       gap: 9px;
-      padding: 11px;
-      border: 1px solid var(--line);
+      padding: 12px;
+      border: 1px solid var(--card-line);
       border-radius: 8px;
-      background: var(--surface-soft);
+      background: var(--card-utility);
     }
 
     .search-input {
@@ -460,8 +466,8 @@
       display: grid;
       gap: 2px;
       width: 100%;
-      padding: 9px;
-      border: 1px solid var(--line);
+      padding: 10px;
+      border: 1px solid var(--card-line);
       border-radius: 8px;
       background: var(--surface);
       color: var(--ink);
@@ -509,10 +515,10 @@
     .install-card {
       display: grid;
       gap: 8px;
-      padding: 11px;
-      border: 1px solid var(--line);
+      padding: 12px;
+      border: 1px solid var(--card-line);
       border-radius: 8px;
-      background: var(--surface);
+      background: var(--card-utility);
     }
 
     .install-card p {
@@ -588,7 +594,7 @@
     }
 
     .card {
-      border: 1px solid var(--line);
+      border: 1px solid var(--card-line);
       border-radius: 8px;
       background: var(--surface);
       overflow: hidden;
@@ -600,13 +606,13 @@
     }
 
     .card-pad {
-      padding: 11px;
+      padding: 14px;
     }
 
     .notice {
       border-left: 5px solid var(--orange);
       background: var(--surface-warm);
-      padding: 9px 11px;
+      padding: 11px 13px;
       color: var(--body-text);
       font-weight: 500;
       font-size: 14px;
@@ -877,8 +883,8 @@
       grid-template-columns: 104px minmax(0, 1fr);
       gap: 8px;
       align-items: start;
-      padding: 9px;
-      border: 1px solid var(--line);
+      padding: 11px;
+      border: 1px solid var(--card-line);
       border-radius: 8px;
       background: var(--surface);
     }
@@ -916,14 +922,14 @@
     }
 
     .list-card {
-      border: 1px solid var(--line);
+      border: 1px solid var(--card-line);
       border-radius: 8px;
       background: var(--surface);
       overflow: hidden;
     }
 
     .list-card h3 {
-      padding: 10px 11px 6px;
+      padding: 12px 13px 6px;
       color: var(--green);
       font-size: 16px;
       font-weight: 600;
@@ -931,7 +937,7 @@
     }
 
     .list-card p {
-      padding: 0 11px 8px;
+      padding: 0 13px 12px;
       color: var(--body-text);
       font-size: 15px;
     }
@@ -954,7 +960,7 @@
     }
 
     .mini {
-      padding: 10px;
+      padding: 12px;
     }
 
     .mini h3 {
@@ -989,7 +995,7 @@
     .summary-list {
       display: grid;
       gap: 9px;
-      padding: 11px;
+      padding: 13px;
     }
 
     .summary-list p {
@@ -1013,15 +1019,15 @@
     .table-list {
       display: grid;
       gap: 6px;
-      padding: 9px;
+      padding: 11px;
     }
 
     .table-item {
       display: grid;
       grid-template-columns: 88px 1fr;
       gap: 8px;
-      padding: 8px;
-      border: 1px solid var(--line);
+      padding: 10px;
+      border: 1px solid var(--card-line);
       border-radius: 8px;
       background: var(--surface);
       font-size: 15px;
