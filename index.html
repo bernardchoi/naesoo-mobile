@@ -18,6 +18,7 @@
       --red: #d83a24;
       --orange: #f27522;
       --warm: #fff7f1;
+      --warm-strong: #ffe9da;
       --surface: #ffffff;
       --surface-soft: #fbfdfb;
       --surface-warm: #fffaf7;
@@ -33,32 +34,37 @@
       --nav-bg: rgba(255, 255, 255, .95);
       --filter-bg: linear-gradient(180deg, var(--paper) 72%, rgba(255, 255, 255, 0));
       --settings-overlay: rgba(38, 33, 34, .28);
+      --green-border: rgba(19, 130, 63, .22);
+      --accent-border: rgba(242, 117, 34, .30);
       --nav-height: 58px;
     }
 
     body.theme-dark {
       color-scheme: dark;
-      --green: #58d083;
-      --green-2: #72df98;
-      --green-soft: #163827;
-      --red: #ff725f;
-      --orange: #ff9a4c;
-      --warm: #35251f;
-      --surface: #1d2420;
-      --surface-soft: #17211b;
-      --surface-warm: #281f1b;
-      --ink: #f4f0eb;
-      --muted: #b8aea8;
-      --body-text: #ded7d1;
-      --line: #344139;
-      --paper: #111815;
-      --bg: #0b100e;
-      --accent: #ff9a4c;
+      --green: #49b86f;
+      --green-2: #63c884;
+      --green-soft: #1a3324;
+      --red: #ef6d5c;
+      --orange: #e88b48;
+      --warm: #33251f;
+      --warm-strong: #432b21;
+      --surface: #1b211e;
+      --surface-soft: #151c18;
+      --surface-warm: #261f1b;
+      --ink: #f1eee9;
+      --muted: #ada49e;
+      --body-text: #dcd5cf;
+      --line: #303a34;
+      --paper: #111613;
+      --bg: #0d110f;
+      --accent: #e88b48;
       --shadow: 0 14px 34px rgba(0, 0, 0, .34);
-      --notice-text: #d8f0df;
+      --notice-text: #d9eadf;
       --nav-bg: rgba(17, 24, 21, .94);
       --filter-bg: linear-gradient(180deg, var(--paper) 72%, rgba(17, 24, 21, 0));
       --settings-overlay: rgba(0, 0, 0, .52);
+      --green-border: rgba(73, 184, 111, .30);
+      --accent-border: rgba(232, 139, 72, .36);
     }
 
     * { box-sizing: border-box; }
@@ -269,7 +275,7 @@
       gap: 5px;
       min-height: 36px;
       padding: 0 11px;
-      border: 1px solid rgba(19, 130, 63, .22);
+      border: 1px solid var(--green-border);
       border-radius: 999px;
       background: var(--surface);
       color: var(--green);
@@ -348,7 +354,7 @@
     .text-action {
       min-height: 34px;
       padding: 0 10px;
-      border: 1px solid rgba(19, 130, 63, .22);
+      border: 1px solid var(--green-border);
       border-radius: 999px;
       background: var(--surface);
       color: var(--green);
@@ -381,9 +387,10 @@
       display: grid;
       gap: 3px;
       padding: 10px;
-      border: 1px solid var(--line);
+      border: 1px solid var(--accent-border);
+      border-left: 4px solid var(--orange);
       border-radius: 8px;
-      background: var(--surface);
+      background: linear-gradient(135deg, var(--surface-warm), var(--surface));
       text-align: left;
     }
 
@@ -394,12 +401,27 @@
       line-height: 1.35;
     }
 
+    .home-tools {
+      display: grid;
+      gap: 10px;
+      margin-top: 2px;
+      padding-top: 2px;
+    }
+
+    .home-tools .section-head h2 {
+      font-size: 18px;
+    }
+
+    .home-tools .eyebrow {
+      color: var(--muted);
+    }
+
     .status-pill {
       justify-self: start;
       padding: 2px 7px;
       border-radius: 999px;
-      background: var(--green-soft);
-      color: var(--green);
+      background: var(--warm-strong);
+      color: var(--red);
       font-size: 13px;
       font-weight: 600;
     }
@@ -410,7 +432,7 @@
       padding: 11px;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: var(--surface);
+      background: var(--surface-soft);
     }
 
     .search-input {
@@ -582,10 +604,10 @@
     }
 
     .notice {
-      border-left: 5px solid var(--green);
-      background: var(--green-soft);
+      border-left: 5px solid var(--orange);
+      background: var(--surface-warm);
       padding: 9px 11px;
-      color: var(--notice-text);
+      color: var(--body-text);
       font-weight: 500;
       font-size: 14px;
     }
@@ -723,7 +745,7 @@
       place-items: center;
       min-height: 40px;
       padding: 8px;
-      border: 1px solid rgba(19, 130, 63, .22);
+      border: 1px solid var(--green-border);
       border-radius: 8px;
       background: var(--green-soft);
       color: var(--green);
@@ -734,8 +756,9 @@
     }
 
     .action-link.secondary {
-      background: var(--green-soft);
-      color: var(--green);
+      border-color: var(--line);
+      background: var(--surface-soft);
+      color: var(--body-text);
     }
 
     .filter-bar {
@@ -795,7 +818,7 @@
     }
 
     .news-tag.is-priority {
-      background: var(--warm);
+      background: var(--warm-strong);
       color: var(--red);
     }
 
@@ -809,7 +832,7 @@
     .card-action {
       min-height: 32px;
       padding: 0 10px;
-      border: 1px solid rgba(19, 130, 63, .22);
+      border: 1px solid var(--green-border);
       border-radius: 999px;
       background: var(--surface);
       color: var(--green);
@@ -1264,10 +1287,47 @@
 
     body.large-text .home-card,
     body.large-text .verse-card,
+    body.large-text .home-news-item,
     body.large-text .search-panel,
     body.large-text .install-card,
     body.large-text .card-pad {
       padding: 13px;
+    }
+
+    body.large-text .home-stack,
+    body.large-text .meeting-groups,
+    body.large-text .summary-list {
+      gap: 14px;
+    }
+
+    body.large-text .home-news {
+      gap: 9px;
+    }
+
+    body.large-text .home-news-item {
+      gap: 5px;
+    }
+
+    body.large-text .worship-body {
+      gap: 8px;
+      padding: 9px;
+    }
+
+    body.large-text .part {
+      min-height: 48px;
+      padding: 10px;
+      line-height: 1.58;
+    }
+
+    body.large-text .part strong {
+      margin-top: 0;
+    }
+
+    body.large-text .list-card p,
+    body.large-text li,
+    body.large-text .meeting-meta p,
+    body.large-text .table-item {
+      line-height: 1.62;
     }
 
     body.large-text .worship-row {
@@ -1293,6 +1353,10 @@
       }
 
       body.large-text .theme-options {
+        grid-template-columns: 1fr;
+      }
+
+      body.large-text .service-times {
         grid-template-columns: 1fr;
       }
 
@@ -1503,19 +1567,6 @@
             <span class="verse-reference" data-verse-reference>개역개정</span>
           </section>
 
-          <section class="search-panel" aria-label="주보 검색">
-            <div class="section-head">
-              <div>
-                <div class="eyebrow">Search</div>
-                <h2>주보 검색</h2>
-              </div>
-            </div>
-            <input class="search-input" type="search" data-search-input placeholder="예: 주차, 청년부, 결혼, 시편" autocomplete="off" />
-            <div class="search-results" data-search-results>
-              <p class="search-empty">궁금한 단어를 입력하면 예배, 소식, 모임, 안내에서 찾아드립니다.</p>
-            </div>
-          </section>
-
           <section class="home-news" aria-label="이번 주 주요 소식">
             <div class="section-head">
               <div>
@@ -1541,38 +1592,53 @@
             
           </section>
 
-          <section class="card card-pad">
-            <div class="section-head">
-              <div>
-                <div class="eyebrow">Previous</div>
-                <h2>이전 주보 찾아보기</h2>
+          <div class="home-tools" aria-label="찾기와 바로가기">
+            <section class="search-panel" aria-label="주보 검색">
+              <div class="section-head">
+                <div>
+                  <div class="eyebrow">Search</div>
+                  <h2>주보 검색</h2>
+                </div>
               </div>
-            </div>
-            <select class="archive-select" aria-label="이전 주보 날짜 선택" data-archive-select>
-              <option value="2026-06-14" data-url="./index.html#home" selected>2026.06.14 · 2026년 6월 14일 · 제73권 24호</option>
-            </select>
-            <p class="archive-note" data-archive-note>이전 주보 데이터가 추가되면 이곳에서 날짜별로 바로 이동할 수 있습니다.</p>
-          </section>
-
-          <section class="action-grid" aria-label="빠른 실행">
-            <a class="action-link" href="tel:027376351">전화</a>
-            <a class="action-link" href="https://m.place.naver.com/place/12212845/home" target="_blank" rel="noopener">지도</a>
-            <a class="action-link secondary" href="https://m.youtube.com/@NSCH1954" target="_blank" rel="noopener">유튜브</a>
-            <a class="action-link secondary" href="https://m.instagram.com/naesoodong_church/" target="_blank" rel="noopener">인스타그램</a>
-            <a class="action-link secondary" href="http://naesoo.or.kr" target="_blank" rel="noopener">홈페이지</a>
-            <button class="action-link secondary" type="button" data-share-button>공유</button>
-          </section>
-
-          <section class="install-card" data-install-card>
-            <div class="section-head">
-              <div>
-                <div class="eyebrow">App</div>
-                <h2>홈 화면에 추가</h2>
+              <input class="search-input" type="search" data-search-input placeholder="예: 주차, 청년부, 결혼, 시편" autocomplete="off" />
+              <div class="search-results" data-search-results>
+                <p class="search-empty">궁금한 단어를 입력하면 예배, 소식, 모임, 안내에서 찾아드립니다.</p>
               </div>
-            </div>
-            <p>휴대폰 홈 화면에 추가하면 매주 주보를 더 빠르게 열 수 있습니다.</p>
-            <button class="action-link secondary" type="button" data-install-button>추가 안내 보기</button>
-          </section>
+            </section>
+
+            <section class="card card-pad">
+              <div class="section-head">
+                <div>
+                  <div class="eyebrow">Previous</div>
+                  <h2>이전 주보 찾아보기</h2>
+                </div>
+              </div>
+              <select class="archive-select" aria-label="이전 주보 날짜 선택" data-archive-select>
+                <option value="2026-06-14" data-url="./index.html#home" selected>2026.06.14 · 2026년 6월 14일 · 제73권 24호</option>
+              </select>
+              <p class="archive-note" data-archive-note>이전 주보 데이터가 추가되면 이곳에서 날짜별로 바로 이동할 수 있습니다.</p>
+            </section>
+
+            <section class="action-grid" aria-label="빠른 실행">
+              <a class="action-link" href="tel:027376351">전화</a>
+              <a class="action-link" href="https://m.place.naver.com/place/12212845/home" target="_blank" rel="noopener">지도</a>
+              <a class="action-link secondary" href="https://m.youtube.com/@NSCH1954" target="_blank" rel="noopener">유튜브</a>
+              <a class="action-link secondary" href="https://m.instagram.com/naesoodong_church/" target="_blank" rel="noopener">인스타그램</a>
+              <a class="action-link secondary" href="http://naesoo.or.kr" target="_blank" rel="noopener">홈페이지</a>
+              <button class="action-link secondary" type="button" data-share-button>공유</button>
+            </section>
+
+            <section class="install-card" data-install-card>
+              <div class="section-head">
+                <div>
+                  <div class="eyebrow">App</div>
+                  <h2>홈 화면에 추가</h2>
+                </div>
+              </div>
+              <p>휴대폰 홈 화면에 추가하면 매주 주보를 더 빠르게 열 수 있습니다.</p>
+              <button class="action-link secondary" type="button" data-install-button>추가 안내 보기</button>
+            </section>
+          </div>
         </div>
       </section>
 
