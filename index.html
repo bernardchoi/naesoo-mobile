@@ -342,6 +342,14 @@
         linear-gradient(315deg, rgba(255, 255, 255, .10), transparent 42%);
       mix-blend-mode: screen;
       opacity: .82;
+      z-index: 0;
+    }
+
+    .home-hero > *,
+    .verse-card > *,
+    .settings-sheet > * {
+      position: relative;
+      z-index: 1;
     }
 
     .home-title {
@@ -433,10 +441,21 @@
       pointer-events: none;
       background: linear-gradient(140deg, rgba(255, 255, 255, .24), transparent 32%);
       opacity: .34;
+      z-index: 0;
     }
 
     .home-card::before {
       opacity: .46;
+    }
+
+    .home-card > *,
+    .search-panel > *,
+    .install-card > *,
+    .list-card > *,
+    .meeting-card > *,
+    .card > * {
+      position: relative;
+      z-index: 1;
     }
 
     .home-card strong {
@@ -969,9 +988,9 @@
       z-index: 10;
       display: flex;
       gap: 6px;
-      margin: 0 -10px 10px;
-      padding: 0 10px 9px;
-      background: var(--filter-bg);
+      margin: 0 0 12px;
+      padding: 0 0 2px;
+      background: transparent;
       overflow-x: auto;
       scrollbar-width: none;
     }
@@ -984,26 +1003,35 @@
       flex: 0 0 auto;
       min-height: 34px;
       padding: 0 11px;
-      border: 1px solid var(--line);
+      border: 1px solid var(--glass-separator);
       border-radius: 999px;
-      background: var(--surface);
+      background: var(--glass);
       color: var(--muted);
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
+      box-shadow: var(--glass-inset), var(--glass-utility-shadow);
+      -webkit-backdrop-filter: blur(14px) saturate(150%);
+      backdrop-filter: blur(14px) saturate(150%);
+      transition: transform .18s ease, background-color .18s ease, color .18s ease, border-color .18s ease;
     }
 
     .filter-bar button[aria-selected="true"] {
-      border-color: var(--green);
-      background: var(--green);
+      border-color: rgba(255, 255, 255, .56);
+      background: linear-gradient(135deg, var(--green), var(--green-2));
       color: #fff;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .22), 0 8px 20px rgba(19, 130, 63, .22);
+      transform: translateY(-1px);
     }
 
     .news-meta {
       display: flex;
       flex-wrap: wrap;
       gap: 5px;
-      margin-bottom: 7px;
+      align-items: center;
+      min-height: 34px;
+      padding: 10px 13px 0;
+      margin-bottom: 0;
     }
 
     .news-tag {
@@ -1017,6 +1045,7 @@
       font-size: 13px;
       font-weight: 600;
       line-height: 1.2;
+      box-shadow: var(--glass-inset);
     }
 
     .news-tag.is-priority {
@@ -1136,7 +1165,7 @@
     }
 
     .list-card h3 {
-      padding: 12px 13px 6px;
+      padding: 8px 13px 6px;
       color: var(--green);
       font-size: 16px;
       font-weight: 600;
