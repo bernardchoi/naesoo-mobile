@@ -751,13 +751,14 @@
     }
 
     @keyframes pageSettle {
-      from { opacity: .96; }
+      from { opacity: .72; }
       to { opacity: 1; }
     }
 
     @keyframes pageHeadingSettle {
-      from { transform: translate3d(0, 3px, 0); }
-      to { transform: translate3d(0, 0, 0); }
+      from { opacity: .62; transform: translate3d(0, 16px, 0); }
+      60% { opacity: 1; }
+      to { opacity: 1; transform: translate3d(0, 0, 0); }
     }
 
     @keyframes filterCardIn {
@@ -781,12 +782,11 @@
 
     .view.is-active {
       display: block;
-      animation: pageSettle .3s ease-out both;
+      animation: pageSettle .58s cubic-bezier(.22, .72, .2, 1) both;
     }
 
-    .view.is-active > .section-head,
-    .view.is-active > .page-context {
-      animation: pageHeadingSettle .32s cubic-bezier(.2, .8, .2, 1) both;
+    .view.is-active > :first-child {
+      animation: pageHeadingSettle .64s cubic-bezier(.16, .84, .24, 1) both;
     }
 
     .section-head {
