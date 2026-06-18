@@ -751,13 +751,28 @@
     }
 
     @keyframes viewIn {
-      from { opacity: 0; transform: translateY(10px) scale(.992); filter: blur(2px); }
-      to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+      from { opacity: 0; transform: translate3d(0, 10px, 0) scale(.992); filter: blur(2px); }
+      to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
+    }
+
+    @keyframes viewInForward {
+      from { opacity: 0; transform: translate3d(16px, 4px, 0) scale(.992); filter: blur(2px); }
+      to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
+    }
+
+    @keyframes viewInBackward {
+      from { opacity: 0; transform: translate3d(-16px, 4px, 0) scale(.992); filter: blur(2px); }
+      to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
     }
 
     @keyframes cardIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translate3d(0, 10px, 0) scale(.996); }
+      to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+    }
+
+    @keyframes filterCardIn {
+      from { opacity: 0; transform: translate3d(0, 6px, 0); }
+      to { opacity: 1; transform: translate3d(0, 0, 0); }
     }
 
     section {
@@ -776,7 +791,16 @@
 
     .view.is-active {
       display: block;
-      animation: viewIn .32s cubic-bezier(.2, .8, .2, 1) both;
+      animation: viewIn .34s cubic-bezier(.2, .8, .2, 1) both;
+      will-change: opacity, transform, filter;
+    }
+
+    .app.is-view-forward .view.is-active {
+      animation-name: viewInForward;
+    }
+
+    .app.is-view-backward .view.is-active {
+      animation-name: viewInBackward;
     }
 
     .view.is-active .home-hero,
@@ -788,7 +812,8 @@
     .view.is-active .meeting-card,
     .view.is-active .search-panel,
     .view.is-active .install-card {
-      animation: cardIn .34s cubic-bezier(.2, .8, .2, 1) both;
+      animation: cardIn .38s cubic-bezier(.2, .8, .2, 1) both;
+      will-change: opacity, transform;
     }
 
     .view.is-active .home-card:nth-child(2),
@@ -1152,6 +1177,10 @@
       display: none;
     }
 
+    .app.is-filtering-news .list-card:not(.is-hidden) {
+      animation: filterCardIn .26s cubic-bezier(.2, .8, .2, 1) both;
+    }
+
     .meeting-groups {
       display: grid;
       gap: 15px;
@@ -1402,6 +1431,7 @@
     .bottom-nav button[aria-selected="true"] {
       background: rgba(38, 33, 34, .08);
       color: var(--ink);
+      transform: translateY(-1px);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, .24), 0 8px 18px rgba(30, 70, 45, .12);
     }
 
@@ -1432,6 +1462,11 @@
 
     .bottom-nav button[aria-selected="true"] .nav-icon svg {
       stroke-width: 2.35;
+    }
+
+    .bottom-nav button[aria-selected="true"] .nav-icon {
+      transform: scale(1.04);
+      transition: transform .22s cubic-bezier(.2, .8, .2, 1);
     }
 
     .nav-label {
@@ -2826,8 +2861,11 @@
       setPreviewDevice(params.get("device") || "iphone");
     }
 
-    const tabButtons = [...document.querySelectorAll("[data-tab]")];
+    const routeButtons = [...document.querySelectorAll("[data-tab]")];
+    const tabButtons = [...document.querySelectorAll(".bottom-nav [data-tab]")];
     const views = [...document.querySelectorAll("[data-view]")];
+    const appShell = document.querySelector(".app");
+    const tabOrder = ["home", "worship", "news", "sermon", "meeting", "guide"];
     const newsFilterButtons = [...document.querySelectorAll("[data-news-filter]")];
     const newsCards = [...document.querySelectorAll("[data-news-category]")];
     const newsVisibleCount = document.querySelector("[data-news-visible-count]");
@@ -3148,6 +3186,17 @@
     }
 
     function activateTab(name, options = {}) {
+      const previous = getActiveViewName();
+      const previousIndex = tabOrder.indexOf(previous);
+      const nextIndex = tabOrder.indexOf(name);
+      if (appShell && options.animate !== false && previous !== name && previousIndex !== -1 && nextIndex !== -1) {
+        appShell.classList.remove("is-view-forward", "is-view-backward");
+        appShell.classList.add(nextIndex > previousIndex ? "is-view-forward" : "is-view-backward");
+        window.clearTimeout(appShell._viewDirectionTimer);
+        appShell._viewDirectionTimer = window.setTimeout(() => {
+          appShell.classList.remove("is-view-forward", "is-view-backward");
+        }, 420);
+      }
       views.forEach((view) => {
         view.classList.toggle("is-active", view.dataset.view === name);
       });
@@ -3155,17 +3204,43 @@
         button.setAttribute("aria-selected", String(button.dataset.tab === name));
       });
       if (options.scroll !== false) {
-        window.scrollTo({ top: 0, behavior: "instant" });
+        window.scrollTo({ top: 0, behavior: "auto" });
       }
-      history.replaceState(null, "", "#" + name);
-      writeState({ tab: name });
+      if (options.history !== false) {
+        history.replaceState(null, "", "#" + name);
+      }
+      if (options.save !== false) {
+        writeState({ tab: name });
+      }
       if (options.target) {
         window.setTimeout(() => scrollToTarget(options.target), 80);
       }
     }
 
+    function getHashTab() {
+      return location.hash.replace("#", "");
+    }
+
+    function syncRouteFromHash(options = {}) {
+      const hashTab = getHashTab();
+      if (views.some((view) => view.dataset.view === hashTab)) {
+        activateTab(hashTab, { scroll: false, animate: false, save: false, history: false, ...options });
+        return true;
+      }
+      return false;
+    }
+
     function activateNewsFilter(name, options = {}) {
       let visibleCount = 0;
+      if (appShell && options.animate !== false) {
+        appShell.classList.remove("is-filtering-news");
+        void appShell.offsetWidth;
+        appShell.classList.add("is-filtering-news");
+        window.clearTimeout(appShell._newsFilterTimer);
+        appShell._newsFilterTimer = window.setTimeout(() => {
+          appShell.classList.remove("is-filtering-news");
+        }, 320);
+      }
       newsFilterButtons.forEach((button) => {
         button.setAttribute("aria-selected", String(button.dataset.newsFilter === name));
       });
@@ -3217,7 +3292,7 @@
       }).join("");
     }
 
-    tabButtons.forEach((button) => {
+    routeButtons.forEach((button) => {
       button.addEventListener("click", () => goToTarget(button.dataset.tab, button.dataset.target));
     });
 
@@ -3362,17 +3437,32 @@
     }
 
     if ("serviceWorker" in navigator && location.protocol !== "file:") {
-      navigator.serviceWorker.register("./sw.js").catch(() => {});
+      const isLocalPreview = ["localhost", "127.0.0.1", "::1"].includes(location.hostname);
+      if (isLocalPreview) {
+        navigator.serviceWorker.getRegistrations()
+          .then((registrations) => Promise.all(registrations.map((registration) => registration.unregister())))
+          .catch(() => {});
+      } else {
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      }
     }
 
-    const initial = location.hash.replace("#", "");
+    window.addEventListener("hashchange", () => {
+      syncRouteFromHash({ animate: true });
+    });
+
+    window.addEventListener("load", () => {
+      syncRouteFromHash();
+    });
+
+    const initial = getHashTab();
     if (views.some((view) => view.dataset.view === initial)) {
-      activateTab(initial);
+      activateTab(initial, { scroll: false, animate: false, save: false, history: false });
     } else {
       const storedTab = readState().tab;
-      activateTab(views.some((view) => view.dataset.view === storedTab) ? storedTab : "home");
+      activateTab(views.some((view) => view.dataset.view === storedTab) ? storedTab : "home", { animate: false });
     }
-    activateNewsFilter(readState().newsFilter || "all", { save: false });
+    activateNewsFilter(readState().newsFilter || "all", { save: false, animate: false });
   </script>
 </body>
 </html>
