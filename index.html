@@ -750,29 +750,19 @@
       18%, 72% { box-shadow: 0 0 0 3px rgba(242, 117, 34, .24), var(--shadow); }
     }
 
-    @keyframes viewIn {
-      from { opacity: 0; transform: translate3d(0, 10px, 0) scale(.992); filter: blur(2px); }
-      to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
+    @keyframes pageSettle {
+      from { opacity: .96; }
+      to { opacity: 1; }
     }
 
-    @keyframes viewInForward {
-      from { opacity: 0; transform: translate3d(16px, 4px, 0) scale(.992); filter: blur(2px); }
-      to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
-    }
-
-    @keyframes viewInBackward {
-      from { opacity: 0; transform: translate3d(-16px, 4px, 0) scale(.992); filter: blur(2px); }
-      to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
-    }
-
-    @keyframes cardIn {
-      from { opacity: 0; transform: translate3d(0, 10px, 0) scale(.996); }
-      to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+    @keyframes pageHeadingSettle {
+      from { transform: translate3d(0, 3px, 0); }
+      to { transform: translate3d(0, 0, 0); }
     }
 
     @keyframes filterCardIn {
-      from { opacity: 0; transform: translate3d(0, 6px, 0); }
-      to { opacity: 1; transform: translate3d(0, 0, 0); }
+      from { transform: translate3d(0, 3px, 0); }
+      to { transform: translate3d(0, 0, 0); }
     }
 
     section {
@@ -791,47 +781,12 @@
 
     .view.is-active {
       display: block;
-      animation: viewIn .34s cubic-bezier(.2, .8, .2, 1) both;
-      will-change: opacity, transform, filter;
+      animation: pageSettle .3s ease-out both;
     }
 
-    .app.is-view-forward .view.is-active {
-      animation-name: viewInForward;
-    }
-
-    .app.is-view-backward .view.is-active {
-      animation-name: viewInBackward;
-    }
-
-    .view.is-active .home-hero,
-    .view.is-active .verse-card,
-    .view.is-active .home-card,
-    .view.is-active .home-news-item,
-    .view.is-active .card,
-    .view.is-active .list-card,
-    .view.is-active .meeting-card,
-    .view.is-active .search-panel,
-    .view.is-active .install-card {
-      animation: cardIn .38s cubic-bezier(.2, .8, .2, 1) both;
-      will-change: opacity, transform;
-    }
-
-    .view.is-active .home-card:nth-child(2),
-    .view.is-active .list-card:nth-of-type(2),
-    .view.is-active .meeting-card:nth-of-type(2) {
-      animation-delay: .035s;
-    }
-
-    .view.is-active .home-card:nth-child(3),
-    .view.is-active .list-card:nth-of-type(3),
-    .view.is-active .meeting-card:nth-of-type(3) {
-      animation-delay: .07s;
-    }
-
-    .view.is-active .home-card:nth-child(4),
-    .view.is-active .list-card:nth-of-type(4),
-    .view.is-active .meeting-card:nth-of-type(4) {
-      animation-delay: .105s;
+    .view.is-active > .section-head,
+    .view.is-active > .page-context {
+      animation: pageHeadingSettle .32s cubic-bezier(.2, .8, .2, 1) both;
     }
 
     .section-head {
@@ -2865,7 +2820,6 @@
     const tabButtons = [...document.querySelectorAll(".bottom-nav [data-tab]")];
     const views = [...document.querySelectorAll("[data-view]")];
     const appShell = document.querySelector(".app");
-    const tabOrder = ["home", "worship", "news", "sermon", "meeting", "guide"];
     const newsFilterButtons = [...document.querySelectorAll("[data-news-filter]")];
     const newsCards = [...document.querySelectorAll("[data-news-category]")];
     const newsVisibleCount = document.querySelector("[data-news-visible-count]");
@@ -3186,16 +3140,8 @@
     }
 
     function activateTab(name, options = {}) {
-      const previous = getActiveViewName();
-      const previousIndex = tabOrder.indexOf(previous);
-      const nextIndex = tabOrder.indexOf(name);
-      if (appShell && options.animate !== false && previous !== name && previousIndex !== -1 && nextIndex !== -1) {
-        appShell.classList.remove("is-view-forward", "is-view-backward");
-        appShell.classList.add(nextIndex > previousIndex ? "is-view-forward" : "is-view-backward");
-        window.clearTimeout(appShell._viewDirectionTimer);
-        appShell._viewDirectionTimer = window.setTimeout(() => {
-          appShell.classList.remove("is-view-forward", "is-view-backward");
-        }, 420);
+      if (options.scroll !== false) {
+        window.scrollTo({ top: 0, behavior: "auto" });
       }
       views.forEach((view) => {
         view.classList.toggle("is-active", view.dataset.view === name);
@@ -3203,9 +3149,6 @@
       tabButtons.forEach((button) => {
         button.setAttribute("aria-selected", String(button.dataset.tab === name));
       });
-      if (options.scroll !== false) {
-        window.scrollTo({ top: 0, behavior: "auto" });
-      }
       if (options.history !== false) {
         history.replaceState(null, "", "#" + name);
       }
