@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ko">
 <head>
+  <base href="../" />
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#21483b" />
@@ -1238,51 +1239,6 @@
       font-size: 15px;
     }
 
-    .speaker-schedule {
-      display: grid;
-      gap: 1px;
-      margin: 2px 12px 12px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 7px;
-      background: var(--line);
-    }
-
-    .speaker-schedule-title {
-      padding: 9px 11px;
-      background: var(--surface-soft);
-      color: var(--green);
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .speaker-row {
-      display: grid;
-      grid-template-columns: minmax(108px, .9fr) minmax(0, 1.45fr);
-      gap: 10px;
-      align-items: start;
-      padding: 9px 11px;
-      background: var(--surface);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .speaker-row > strong {
-      color: var(--ink);
-      font-weight: 600;
-    }
-
-    .speaker-row > span {
-      color: var(--body-text);
-    }
-
-    @media (max-width: 360px) {
-      .speaker-row {
-        grid-template-columns: 1fr;
-        gap: 3px;
-      }
-    }
-
     ul {
       margin: 0;
       padding: 0 11px 10px 28px;
@@ -1342,22 +1298,6 @@
     .summary-list p {
       padding-left: 13px;
       border-left: 3px solid var(--orange);
-    }
-
-    .district-detail {
-      display: grid;
-      gap: 16px;
-      line-height: 1.65;
-    }
-
-    .district-detail p {
-      margin: 0;
-    }
-
-    .district-detail p > strong {
-      display: inline-block;
-      margin-bottom: 5px;
-      line-height: 1.4;
     }
 
     details {
@@ -1719,8 +1659,6 @@
     body.large-text .meeting-meta p,
     body.large-text .list-card p,
     body.large-text li,
-    body.large-text .speaker-row,
-    body.large-text .speaker-schedule-title,
     body.large-text .table-item,
     body.large-text .table-item strong,
     body.large-text .action-link,
@@ -1995,7 +1933,7 @@
         <span>전화 02-737-6351 · http://naesoo.or.kr</span>
       </div>
       <p class="slogan"><span>2026 표어</span><br />“예배의 부흥, 성령의 세대”</p>
-      <p class="issue">2026년 6월 21일 · 제73권 25호</p>
+      <p class="issue">2026년 6월 14일 · 제73권 24호</p>
     </header>
 
     <main class="content">
@@ -2007,7 +1945,7 @@
                 <div class="eyebrow">This Week</div>
                 <h2>이번 주 주보</h2>
               </div>
-              <div class="home-date">2026년 6월 21일<br />제73권 25호</div>
+              <div class="home-date">2026년 6월 14일<br />제73권 24호</div>
             </div>
             <div class="home-grid">
               <button class="home-card" type="button" data-tab="worship">
@@ -2018,12 +1956,12 @@
               </button>
               <button class="home-card" type="button" data-tab="sermon">
                 <strong>설교</strong>
-                <span>영광의 무게: 하나님을 가장 무겁게 여기는 삶</span>
-                <small>사무엘상 2:29-30</small>
+                <span>내 영이 살아나게 하소서(2)</span>
+                <small>시편 42:1-11</small>
               </button>
               <button class="home-card" type="button" data-tab="news">
                 <strong>중요 소식</strong>
-                <span>2026년도 중직자(장로) 선거 공동의회(3차 투표) 결과</span>
+                <span>2026 중직자 선거 공동의회</span>
                 <small>3건 확인</small>
               </button>
               <button class="home-card" type="button" data-tab="meeting">
@@ -2056,8 +1994,8 @@
             
               <button class="home-news-item" type="button" data-tab="news" data-target="news-1">
                 <span class="status-pill">오늘</span>
-                <strong>2026년도 중직자(장로) 선거 공동의회(3차 투표) 결과</strong>
-                <small class="home-news-meta">결과</small>
+                <strong>2026 중직자 선거 공동의회</strong>
+                <small class="home-news-meta">일정 추가 가능</small>
               </button>
             
               <button class="home-news-item" type="button" data-tab="news" data-target="news-2">
@@ -2068,8 +2006,8 @@
             
               <button class="home-news-item" type="button" data-tab="news" data-target="news-3">
                 <span class="status-pill">일정</span>
-                <strong>새가족 환영회</strong>
-                <small class="home-news-meta">일정 추가 가능</small>
+                <strong>목양국 사역 일정</strong>
+                <small class="home-news-meta">일정</small>
               </button>
             
           </section>
@@ -2096,7 +2034,7 @@
                 </div>
               </div>
               <select class="archive-select" aria-label="이전 주보 날짜 선택" data-archive-select>
-                <option value="2026-06-21" data-url="./index.html#home" selected>2026.06.21 · 2026년 6월 21일 · 제73권 25호</option><option value="2026-06-14" data-url="./archive/2026-06-14.html#home" >2026.06.14 · 2026년 6월 14일 · 제73권 24호</option>
+                <option value="2026-06-14" data-url="./index.html#home" selected>2026.06.14 · 2026년 6월 14일 · 제73권 24호</option>
               </select>
               <p class="archive-note" data-archive-note>이전 주보 데이터가 추가되면 이곳에서 날짜별로 바로 이동할 수 있습니다.</p>
             </section>
@@ -2154,10 +2092,10 @@
             <button type="button" data-worship-part="1" aria-selected="false">1부 오전 9:00</button><button type="button" data-worship-part="2" aria-selected="false">2부 오전 11:00</button><button type="button" data-worship-part="3" aria-selected="false">3부 오후 1:30</button>
           </div>
           
-    <div class="worship-row" id="worship-1" data-jump-target data-worship-row data-worship-first="김재달 목사" data-worship-second="김재달 목사" data-worship-third="">
+    <div class="worship-row" id="worship-1" data-jump-target data-worship-row data-worship-first="고민영 목사" data-worship-second="고민영 목사" data-worship-third="">
       <div class="worship-label"><span>01</span>사회</div>
       <div class="worship-body">
-        <div class="part"><strong>1~2부</strong>김재달 목사</div>
+        <div class="part"><strong>1~2부</strong>고민영 목사</div>
       </div>
     </div>
   
@@ -2175,43 +2113,41 @@
       </div>
     </div>
   
-    <div class="worship-row" id="worship-4" data-jump-target data-worship-row data-worship-first="신성현 장로" data-worship-second="김현문 안수집사" data-worship-third="">
+    <div class="worship-row" id="worship-4" data-jump-target data-worship-row data-worship-first="김의로 안수집사" data-worship-second="김흥주 장로" data-worship-third="">
       <div class="worship-label"><span>04</span>대표기도</div>
       <div class="worship-body">
-        <div class="part"><strong>1부</strong>신성현 장로</div><div class="part"><strong>2부</strong>김현문 안수집사</div>
+        <div class="part"><strong>1부</strong>김의로 안수집사</div><div class="part"><strong>2부</strong>김흥주 장로</div>
       </div>
     </div>
   
-    <div class="worship-row" id="worship-5" data-jump-target data-worship-row data-worship-first="임마누엘 찬양대&#10;주를 앙모하는 자" data-worship-second="글로리아 찬양대&#10;임재" data-worship-third="">
+    <div class="worship-row" id="worship-5" data-jump-target data-worship-row data-worship-first="임마누엘 찬양대&#10;너 예수께 조용히 나가" data-worship-second="글로리아 찬양대&#10;만입이 내게 있으면" data-worship-third="">
       <div class="worship-label"><span>05</span>찬양</div>
       <div class="worship-body">
         <div class="part"><strong>1부</strong>임마누엘 찬양대
-주를 앙모하는 자</div><div class="part"><strong>2부</strong>글로리아 찬양대
-임재</div>
+너 예수께 조용히 나가</div><div class="part"><strong>2부</strong>글로리아 찬양대
+만입이 내게 있으면</div>
       </div>
     </div>
   
-    <div class="worship-row" id="worship-6" data-jump-target data-worship-row data-worship-first="사무엘상 2:29-30" data-worship-second="사무엘상 2:29-30" data-worship-third="요한복음 4:21-26">
+    <div class="worship-row" id="worship-6" data-jump-target data-worship-row data-worship-first="시편 42:1-11" data-worship-second="시편 42:1-11" data-worship-third="시편 42:1-11">
       <div class="worship-label"><span>06</span>성경본문</div>
       <div class="worship-body">
-        <div class="part"><strong>1~2부</strong>사무엘상 2:29-30</div><div class="part"><strong>3부</strong>요한복음 4:21-26</div>
+        <div class="part"><strong>1~3부</strong>시편 42:1-11</div>
       </div>
     </div>
   
-    <div class="worship-row" id="worship-7" data-jump-target data-worship-row data-worship-first="영광의 무게: 하나님을 가장 무겁게 여기는 삶&#10;윤주남 목사" data-worship-second="영광의 무게: 하나님을 가장 무겁게 여기는 삶&#10;윤주남 목사" data-worship-third="참예배&#10;이정우 목사">
+    <div class="worship-row" id="worship-7" data-jump-target data-worship-row data-worship-first="내 영이 살아나게 하소서(2)&#10;박지웅 담임목사" data-worship-second="내 영이 살아나게 하소서(2)&#10;박지웅 담임목사" data-worship-third="내 영이 살아나게 하소서(2)&#10;박지웅 담임목사">
       <div class="worship-label"><span>07</span>설교</div>
       <div class="worship-body">
-        <div class="part is-long"><strong>1~2부</strong>영광의 무게: 하나님을 가장 무겁게 여기는 삶
-윤주남 목사</div><div class="part"><strong>3부</strong>참예배
-이정우 목사</div>
+        <div class="part"><strong>1~3부</strong>내 영이 살아나게 하소서(2)
+박지웅 담임목사</div>
       </div>
     </div>
   
-    <div class="worship-row" id="worship-8" data-jump-target data-worship-row data-worship-first="찬송가 94장, 주 예수보다 더 귀한 것은 없네&#10;복음성가, 내 눈 주의 영광을 보네" data-worship-second="찬송가 94장, 주 예수보다 더 귀한 것은 없네&#10;복음성가, 내 눈 주의 영광을 보네" data-worship-third="주님을 예배하는 것">
+    <div class="worship-row" id="worship-8" data-jump-target data-worship-row data-worship-first="찬송가 455장, 주님의 마음을 본받는 자" data-worship-second="찬송가 455장, 주님의 마음을 본받는 자" data-worship-third="찬송가 455장, 주님의 마음을 본받는 자">
       <div class="worship-label"><span>08</span>찬송</div>
       <div class="worship-body">
-        <div class="part is-long"><strong>1~2부</strong>찬송가 94장, 주 예수보다 더 귀한 것은 없네
-복음성가, 내 눈 주의 영광을 보네</div><div class="part"><strong>3부</strong>주님을 예배하는 것</div>
+        <div class="part"><strong>1~3부</strong>찬송가 455장, 주님의 마음을 본받는 자</div>
       </div>
     </div>
   
@@ -2222,7 +2158,7 @@
       </div>
     </div>
   
-          <p class="notice">다음 주 대표기도: 1부 김희경 안수집사 / 2부 박진수 장로</p>
+          <p class="notice">다음 주 대표기도: 1부 신성현 장로 / 2부 김현문 안수집사</p>
         </div>
 
         <div class="sub-section" id="weekly">
@@ -2237,19 +2173,19 @@
             <article class="card mini" id="weekly-1" data-jump-target>
               <h3>새벽예배</h3>
               <time>월~금 오전 5:30</time>
-              <p>월 윤주남 목사 · 화 최정현 목사 · 수 김재달 목사 · 목 이정우 목사 · 금 고민영 목사</p>
+              <p>월 고민영 목사 · 화 김재달 목사 · 수 전용구 목사 · 목 이정우 목사 · 금 조계웅 목사</p>
             </article>
           
             <article class="card mini" id="weekly-2" data-jump-target>
               <h3>수요 오전예배</h3>
               <time>오전 10:30</time>
-              <p>조계웅 목사</p>
+              <p>김재달 목사</p>
             </article>
           
             <article class="card mini" id="weekly-3" data-jump-target>
               <h3>수요 저녁예배</h3>
               <time>오후 7:00</time>
-              <p>주를 기쁘시게 하기 위해 · 에베소서 5:8-14 · 고민영 목사</p>
+              <p>빛된 삶 · 에베소서 5:7-10 · 최정현 목사</p>
             </article>
           
             <article class="card mini" id="weekly-4" data-jump-target>
@@ -2261,7 +2197,7 @@
             <article class="card mini" id="weekly-5" data-jump-target>
               <h3>금요부흥집회</h3>
               <time>오후 8:00</time>
-              <p>윤주남 목사</p>
+              <p>고민영 목사</p>
             </article>
           
         </div>
@@ -2274,11 +2210,11 @@
             <div class="eyebrow">News</div>
             <h2>교회소식</h2>
           </div>
-          <span class="chip">10건</span>
+          <span class="chip">12건</span>
         </div>
         <div class="page-context">
           <strong>필터로 필요한 소식만 보기</strong>
-          <span data-news-visible-count>10건</span>
+          <span data-news-visible-count>12건</span>
         </div>
         <div class="filter-bar" aria-label="교회소식 필터">
           <button type="button" data-news-filter="all" aria-selected="true">전체</button><button type="button" data-news-filter="today" aria-selected="false">오늘</button><button type="button" data-news-filter="schedule" aria-selected="false">일정</button><button type="button" data-news-filter="apply" aria-selected="false">신청</button><button type="button" data-news-filter="care" aria-selected="false">동정</button>
@@ -2286,81 +2222,92 @@
                   <article class="list-card" id="news-1" data-news-category="today" data-jump-target>
             <div class="news-meta">
               <span class="news-tag">오늘</span>
-              <span class="news-tag is-priority">결과</span>
+              <span class="news-tag is-priority">중요</span>
             </div>
-            <h3>2026년도 중직자(장로) 선거 공동의회(3차 투표) 결과</h3>
-            <p>지난 주일, 본 교회 직분관리규정(제4조 선출직)에 의거해 실시한 중직자(장로) 선거 공동의회(3차 투표) 결과를 다음과 같이 공지합니다.</p>
-            <ul><li>총 투표수: 1,060표(유효투표수 1,035표, 무효(기권)표 25표)</li><li>확정 당선표: 708표</li><li>확정 당선자: 곽성림, 윤청호, 이기동, 이영호, 조한진(이상 안수집사)</li><li>피택 중직자들은 일정 기간의 훈련과 준비 과정을 거친 후 임직하게 되며, 교회의 덕과 질서를 위해 임직 전까지는 현재의 직분명을 사용합니다.</li></ul>
+            <h3>2026 중직자 선거 공동의회</h3>
+            <p>오늘 1~3부 예배 후 중직자(장로) 선거를 위한 공동의회(3차 투표)가 진행됩니다. 본 교회 등록된 세례교인께서는 모두 투표에 참여해 주시기 바랍니다.</p>
+            <ul><li>투표는 오늘 배부해 드린 공식 투표지만 가능합니다.</li><li>지난주 배부된 예비 투표지에 기표한 경우 무효 처리되오니 유의해 주시기 바랍니다.</li></ul>
+            <div class="card-actions"><button class="card-action" type="button" data-calendar-index="0">캘린더 추가</button></div>
           </article>          <article class="list-card" id="news-2" data-news-category="schedule" data-jump-target>
             <div class="news-meta">
               <span class="news-tag">일정</span>
             </div>
             <h3>하계 특별새벽예배 안내</h3>
             <p>2026년 하계 특별새벽예배는 대학·청년부 주관으로 드려집니다. 새벽이슬 같은 청년들이 말씀으로 깨어나고 받은 사명에 다시 뜨거워질 수 있도록 기도와 참여를 부탁드립니다.</p>
-            <ul><li>주제: 사명 - 처음 그 소원, 끝까지 그 길(빌 2:13)</li><li>일시/장소: 6월 29일(월)~7월 4일(토) 오전 5시 20분, 본당</li><li>대상: 모든 성도</li><li>평일에는 예배 후 간식이 제공되며, 토요일에는 자원하신 성도님들께서 식사를 준비해 주십니다.</li></ul>
-            <div class="speaker-schedule" aria-label="강사 일정">
-              <strong class="speaker-schedule-title">강사 일정</strong>
-<div class="speaker-row"><strong>6월 29일(월)</strong><span>박지웅 담임목사</span></div><div class="speaker-row"><strong>6월 30일(화)~7월 2일(목)</strong><span>문현진 목사 · 강원도 영월 옥광교회 담임</span></div><div class="speaker-row"><strong>7월 3일(금)</strong><span>이정우 목사</span></div><div class="speaker-row"><strong>7월 4일(토)</strong><span>연한흠 목사</span></div>
-            </div>
-            <div class="card-actions"><button class="card-action" type="button" data-calendar-index="0">캘린더 추가</button></div>
-          </article>          <article class="list-card" id="news-3" data-news-category="schedule" data-jump-target>
-            <div class="news-meta">
-              <span class="news-tag">일정</span>
-            </div>
-            <h3>새가족 환영회</h3>
-            <p>상반기에 등록한 새가족을 위한 환영회가 열립니다. 새로 등록하신 성도님들의 많은 참여를 바랍니다.</p>
-            <ul><li>일시/장소: 7월 5일(주일) 오후 12시 30분, 샬롬홀(별관 2층)</li><li>대상자: 작년 12월부터 현재까지 등록하신 성도</li></ul>
+            <ul><li>주제: 사명 - 처음 그 소원, 끝까지 그 길(빌 2:13)</li><li>일시/장소: 6월 29일(월)~7월 4일(토) 오전 5시 20분, 본당</li><li>대상: 모든 성도</li><li>강사: 6월 29일 박지웅 담임목사, 6월 30일~7월 2일 문현진 목사, 7월 3일 이정우 목사, 7월 4일 연한흠 목사</li><li>평일에는 예배 후 간식이 제공되며, 토요일에는 자원하신 성도님들께서 식사를 준비해 주십니다.</li></ul>
             <div class="card-actions"><button class="card-action" type="button" data-calendar-index="1">캘린더 추가</button></div>
-          </article>          <article class="list-card" id="news-4" data-news-category="schedule" data-jump-target>
+          </article>          <article class="list-card" id="news-3" data-news-category="schedule" data-jump-target>
             <div class="news-meta">
               <span class="news-tag">일정</span>
             </div>
             <h3>목양국 사역 일정</h3>
             <ul><li>60세대 공동체 수련회: 6월 27일(토)~6월 28일(주일), 김회수양관</li><li>전체 국장·마을장·목자 중간모임: 7월 11일(토) 오전 9시 30분~12시, 본당</li><li>구역 종강모임: 7월 12일(주일)~7월 18일(토)</li></ul>
-          </article>          <article class="list-card" id="news-5" data-news-category="apply" data-jump-target>
-            <div class="news-meta">
-              <span class="news-tag">신청</span>
-              <span class="news-tag is-priority">접수</span>
-            </div>
-            <h3>세대별 공동체·구역 모임 사연 접수</h3>
-            <p>세대별 공동체 상반기 종강 모임을 맞아 7월 5일(주일)까지 사연을 접수합니다. 위 내용 중 한 가지 이상을 엽서에 적어 사연함에 넣어 주세요. 참여해 주신 모든 분께 쉼만한물가 아메리카노 쿠폰 2매를 드립니다.</p>
-            <ul><li>상반기 세대별 공동체·구역 모임을 마친 소감</li><li>구역 모임을 통해 받은 은혜</li><li>구역 소개 및 자랑(리더, 목자, 구역원, 구역, 기타 등)</li><li>사연함과 엽서는 2층 본당 앞 주보대에 비치되어 있습니다.</li></ul>
-          </article>          <article class="list-card" id="news-6" data-news-category="schedule" data-jump-target>
+          </article>          <article class="list-card" id="news-4" data-news-category="schedule" data-jump-target>
             <div class="news-meta">
               <span class="news-tag">일정</span>
               <span class="news-tag is-priority">확인</span>
             </div>
             <h3>2026년도 상반기 정기 회계감사 실시</h3>
             <ul><li>기간: 6월 14일(주일)~6월 28일(주일)</li><li>내용: 예산 집행 및 회계 처리 실태</li><li>기타: 각 부서 및 전체 감사는 하반기 실시 예정입니다.</li></ul>
-          </article>          <article class="list-card" id="news-7" data-news-category="apply" data-jump-target>
+          </article>          <article class="list-card" id="news-5" data-news-category="apply" data-jump-target>
             <div class="news-meta">
               <span class="news-tag">신청</span>
             </div>
             <h3>2026년 하반기 주일 지정주차 신청</h3>
             <p>36개월 이하 유아 동반 다자녀 가정과 장애인 및 노약자들을 위한 2026년 하반기 본관 지정주차 신청을 받습니다. 우선순위에 따라 배정될 예정입니다.</p>
-            <ul><li>신청 기간: 오늘까지</li><li>기존 주일 지정주차카드를 가지고 계신 분들도 다시 신청하고 배정받아야 합니다.</li><li>주일에는 지정주차카드가 있는 차량에 한해 본관/뉴문 주차장 이용이 가능합니다.</li></ul>
+            <ul><li>신청 기간: 6월 7일~6월 21일(3주간)</li><li>기존 주일 지정주차카드를 가지고 계신 분들도 다시 신청하고 배정받아야 합니다.</li><li>주일에는 지정주차카드가 있는 차량에 한해 본관/뉴문 주차장 이용이 가능합니다.</li></ul>
+          </article>          <article class="list-card" id="news-6" data-news-category="care" data-jump-target>
+            <div class="news-meta">
+              <span class="news-tag">동정</span>
+            </div>
+            <h3>선교사 동정</h3>
+            <p>말레이시아에서 사역하시는 양사무엘&안나 선교사님이 6월 11일 입국하셨고, 6월 28일 사역지로 귀임 예정입니다.</p>
+          </article>          <article class="list-card" id="news-7" data-news-category="care" data-jump-target>
+            <div class="news-meta">
+              <span class="news-tag">동정</span>
+              <span class="news-tag is-priority">기도</span>
+            </div>
+            <h3>담임목사 동정</h3>
+            <p>담임목사님께서 조지아 및 튀르키예 지역의 파송 선교사님들을 방문하십니다. 현지 교회 예배 인도, 말씀 선포, 난민 사역 현장 방문, 한인 사역자 및 선교사 대상 세미나 등의 일정이 진행될 예정입니다.</p>
+            <ul><li>기간: 6월 15일(월)~6월 26일(금)</li></ul>
           </article>          <article class="list-card" id="news-8" data-news-category="care" data-jump-target>
             <div class="news-meta">
               <span class="news-tag">동정</span>
-              <span class="news-tag is-priority">모임</span>
+              <span class="news-tag is-priority">임명</span>
             </div>
-            <h3>전도회</h3>
-            <ul><li>안나여전도회(66년생~56년생): 오늘 2부 예배 후 본관 5층 찬양대실</li></ul>
+            <h3>임명</h3>
+            <ul><li>임마누엘 찬양대 - 이미조 성도</li></ul>
           </article>          <article class="list-card" id="news-9" data-news-category="care" data-jump-target>
+            <div class="news-meta">
+              <span class="news-tag">동정</span>
+              <span class="news-tag is-priority">위로</span>
+            </div>
+            <h3>소천</h3>
+            <p>하나님의 위로와 평강이 유가족들에게 함께하시기를 바랍니다.</p>
+            <ul><li>박선진A 집사(손승근 집사)의 부친</li><li>박현우 권사(박진석A 집사)의 부친</li></ul>
+          </article>          <article class="list-card" id="news-10" data-news-category="care" data-jump-target>
+            <div class="news-meta">
+              <span class="news-tag">동정</span>
+              <span class="news-tag is-priority">기도</span>
+            </div>
+            <h3>축복기도</h3>
+            <p>하나님의 은혜와 사랑 안에서 자녀들이 믿음과 지혜로 건강하게 자라가도록 함께 축복하며 기도해 주시기 바랍니다.</p>
+            <ul><li>고병훈 집사(마유선 집사) 가정의 딸, 고연서(2부)</li></ul>
+          </article>          <article class="list-card" id="news-11" data-news-category="care" data-jump-target>
             <div class="news-meta">
               <span class="news-tag">동정</span>
               <span class="news-tag is-priority">일정</span>
             </div>
             <h3>결혼</h3>
-            <ul><li>강민욱 형제 · 윤희수 자매(청년부) 6월 27일(토) 오전 11시 20분, 더파티움 여의도</li><li>조제영 형제(청년부) · 지혜린 자매(청년부) 6월 27일(토) 오후 3시 30분, 지타워컨벤션</li><li>임재성 형제 · 홍서경 자매(한소환 성도 자녀) 6월 27일(토) 오후 5시, 노블발렌티 삼성</li><li>김진훈A 형제(김명기 집사 · 임희선 권사) · 김주희 자매 7월 4일(토) 오후 6시 30분, 아펠가모 광화문 LL층(지하 2층)</li></ul>
-          </article>          <article class="list-card" id="news-10" data-news-category="care" data-jump-target>
+            <ul><li>최시영 형제 · 박수지B 자매(청년부) 6월 20일(토) 오전 11시, 남서울교회 본당</li><li>강민욱 형제 · 윤희수 자매(청년부) 6월 27일(토) 오전 11시 20분, 더파티움 여의도</li><li>조제영 형제(청년부) · 지혜린 자매(청년부) 6월 27일(토) 오후 3시 30분, 지타워컨벤션</li><li>임재성 형제 · 홍서경 자매(한소환 성도 자녀) 6월 27일(토) 오후 5시, 노블발렌티 삼성</li></ul>
+          </article>          <article class="list-card" id="news-12" data-news-category="care" data-jump-target>
             <div class="news-meta">
               <span class="news-tag">동정</span>
-              <span class="news-tag is-priority">환영</span>
+              <span class="news-tag is-priority">축하</span>
             </div>
-            <h3>새가족 등록</h3>
-            <p>따뜻한 환영과 교제 가운데 잘 정착하도록 성도님들의 관심과 기도를 부탁드립니다.</p>
-            <ul><li>23) 이홍만 성도</li><li>24) 이다연 성도</li></ul>
+            <h3>출산</h3>
+            <p>산모와 아이가 모두 건강하도록 기도해 주시고, 가정에 하나님의 은혜와 기쁨이 가득하기를 축복합니다.</p>
+            <ul><li>장준순 집사(이지민A 집사) 득남</li></ul>
           </article>
       </section>
 
@@ -2372,20 +2319,20 @@
           </div>
         </div>
         <div class="page-context">
-          <strong>사무엘상 2:29-30</strong>
-          <span>윤주남 목사</span>
+          <strong>시편 42:1-11</strong>
+          <span>박지웅 담임목사</span>
         </div>
         <article class="card" id="sermon-main" data-jump-target>
           <div class="sermon-title">
-            <strong>영광의 무게: 하나님을 가장 무겁게 여기는 삶</strong>
-            <span class="muted">사무엘상 2:29-30 · 윤주남 목사</span>
+            <strong>내 영이 살아나게 하소서(2)</strong>
+            <span class="muted">시편 42:1-11 · 박지웅 담임목사</span>
           </div>
           <div class="summary-list">
-            <p>하나님은 ‘나를 존중히 여기는 자를 내가 존중히 여기고’라고 말씀하십니다. 여기서 ‘존중히 여기다’는 히브리어 카베드로 ‘무겁게 여기다, 중하게 여기다’라는 뜻입니다. 또 ‘영광’이라는 말, 카보드도 같은 뿌리에서 나온 단어입니다.</p><p>그러므로 성경이 말하는 ‘영광’은 단지 빛나고 화려한 모습이 아니라 ‘하나님의 존귀하심과 거룩한 무게’를 뜻합니다. 하나님을 존중한다는 것은 단순히 믿는다고 말하는 것이 아니라, 내 삶의 저울에서 하나님을 가장 무거운 분으로 모시는 것입니다.</p><p>엘리의 문제는 하나님을 모른 것이 아니라, 하나님보다 아들들을 더 중히 여겼다는 데 있었습니다. 하나님보다 더 무겁게 여기는 것이 있다면 그것이 곧 우상입니다. 반면 한나는 눈물로 얻은 아들 사무엘을 하나님께 다시 드림으로 응답보다 하나님을 더 귀하게 여기는 믿음을 보여 주었습니다. 이러한 믿음은 하나님께서 먼저 독생자 예수 그리스도를 우리를 위해 내어주신 십자가의 은혜를 아는 데서 나옵니다.</p><p>하나님은 하나님을 카베드, 곧 무겁게 여기며 존중하는 사람을 귀하게 여기십니다. 그러므로 우리도 예배와 말씀과 기도를 소중히 여기며 하나님의 카보드, 곧 영광의 무게를 아는 성도로 살아가야 합니다. 하나님을 가장 무겁게 여기는 삶이 가정을 살리고, 자녀를 살리고, 교회를 세우는 은혜의 통로가 됩니다.</p>
+            <p>인간은 영, 혼, 몸으로 이루어졌습니다. 영의 본질은 하나님께로부터 왔으며, 하나님과 교제하는 자아입니다.</p><p>시인은 매우 어려운 상황을 맞았습니다. 본문은 자신에게 있는 고난이 폭포와 파도처럼 자신을 둘러싸고 있음을 보여줍니다.</p><p>그는 자신을 향하여 말합니다. ‘내 영혼아, 네가 어찌하여 낙망하며’라는 고백은 감정에 휘둘리지 않고 영이 혼을 다스리도록 부르는 말씀입니다.</p><p>우리도 감정에 휘둘리지 말고, 하나님의 말씀과 성령의 뜻이 내 영을 통해 흘러나와 모든 것을 다스리고 통제하도록 해야 합니다.</p>
           </div>
           <details open>
             <summary>본문 질문과 적용 질문</summary>
-            <ul><li>하나님께서 엘리에게 ‘네 아들들을 나보다 더 중히 여겼다’고 책망하신 이유는 무엇입니까? 엘리의 모습 속에서 하나님보다 더 무겁게 여기는 것이 있을 때, 신앙과 가정에 어떤 문제가 일어나는지 함께 나누어 봅시다.</li><li>한나는 눈물로 얻은 사무엘을 다시 하나님께 드렸습니다. 한나의 이 모습은 ‘하나님을 가장 무겁게 여기는 믿음’을 어떻게 보여 줍니까? 또 이 믿음이 십자가의 은혜와 어떻게 연결되는지 생각해 봅시다.</li><li>내 삶의 저울에서 지금 하나님보다 더 무겁게 자리 잡고 있는 것은 무엇입니까? 가정, 자녀, 물질, 인정, 계획, 염려 가운데 내가 하나님보다 더 붙들고 있는 것이 있다면 무엇인지 정직하게 돌아보고 나누어 봅시다.</li><li>하나님을 가장 무겁게 여기는 삶은 말이 아니라, 예배와 말씀과 기도의 우선순위로 드러납니다. 이번 한 주 동안 내가 하나님을 가장 귀하게 여긴다는 것을 실제로 나타내기 위해 어떤 결단을 할 수 있겠습니까?</li></ul>
+            <ul><li>5, 11절 말씀의 화자는 누구이며, 청자는 누구인지 구분해 봅시다. 감정이 상한 자아가 불평의 소리를 할 때 어떻게 해야 합니까?</li><li>감정이 상한 자아가 자신에게 말하는 불평과 원망을 듣는 것이 아니라, 나의 본래 자아가 감정이 상한 자아에게 말해야 한다는 설명을 다시 표현해 봅시다.</li><li>내 속의 감정이 상한 자아가 원망과 불평을 말할 때 어떻게 하십니까? 오늘 말씀을 적용하여 서로 나누어 봅시다.</li></ul>
           </details>
         </article>
 
@@ -2398,17 +2345,9 @@
         </div>
         <article class="card">
           <div class="sermon-title">
-            <strong>영광의 무게: 하나님을 가장 무겁게 여기는 삶</strong>
+            <strong>내 영이 살아나게 하소서(2)</strong>
             <span class="muted">구역교회 모임 순서와 시간</span>
           </div>
-          <details open>
-            <summary>환영과 찬양</summary>
-            <div class="card-pad district-detail">
-              <p><strong>구역원들을 환영</strong><br />서로 인사하며 지난 주 언약 맺기 실천한 내용을 나누기</p>
-              <p><strong>아이스브레이크</strong><br />요즘 내 일상에서 가장 마음이 많이 가는 것은 무엇인지를 나눠봅시다.</p>
-              <p><strong>역동적인 찬양</strong><br />찬송가 94장, 주 예수보다 더 귀한 것은 없네<br />복음성가, 내 눈 주의 영광을 보네</p>
-            </div>
-          </details>
           <div class="table-list">
             
               <div class="table-item">
@@ -2442,16 +2381,9 @@
               </div>
             
           </div>
-          <details>
-            <summary>기도와 사역</summary>
-            <div class="card-pad district-detail">
-              <p><strong>회원들 간의 기도와 섬김</strong><br />기도제목 나누기, 교회와 다음세대를 위해, 태신자를 위한 기도</p>
-              <p><strong>모든 구역원들의 사역에 참여</strong><br />교회에서 맡은 섬김 나누기</p>
-            </div>
-          </details>
           <details open>
             <summary>마무리와 암송</summary>
-            <p class="card-pad">돌아가며 말씀을 토대로 한 주간 실천하고자 하는 사항들을 함께 나누고 실천을 약속합니다.<br /><br />성경암송: 사무엘상 2:30 - 그러므로 이스라엘의 하나님 나 여호와가 말하노라 내가 전에 네 집과 네 조상의 집이 내 앞에 영원히 행하리라 하였으나 이제 나 여호와가 말하노니 결단코 그렇게 하지 아니하리라 나를 존중히 여기는 자를 내가 존중히 여기고 나를 멸시하는 자를 내가 경멸하리라</p>
+            <p class="card-pad">돌아가며 말씀을 토대로 한 주간 실천하고자 하는 사항들을 함께 나누고 실천을 약속합니다.<br /><br />성경암송: 시편 42:5 - 내 영혼아 네가 어찌하여 낙심하며 어찌하여 내 속에서 불안해 하는가 너는 하나님께 소망을 두라 그가 나타나 도우심으로 말미암아 내가 여전히 찬송하리로다</p>
           </details>
         </article>
         </div>
@@ -2680,7 +2612,7 @@
           
             <article class="card mini">
               <h3>부목사</h3>
-              <p>윤주남 김진웅 이정우 연한흠 조계웅 전홍구 오신영 최정현 고민영 김재달</p>
+              <p>윤주범 김진웅 이정우 연한흠 조계웅 전홍구 오신영 최정현 고민영 김재달</p>
             </article>
           
             <article class="card mini">
@@ -2881,8 +2813,8 @@
     const newsVisibleCount = document.querySelector("[data-news-visible-count]");
     const worshipPartButtons = [...document.querySelectorAll("[data-worship-part]")];
     const worshipRows = [...document.querySelectorAll("[data-worship-row]")];
-    const searchItems = [{"tab":"worship","target":"worship-1","type":"예배","title":"사회","body":"김재달 목사 김재달 목사 "},{"tab":"worship","target":"worship-2","type":"예배","title":"입례송 / 신앙고백","body":"고개 들어 / 사도신경 고개 들어 / 사도신경 "},{"tab":"worship","target":"worship-3","type":"예배","title":"찬양","body":"경배와 찬양 경배와 찬양 경배와 찬양"},{"tab":"worship","target":"worship-4","type":"예배","title":"대표기도","body":"신성현 장로 김현문 안수집사 "},{"tab":"worship","target":"worship-5","type":"예배","title":"찬양","body":"임마누엘 찬양대\n주를 앙모하는 자 글로리아 찬양대\n임재 "},{"tab":"worship","target":"worship-6","type":"예배","title":"성경본문","body":"사무엘상 2:29-30 사무엘상 2:29-30 요한복음 4:21-26"},{"tab":"worship","target":"worship-7","type":"예배","title":"설교","body":"영광의 무게: 하나님을 가장 무겁게 여기는 삶\n윤주남 목사 영광의 무게: 하나님을 가장 무겁게 여기는 삶\n윤주남 목사 참예배\n이정우 목사"},{"tab":"worship","target":"worship-8","type":"예배","title":"찬송","body":"찬송가 94장, 주 예수보다 더 귀한 것은 없네\n복음성가, 내 눈 주의 영광을 보네 찬송가 94장, 주 예수보다 더 귀한 것은 없네\n복음성가, 내 눈 주의 영광을 보네 주님을 예배하는 것"},{"tab":"worship","target":"worship-9","type":"예배","title":"축도","body":"하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서! 하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서! 하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서!"},{"tab":"worship","target":"weekly-1","type":"주중예배","title":"새벽예배","body":"월~금 오전 5:30 월 윤주남 목사 · 화 최정현 목사 · 수 김재달 목사 · 목 이정우 목사 · 금 고민영 목사"},{"tab":"worship","target":"weekly-2","type":"주중예배","title":"수요 오전예배","body":"오전 10:30 조계웅 목사"},{"tab":"worship","target":"weekly-3","type":"주중예배","title":"수요 저녁예배","body":"오후 7:00 주를 기쁘시게 하기 위해 · 에베소서 5:8-14 · 고민영 목사"},{"tab":"worship","target":"weekly-4","type":"주중예배","title":"Center Worship","body":"오후 8:00 이정우 목사"},{"tab":"worship","target":"weekly-5","type":"주중예배","title":"금요부흥집회","body":"오후 8:00 윤주남 목사"},{"tab":"news","target":"news-1","type":"오늘","title":"2026년도 중직자(장로) 선거 공동의회(3차 투표) 결과","body":"지난 주일, 본 교회 직분관리규정(제4조 선출직)에 의거해 실시한 중직자(장로) 선거 공동의회(3차 투표) 결과를 다음과 같이 공지합니다. 총 투표수: 1,060표(유효투표수 1,035표, 무효(기권)표 25표) 확정 당선표: 708표 확정 당선자: 곽성림, 윤청호, 이기동, 이영호, 조한진(이상 안수집사) 피택 중직자들은 일정 기간의 훈련과 준비 과정을 거친 후 임직하게 되며, 교회의 덕과 질서를 위해 임직 전까지는 현재의 직분명을 사용합니다."},{"tab":"news","target":"news-2","type":"일정","title":"하계 특별새벽예배 안내","body":"2026년 하계 특별새벽예배는 대학·청년부 주관으로 드려집니다. 새벽이슬 같은 청년들이 말씀으로 깨어나고 받은 사명에 다시 뜨거워질 수 있도록 기도와 참여를 부탁드립니다. 주제: 사명 - 처음 그 소원, 끝까지 그 길(빌 2:13) 일시/장소: 6월 29일(월)~7월 4일(토) 오전 5시 20분, 본당 대상: 모든 성도 평일에는 예배 후 간식이 제공되며, 토요일에는 자원하신 성도님들께서 식사를 준비해 주십니다."},{"tab":"news","target":"news-3","type":"일정","title":"새가족 환영회","body":"상반기에 등록한 새가족을 위한 환영회가 열립니다. 새로 등록하신 성도님들의 많은 참여를 바랍니다. 일시/장소: 7월 5일(주일) 오후 12시 30분, 샬롬홀(별관 2층) 대상자: 작년 12월부터 현재까지 등록하신 성도"},{"tab":"news","target":"news-4","type":"일정","title":"목양국 사역 일정","body":"60세대 공동체 수련회: 6월 27일(토)~6월 28일(주일), 김회수양관 전체 국장·마을장·목자 중간모임: 7월 11일(토) 오전 9시 30분~12시, 본당 구역 종강모임: 7월 12일(주일)~7월 18일(토)"},{"tab":"news","target":"news-5","type":"신청","title":"세대별 공동체·구역 모임 사연 접수","body":"세대별 공동체 상반기 종강 모임을 맞아 7월 5일(주일)까지 사연을 접수합니다. 위 내용 중 한 가지 이상을 엽서에 적어 사연함에 넣어 주세요. 참여해 주신 모든 분께 쉼만한물가 아메리카노 쿠폰 2매를 드립니다. 상반기 세대별 공동체·구역 모임을 마친 소감 구역 모임을 통해 받은 은혜 구역 소개 및 자랑(리더, 목자, 구역원, 구역, 기타 등) 사연함과 엽서는 2층 본당 앞 주보대에 비치되어 있습니다."},{"tab":"news","target":"news-6","type":"일정","title":"2026년도 상반기 정기 회계감사 실시","body":"기간: 6월 14일(주일)~6월 28일(주일) 내용: 예산 집행 및 회계 처리 실태 기타: 각 부서 및 전체 감사는 하반기 실시 예정입니다."},{"tab":"news","target":"news-7","type":"신청","title":"2026년 하반기 주일 지정주차 신청","body":"36개월 이하 유아 동반 다자녀 가정과 장애인 및 노약자들을 위한 2026년 하반기 본관 지정주차 신청을 받습니다. 우선순위에 따라 배정될 예정입니다. 신청 기간: 오늘까지 기존 주일 지정주차카드를 가지고 계신 분들도 다시 신청하고 배정받아야 합니다. 주일에는 지정주차카드가 있는 차량에 한해 본관/뉴문 주차장 이용이 가능합니다."},{"tab":"news","target":"news-8","type":"동정","title":"전도회","body":"안나여전도회(66년생~56년생): 오늘 2부 예배 후 본관 5층 찬양대실"},{"tab":"news","target":"news-9","type":"동정","title":"결혼","body":"강민욱 형제 · 윤희수 자매(청년부) 6월 27일(토) 오전 11시 20분, 더파티움 여의도 조제영 형제(청년부) · 지혜린 자매(청년부) 6월 27일(토) 오후 3시 30분, 지타워컨벤션 임재성 형제 · 홍서경 자매(한소환 성도 자녀) 6월 27일(토) 오후 5시, 노블발렌티 삼성 김진훈A 형제(김명기 집사 · 임희선 권사) · 김주희 자매 7월 4일(토) 오후 6시 30분, 아펠가모 광화문 LL층(지하 2층)"},{"tab":"news","target":"news-10","type":"동정","title":"새가족 등록","body":"따뜻한 환영과 교제 가운데 잘 정착하도록 성도님들의 관심과 기도를 부탁드립니다. 23) 이홍만 성도 24) 이다연 성도"},{"tab":"sermon","target":"sermon-main","type":"말씀","title":"영광의 무게: 하나님을 가장 무겁게 여기는 삶","body":"사무엘상 2:29-30 윤주남 목사 하나님은 ‘나를 존중히 여기는 자를 내가 존중히 여기고’라고 말씀하십니다. 여기서 ‘존중히 여기다’는 히브리어 카베드로 ‘무겁게 여기다, 중하게 여기다’라는 뜻입니다. 또 ‘영광’이라는 말, 카보드도 같은 뿌리에서 나온 단어입니다. 그러므로 성경이 말하는 ‘영광’은 단지 빛나고 화려한 모습이 아니라 ‘하나님의 존귀하심과 거룩한 무게’를 뜻합니다. 하나님을 존중한다는 것은 단순히 믿는다고 말하는 것이 아니라, 내 삶의 저울에서 하나님을 가장 무거운 분으로 모시는 것입니다. 엘리의 문제는 하나님을 모른 것이 아니라, 하나님보다 아들들을 더 중히 여겼다는 데 있었습니다. 하나님보다 더 무겁게 여기는 것이 있다면 그것이 곧 우상입니다. 반면 한나는 눈물로 얻은 아들 사무엘을 하나님께 다시 드림으로 응답보다 하나님을 더 귀하게 여기는 믿음을 보여 주었습니다. 이러한 믿음은 하나님께서 먼저 독생자 예수 그리스도를 우리를 위해 내어주신 십자가의 은혜를 아는 데서 나옵니다. 하나님은 하나님을 카베드, 곧 무겁게 여기며 존중하는 사람을 귀하게 여기십니다. 그러므로 우리도 예배와 말씀과 기도를 소중히 여기며 하나님의 카보드, 곧 영광의 무게를 아는 성도로 살아가야 합니다. 하나님을 가장 무겁게 여기는 삶이 가정을 살리고, 자녀를 살리고, 교회를 세우는 은혜의 통로가 됩니다. 하나님께서 엘리에게 ‘네 아들들을 나보다 더 중히 여겼다’고 책망하신 이유는 무엇입니까? 엘리의 모습 속에서 하나님보다 더 무겁게 여기는 것이 있을 때, 신앙과 가정에 어떤 문제가 일어나는지 함께 나누어 봅시다. 한나는 눈물로 얻은 사무엘을 다시 하나님께 드렸습니다. 한나의 이 모습은 ‘하나님을 가장 무겁게 여기는 믿음’을 어떻게 보여 줍니까? 또 이 믿음이 십자가의 은혜와 어떻게 연결되는지 생각해 봅시다. 내 삶의 저울에서 지금 하나님보다 더 무겁게 자리 잡고 있는 것은 무엇입니까? 가정, 자녀, 물질, 인정, 계획, 염려 가운데 내가 하나님보다 더 붙들고 있는 것이 있다면 무엇인지 정직하게 돌아보고 나누어 봅시다. 하나님을 가장 무겁게 여기는 삶은 말이 아니라, 예배와 말씀과 기도의 우선순위로 드러납니다. 이번 한 주 동안 내가 하나님을 가장 귀하게 여긴다는 것을 실제로 나타내기 위해 어떤 결단을 할 수 있겠습니까?"},{"tab":"meeting","target":"meeting-1","type":"모임","title":"유아부(2~4세)","body":"오전 11:00 본관 4층/유아부실"},{"tab":"meeting","target":"meeting-2","type":"모임","title":"유치부(5~7세)","body":"오전 11:00 본관 5층/유치부실"},{"tab":"meeting","target":"meeting-3","type":"모임","title":"유년부(1~3학년)","body":"오전 11:00 교육관 2층/유년부실"},{"tab":"meeting","target":"meeting-4","type":"모임","title":"초등부(4~6학년)","body":"1부 오전 9:00 / 2부 오전 11:00 본관 4층/비전홀"},{"tab":"meeting","target":"meeting-5","type":"모임","title":"어와나(10~13세)","body":"오후 12:50 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-6","type":"모임","title":"중등부","body":"오전 9:00 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-7","type":"모임","title":"고등부","body":"오전 9:00 교육관 4층/고등부실"},{"tab":"meeting","target":"meeting-8","type":"모임","title":"대학부","body":"오후 2:50 교육관 3층/대학부실"},{"tab":"meeting","target":"meeting-9","type":"모임","title":"청년부","body":"오후 2:50 본관 2층/본당"},{"tab":"meeting","target":"meeting-10","type":"모임","title":"신혼교구","body":"오후 1:30 비전센터"},{"tab":"meeting","target":"meeting-11","type":"모임","title":"30세대 공동체","body":"오후 1:30 본관 4층/유아부실"},{"tab":"meeting","target":"meeting-12","type":"모임","title":"40세대 공동체","body":"오후 1:30 본관 5층/유치부실"},{"tab":"meeting","target":"meeting-13","type":"모임","title":"50세대 공동체","body":"오후 1:00 (첫째 주) 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-14","type":"모임","title":"60세대 공동체","body":"오후 1:00 (셋째 주) 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-15","type":"모임","title":"시니어 공동체","body":"오전 10:30 (수) 본관 2층/본당"},{"tab":"guide","target":"guide-1","type":"안내","title":"지하철","body":"5호선 광화문역 8번 출구 하차, 서울지방경찰청 방향 도보 10분. 3호선 경복궁역 7번 출구 하차, 서울지방경찰청 방향 도보 10분."},{"tab":"guide","target":"guide-2","type":"안내","title":"버스","body":"세종문화회관 하차 후 서울지방경찰청 방향 도보 10분. 사직공원 앞 하차 후 교회 방향으로 이동."},{"tab":"guide","target":"guide-3","type":"안내","title":"주차","body":"주차권은 사무실로 문의. 국민카드 지하주차장, 경희궁의아침 3단지 오피스텔, 경희궁의아침 4단지 오피스텔 이용 가능."}];
-    const calendarEvents = [{"title":"내수동교회 하계 특별새벽예배","start":"2026-06-29T05:20:00+09:00","end":"2026-07-04T06:20:00+09:00","location":"내수동교회 본당","description":"주제: 사명 - 처음 그 소원, 끝까지 그 길(빌 2:13)","sourceIndex":1,"sourceTitle":"하계 특별새벽예배 안내"},{"title":"내수동교회 새가족 환영회","start":"2026-07-05T12:30:00+09:00","end":"2026-07-05T14:00:00+09:00","location":"내수동교회 샬롬홀(별관 2층)","description":"상반기에 등록한 새가족을 위한 환영회입니다.","sourceIndex":2,"sourceTitle":"새가족 환영회"}];
+    const searchItems = [{"tab":"worship","target":"worship-1","type":"예배","title":"사회","body":"고민영 목사 고민영 목사 "},{"tab":"worship","target":"worship-2","type":"예배","title":"입례송 / 신앙고백","body":"고개 들어 / 사도신경 고개 들어 / 사도신경 "},{"tab":"worship","target":"worship-3","type":"예배","title":"찬양","body":"경배와 찬양 경배와 찬양 경배와 찬양"},{"tab":"worship","target":"worship-4","type":"예배","title":"대표기도","body":"김의로 안수집사 김흥주 장로 "},{"tab":"worship","target":"worship-5","type":"예배","title":"찬양","body":"임마누엘 찬양대\n너 예수께 조용히 나가 글로리아 찬양대\n만입이 내게 있으면 "},{"tab":"worship","target":"worship-6","type":"예배","title":"성경본문","body":"시편 42:1-11 시편 42:1-11 시편 42:1-11"},{"tab":"worship","target":"worship-7","type":"예배","title":"설교","body":"내 영이 살아나게 하소서(2)\n박지웅 담임목사 내 영이 살아나게 하소서(2)\n박지웅 담임목사 내 영이 살아나게 하소서(2)\n박지웅 담임목사"},{"tab":"worship","target":"worship-8","type":"예배","title":"찬송","body":"찬송가 455장, 주님의 마음을 본받는 자 찬송가 455장, 주님의 마음을 본받는 자 찬송가 455장, 주님의 마음을 본받는 자"},{"tab":"worship","target":"worship-9","type":"예배","title":"축도","body":"하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서! 하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서! 하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서!"},{"tab":"worship","target":"weekly-1","type":"주중예배","title":"새벽예배","body":"월~금 오전 5:30 월 고민영 목사 · 화 김재달 목사 · 수 전용구 목사 · 목 이정우 목사 · 금 조계웅 목사"},{"tab":"worship","target":"weekly-2","type":"주중예배","title":"수요 오전예배","body":"오전 10:30 김재달 목사"},{"tab":"worship","target":"weekly-3","type":"주중예배","title":"수요 저녁예배","body":"오후 7:00 빛된 삶 · 에베소서 5:7-10 · 최정현 목사"},{"tab":"worship","target":"weekly-4","type":"주중예배","title":"Center Worship","body":"오후 8:00 이정우 목사"},{"tab":"worship","target":"weekly-5","type":"주중예배","title":"금요부흥집회","body":"오후 8:00 고민영 목사"},{"tab":"news","target":"news-1","type":"오늘","title":"2026 중직자 선거 공동의회","body":"오늘 1~3부 예배 후 중직자(장로) 선거를 위한 공동의회(3차 투표)가 진행됩니다. 본 교회 등록된 세례교인께서는 모두 투표에 참여해 주시기 바랍니다. 투표는 오늘 배부해 드린 공식 투표지만 가능합니다. 지난주 배부된 예비 투표지에 기표한 경우 무효 처리되오니 유의해 주시기 바랍니다."},{"tab":"news","target":"news-2","type":"일정","title":"하계 특별새벽예배 안내","body":"2026년 하계 특별새벽예배는 대학·청년부 주관으로 드려집니다. 새벽이슬 같은 청년들이 말씀으로 깨어나고 받은 사명에 다시 뜨거워질 수 있도록 기도와 참여를 부탁드립니다. 주제: 사명 - 처음 그 소원, 끝까지 그 길(빌 2:13) 일시/장소: 6월 29일(월)~7월 4일(토) 오전 5시 20분, 본당 대상: 모든 성도 강사: 6월 29일 박지웅 담임목사, 6월 30일~7월 2일 문현진 목사, 7월 3일 이정우 목사, 7월 4일 연한흠 목사 평일에는 예배 후 간식이 제공되며, 토요일에는 자원하신 성도님들께서 식사를 준비해 주십니다."},{"tab":"news","target":"news-3","type":"일정","title":"목양국 사역 일정","body":"60세대 공동체 수련회: 6월 27일(토)~6월 28일(주일), 김회수양관 전체 국장·마을장·목자 중간모임: 7월 11일(토) 오전 9시 30분~12시, 본당 구역 종강모임: 7월 12일(주일)~7월 18일(토)"},{"tab":"news","target":"news-4","type":"일정","title":"2026년도 상반기 정기 회계감사 실시","body":"기간: 6월 14일(주일)~6월 28일(주일) 내용: 예산 집행 및 회계 처리 실태 기타: 각 부서 및 전체 감사는 하반기 실시 예정입니다."},{"tab":"news","target":"news-5","type":"신청","title":"2026년 하반기 주일 지정주차 신청","body":"36개월 이하 유아 동반 다자녀 가정과 장애인 및 노약자들을 위한 2026년 하반기 본관 지정주차 신청을 받습니다. 우선순위에 따라 배정될 예정입니다. 신청 기간: 6월 7일~6월 21일(3주간) 기존 주일 지정주차카드를 가지고 계신 분들도 다시 신청하고 배정받아야 합니다. 주일에는 지정주차카드가 있는 차량에 한해 본관/뉴문 주차장 이용이 가능합니다."},{"tab":"news","target":"news-6","type":"동정","title":"선교사 동정","body":"말레이시아에서 사역하시는 양사무엘&안나 선교사님이 6월 11일 입국하셨고, 6월 28일 사역지로 귀임 예정입니다."},{"tab":"news","target":"news-7","type":"동정","title":"담임목사 동정","body":"담임목사님께서 조지아 및 튀르키예 지역의 파송 선교사님들을 방문하십니다. 현지 교회 예배 인도, 말씀 선포, 난민 사역 현장 방문, 한인 사역자 및 선교사 대상 세미나 등의 일정이 진행될 예정입니다. 기간: 6월 15일(월)~6월 26일(금)"},{"tab":"news","target":"news-8","type":"동정","title":"임명","body":"임마누엘 찬양대 - 이미조 성도"},{"tab":"news","target":"news-9","type":"동정","title":"소천","body":"하나님의 위로와 평강이 유가족들에게 함께하시기를 바랍니다. 박선진A 집사(손승근 집사)의 부친 박현우 권사(박진석A 집사)의 부친"},{"tab":"news","target":"news-10","type":"동정","title":"축복기도","body":"하나님의 은혜와 사랑 안에서 자녀들이 믿음과 지혜로 건강하게 자라가도록 함께 축복하며 기도해 주시기 바랍니다. 고병훈 집사(마유선 집사) 가정의 딸, 고연서(2부)"},{"tab":"news","target":"news-11","type":"동정","title":"결혼","body":"최시영 형제 · 박수지B 자매(청년부) 6월 20일(토) 오전 11시, 남서울교회 본당 강민욱 형제 · 윤희수 자매(청년부) 6월 27일(토) 오전 11시 20분, 더파티움 여의도 조제영 형제(청년부) · 지혜린 자매(청년부) 6월 27일(토) 오후 3시 30분, 지타워컨벤션 임재성 형제 · 홍서경 자매(한소환 성도 자녀) 6월 27일(토) 오후 5시, 노블발렌티 삼성"},{"tab":"news","target":"news-12","type":"동정","title":"출산","body":"산모와 아이가 모두 건강하도록 기도해 주시고, 가정에 하나님의 은혜와 기쁨이 가득하기를 축복합니다. 장준순 집사(이지민A 집사) 득남"},{"tab":"sermon","target":"sermon-main","type":"말씀","title":"내 영이 살아나게 하소서(2)","body":"시편 42:1-11 박지웅 담임목사 인간은 영, 혼, 몸으로 이루어졌습니다. 영의 본질은 하나님께로부터 왔으며, 하나님과 교제하는 자아입니다. 시인은 매우 어려운 상황을 맞았습니다. 본문은 자신에게 있는 고난이 폭포와 파도처럼 자신을 둘러싸고 있음을 보여줍니다. 그는 자신을 향하여 말합니다. ‘내 영혼아, 네가 어찌하여 낙망하며’라는 고백은 감정에 휘둘리지 않고 영이 혼을 다스리도록 부르는 말씀입니다. 우리도 감정에 휘둘리지 말고, 하나님의 말씀과 성령의 뜻이 내 영을 통해 흘러나와 모든 것을 다스리고 통제하도록 해야 합니다. 5, 11절 말씀의 화자는 누구이며, 청자는 누구인지 구분해 봅시다. 감정이 상한 자아가 불평의 소리를 할 때 어떻게 해야 합니까? 감정이 상한 자아가 자신에게 말하는 불평과 원망을 듣는 것이 아니라, 나의 본래 자아가 감정이 상한 자아에게 말해야 한다는 설명을 다시 표현해 봅시다. 내 속의 감정이 상한 자아가 원망과 불평을 말할 때 어떻게 하십니까? 오늘 말씀을 적용하여 서로 나누어 봅시다."},{"tab":"meeting","target":"meeting-1","type":"모임","title":"유아부(2~4세)","body":"오전 11:00 본관 4층/유아부실"},{"tab":"meeting","target":"meeting-2","type":"모임","title":"유치부(5~7세)","body":"오전 11:00 본관 5층/유치부실"},{"tab":"meeting","target":"meeting-3","type":"모임","title":"유년부(1~3학년)","body":"오전 11:00 교육관 2층/유년부실"},{"tab":"meeting","target":"meeting-4","type":"모임","title":"초등부(4~6학년)","body":"1부 오전 9:00 / 2부 오전 11:00 본관 4층/비전홀"},{"tab":"meeting","target":"meeting-5","type":"모임","title":"어와나(10~13세)","body":"오후 12:50 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-6","type":"모임","title":"중등부","body":"오전 9:00 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-7","type":"모임","title":"고등부","body":"오전 9:00 교육관 4층/고등부실"},{"tab":"meeting","target":"meeting-8","type":"모임","title":"대학부","body":"오후 2:50 교육관 3층/대학부실"},{"tab":"meeting","target":"meeting-9","type":"모임","title":"청년부","body":"오후 2:50 본관 2층/본당"},{"tab":"meeting","target":"meeting-10","type":"모임","title":"신혼교구","body":"오후 1:30 비전센터"},{"tab":"meeting","target":"meeting-11","type":"모임","title":"30세대 공동체","body":"오후 1:30 본관 4층/유아부실"},{"tab":"meeting","target":"meeting-12","type":"모임","title":"40세대 공동체","body":"오후 1:30 본관 5층/유치부실"},{"tab":"meeting","target":"meeting-13","type":"모임","title":"50세대 공동체","body":"오후 1:00 (첫째 주) 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-14","type":"모임","title":"60세대 공동체","body":"오후 1:00 (셋째 주) 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-15","type":"모임","title":"시니어 공동체","body":"오전 10:30 (수) 본관 2층/본당"},{"tab":"guide","target":"guide-1","type":"안내","title":"지하철","body":"5호선 광화문역 8번 출구 하차, 서울지방경찰청 방향 도보 10분. 3호선 경복궁역 7번 출구 하차, 서울지방경찰청 방향 도보 10분."},{"tab":"guide","target":"guide-2","type":"안내","title":"버스","body":"세종문화회관 하차 후 서울지방경찰청 방향 도보 10분. 사직공원 앞 하차 후 교회 방향으로 이동."},{"tab":"guide","target":"guide-3","type":"안내","title":"주차","body":"주차권은 사무실로 문의. 국민카드 지하주차장, 경희궁의아침 3단지 오피스텔, 경희궁의아침 4단지 오피스텔 이용 가능."}];
+    const calendarEvents = [{"title":"내수동교회 2026 중직자 선거 공동의회","start":"2026-06-14T12:20:00+09:00","end":"2026-06-14T13:00:00+09:00","location":"내수동교회","description":"1~3부 예배 후 중직자(장로) 선거 공동의회가 진행됩니다.","sourceIndex":0,"sourceTitle":"2026 중직자 선거 공동의회"},{"title":"내수동교회 하계 특별새벽예배","start":"2026-06-29T05:20:00+09:00","end":"2026-07-04T06:20:00+09:00","location":"내수동교회 본당","description":"주제: 사명 - 처음 그 소원, 끝까지 그 길(빌 2:13)","sourceIndex":1,"sourceTitle":"하계 특별새벽예배 안내"}];
     const fallbackScriptureVerses = [{"reference":"시편 23:1","text":"여호와는 나의 목자시니 내게 부족함이 없으리로다"},{"reference":"시편 27:1","text":"여호와는 나의 빛이요 나의 구원이시니 내가 누구를 두려워하리요"},{"reference":"시편 46:1","text":"하나님은 우리의 피난처시요 힘이시니 환난 중에 만날 큰 도움이시라"},{"reference":"시편 73:28","text":"하나님께 가까이 함이 내게 복이라"},{"reference":"시편 119:105","text":"주의 말씀은 내 발에 등이요 내 길에 빛이니이다"}];
     const searchInput = document.querySelector("[data-search-input]");
     const searchResults = document.querySelector("[data-search-results]");
@@ -3186,7 +3118,7 @@
           escapeClientHtml(issue.label + " · " + issue.date + " · " + issue.volume) +
           '</option>'
         ).join("");
-        archiveSelect.value = archive.current || archive.issues[0].id;
+        archiveSelect.value = "2026-06-14";
         if (archiveNote) {
           archiveNote.textContent = archive.issues.length > 1
             ? "원하는 날짜를 선택하면 해당 주보로 이동합니다."
@@ -3428,7 +3360,7 @@
         const viewLabel = getViewLabel(activeView);
         const shareData = {
           title: "내수동교회 모바일 주보 · " + viewLabel,
-          text: "2026년 6월 21일 내수동교회 모바일 주보 " + viewLabel + " 페이지",
+          text: "2026년 6월 14일 내수동교회 모바일 주보 " + viewLabel + " 페이지",
           url: location.origin + location.pathname + "#" + activeView,
         };
         shareContent(shareData, shareButton).catch(() => {});
