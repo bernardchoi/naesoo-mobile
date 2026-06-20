@@ -1,0 +1,9 @@
+{
+  "name": "naesoo-mobile-bulletin",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/generate-icons.js && node scripts/build.js",
+    "validate": "node tests/validate.js",
+    "test": "npm run build && npm run validate"
+  }
+}

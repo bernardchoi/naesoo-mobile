@@ -29,12 +29,14 @@
      - 오시는 길과 주차 안내
 
 3. JSON 데이터화
-   - 추출한 내용을 주보 데이터 JSON 형식으로 변환합니다.
+   - 추출한 내용을 `bulletins/YYYY-MM-DD.json` 형식으로 저장합니다.
+   - `archive.json`의 `current`와 `issues`에 새 주보를 등록합니다.
    - 예배 1부~3부 내용이 동일한 경우에는 묶어서 표시되도록 정리합니다.
    - 날짜, 시간, 장소, 이름, 찬양 제목은 원본과 대조합니다.
 
 4. 모바일 주보 빌드
-   - JSON 데이터를 바탕으로 `index.html`을 생성합니다.
+   - 저장소 루트에서 `npm test`를 실행합니다.
+   - 빌드 도구가 현재 주보 JSON을 읽어 `index.html`, PWA 아이콘과 서비스 워커를 생성합니다.
    - 기존 모바일 UI, 탭 구조, 검색, 공유, PWA 설정은 유지합니다.
    - 새 주차 내용만 교체합니다.
 
@@ -85,19 +87,21 @@
 - 배포 전에는 항상 로컬 미리보기와 공개 전 승인 절차를 거칩니다.
 - GitHub 푸시는 사용자 승인 없이는 진행하지 않습니다.
 
-## 권장 파일 구조
-
-향후 유지보수를 쉽게 하기 위해 아래 구조로 발전시키는 것을 권장합니다.
+## 파일 구조
 
 ```text
-data/
-  current-bulletin.json
-  archive/
-    2026-06-14.json
-work/
-  build_mobile_bulletin.js
-outputs/
-  index.html
+bulletins/
+  2026-06-14.json
+  2026-06-21.json
+scripts/
+  build.js
+  generate-icons.js
+tests/
+  validate.js
+archive.json
+index.html
 ```
 
-이 구조가 마련되면 매주 작업은 “주보 이미지 업로드 → JSON 생성 → 빌드 → 검수 → 승인 후 배포” 흐름으로 반복할 수 있습니다.
+매주 작업은 “주보 이미지 업로드 → JSON 생성 → `archive.json` 갱신 → `npm test` → 미리보기·검수 → 승인 후 배포” 순서로 진행합니다.
+
+GitHub Pages 배포는 `main` 브랜치 푸시를 감지하는 Actions 워크플로 하나로만 처리합니다. 별도의 `gh-pages` 수동 푸시는 하지 않습니다.
