@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#21483b">
+  <meta name="description" content="내수동교회 이전 모바일 주보">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="apple-touch-icon" href="./app-icon-192.png">
+  <title>내수동교회 이전 주보</title>
+  <style>
+    :root{color-scheme:light dark;--green:#13823f;--orange:#f27522;--ink:#272223;--muted:#6c6364;--bg:#f7faf7;--card:rgba(255,255,255,.86);--line:rgba(19,130,63,.18)}
+    *{box-sizing:border-box}html{background:var(--bg);scroll-behavior:smooth}body{margin:0;color:var(--ink);background:radial-gradient(circle at 88% 2%,rgba(30,167,86,.12),transparent 28%),var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;line-height:1.65}button,a{font:inherit}.shell{width:min(100%,760px);min-height:100vh;margin:auto;padding-bottom:94px}.top{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line);background:rgba(247,250,247,.88);backdrop-filter:blur(22px)}.top a{color:var(--green);font-weight:700;text-decoration:none}.top div{min-width:0}.top strong,.top span{display:block}.top span{overflow:hidden;color:var(--muted);font-size:13px;text-overflow:ellipsis;white-space:nowrap}main{padding:14px}.view{display:none}.view.active{display:block;animation:enter .28s ease both}@keyframes enter{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}.hero,.card{margin-bottom:12px;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--card);box-shadow:0 8px 28px rgba(22,72,48,.07);backdrop-filter:blur(18px)}.hero{border-left:4px solid var(--orange)}.eyebrow{color:var(--green);font-size:12px;font-weight:800;text-transform:uppercase}.hero h1,.section-title{margin:3px 0 6px;line-height:1.3}.hero h1{font-size:25px}.section-title{font-size:22px}.muted{color:var(--muted)}h2,h3,p{margin-top:0}h3{margin-bottom:7px;font-size:17px}p:last-child{margin-bottom:0}ul{margin:7px 0 0;padding-left:20px}.row{display:grid;grid-template-columns:minmax(88px,30%) 1fr;gap:10px;padding:11px 0;border-top:1px solid var(--line)}.row:first-child{border-top:0}.row strong{color:var(--green)}.line{white-space:pre-line}.pill{display:inline-block;margin:2px 5px 2px 0;padding:2px 8px;border-radius:999px;background:rgba(19,130,63,.1);color:var(--green);font-size:12px;font-weight:700}.bottom{position:fixed;right:0;bottom:0;left:0;z-index:20;display:grid;grid-template-columns:repeat(6,1fr);width:min(100%,760px);margin:auto;padding:6px 6px calc(6px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:rgba(255,255,255,.9);backdrop-filter:blur(24px)}.bottom button{min-width:0;min-height:50px;border:0;border-radius:9px;background:transparent;color:var(--muted);font-size:13px;font-weight:600}.bottom button[aria-selected=true]{background:rgba(19,130,63,.11);color:var(--green);font-weight:800}.error{padding:28px 18px;text-align:center}.loading{padding:32px;text-align:center;color:var(--muted)}
+    @media(prefers-color-scheme:dark){:root{--ink:#f4f0ed;--muted:#bdb5b1;--bg:#101612;--card:rgba(27,36,30,.88);--line:rgba(108,207,142,.2)}.top,.bottom{background:rgba(16,22,18,.9)}}
+    @media(max-width:370px){main{padding:10px}.row{grid-template-columns:82px 1fr;gap:8px}.bottom button{font-size:12px}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="top"><a href="./index.html#home" aria-label="현재 주보로 돌아가기">‹ 현재 주보</a><div><strong data-title>이전 주보</strong><span data-meta>불러오는 중</span></div></header>
+    <main aria-live="polite"><div class="loading" data-loading>주보를 불러오는 중입니다.</div><div data-content hidden></div></main>
+    <nav class="bottom" aria-label="이전 주보 메뉴">
+      <button type="button" data-tab="home" aria-selected="true">홈</button><button type="button" data-tab="worship">예배</button><button type="button" data-tab="news">소식</button><button type="button" data-tab="sermon">말씀</button><button type="button" data-tab="meeting">모임</button><button type="button" data-tab="guide">안내</button>
+    </nav>
+  </div>
+  <script>
+    const escapeHtml=(value)=>String(value??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
+    const lines=(value)=>escapeHtml(value).replaceAll("\n","<br>");
+    const list=(items)=>items?.length?`<ul>${items.map(item=>`<li>${escapeHtml(item)}</li>`).join("")}</ul>`:"";
+    const card=(title,body)=>`<article class="card"><h3>${escapeHtml(title)}</h3>${body}</article>`;
+    const row=(label,value)=>`<div class="row"><strong>${escapeHtml(label)}</strong><div class="line">${lines(value)}</div></div>`;
+    const params=new URLSearchParams(location.search);const issue=params.get("issue");
+    const content=document.querySelector("[data-content]");const loading=document.querySelector("[data-loading]");
+    const render=(b)=>{
+      document.querySelector("[data-title]").textContent=b.church.name+" 이전 주보";document.querySelector("[data-meta]").textContent=b.issue.date+" · "+b.issue.volume;document.title=b.issue.date+" "+b.church.name+" 주보";
+      const worshipRows=b.worship.rows.map(item=>row(item.label,[item.first&&"1부 "+item.first,item.second&&"2부 "+item.second,item.third&&"3부 "+item.third].filter(Boolean).join("\n"))).join("");
+      const news=b.news.map(item=>card(item.title,`${item.priority?`<span class="pill">${escapeHtml(item.priority)}</span>`:""}${item.body?`<p>${escapeHtml(item.body)}</p>`:""}${list(item.bullets)}${item.speakerSchedule?item.speakerSchedule.map(([date,name])=>row(date,name)).join(""):""}`)).join("");
+      const meetings=b.meetings.map(([name,time,place])=>row(name,time+"\n"+place)).join("");
+      const directions=b.directions.map(item=>card(item.title,`<p>${escapeHtml(item.body)}</p>`)).join("");
+      content.innerHTML=`
+        <section class="view" data-view="home"><article class="hero"><div class="eyebrow">Previous Bulletin</div><h1>${escapeHtml(b.issue.date)}</h1><p>${escapeHtml(b.issue.volume)} · ${escapeHtml(b.issue.slogan)}</p></article>${card("주일예배",`<p>${b.worship.times.map(x=>`<span class="pill">${escapeHtml(x)}</span>`).join("")}</p><p>${escapeHtml(b.worship.note)}</p>`)}${b.weekly.map(x=>card(x.title,`<p><strong>${escapeHtml(x.time)}</strong><br>${escapeHtml(x.body)}</p>`)).join("")}</section>
+        <section class="view" data-view="worship"><h2 class="section-title">예배</h2>${card(b.worship.title,worshipRows)}${card("경건한 예배 문화",list(b.worshipCampaign))}</section>
+        <section class="view" data-view="news"><h2 class="section-title">교회소식</h2>${news}</section>
+        <section class="view" data-view="sermon"><h2 class="section-title">말씀</h2>${card(b.sermon.title,`<p><strong>${escapeHtml(b.sermon.passage)} · ${escapeHtml(b.sermon.preacher)}</strong></p>${b.sermon.summary.map(x=>`<p>${escapeHtml(x)}</p>`).join("")}`)}${card("나눔 질문",list(b.sermon.questions))}${b.district?card(b.district.title,`<p><strong>${escapeHtml(b.district.theme)}</strong></p>${row("환영",b.district.welcome)}${row("찬양",b.district.praise?.join("\n"))}${row("기도",b.district.prayer)}${row("마무리",b.district.closing)}`):""}</section>
+        <section class="view" data-view="meeting"><h2 class="section-title">예배 및 모임</h2>${card("모임 시간과 장소",meetings)}</section>
+        <section class="view" data-view="guide"><h2 class="section-title">교회 안내</h2>${directions}${card("섬기는 사람들",b.servants.map(x=>row(x.label,x.names)).join(""))}${card("봉사위원",row("안내",b.volunteer.guide.map(x=>x.join(" ")).join("\n"))+row("식당",b.volunteer.meal.map(x=>x.join(" ")).join("\n"))+row("주차",b.volunteer.parking))}</section>`;
+      content.hidden=false;loading.hidden=true;activate(location.hash.slice(1)||"home",false);
+    };
+    const activate=(name,write=true)=>{const valid=[...document.querySelectorAll("[data-view]")].some(x=>x.dataset.view===name);if(!valid)name="home";document.querySelectorAll("[data-view]").forEach(x=>x.classList.toggle("active",x.dataset.view===name));document.querySelectorAll("[data-tab]").forEach(x=>x.setAttribute("aria-selected",String(x.dataset.tab===name)));if(write&&location.hash!=="#"+name)history.pushState({tab:name},"","#"+name);scrollTo(0,0)};
+    document.querySelectorAll("[data-tab]").forEach(button=>button.addEventListener("click",()=>activate(button.dataset.tab)));
+    addEventListener("popstate",()=>activate(location.hash.slice(1),false));addEventListener("hashchange",()=>activate(location.hash.slice(1),false));
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(issue||"")){loading.innerHTML='<div class="error"><strong>주보 날짜를 확인할 수 없습니다.</strong></div>';}else fetch(`./bulletins/${issue}.json`).then(response=>{if(!response.ok)throw new Error();return response.json()}).then(render).catch(()=>{loading.innerHTML='<div class="error"><strong>이전 주보를 불러오지 못했습니다.</strong><p><a href="./index.html#home">현재 주보로 돌아가기</a></p></div>'});
+  </script>
+</body>
+</html>
