@@ -1,5 +1,5 @@
-const CACHE_NAME = "naesoo-mobile-697b717651";
-const CORE_ASSETS = ["./","./index.html","./manifest.json","./app-icon.svg","./app-icon-192.png","./app-icon-512.png","./app-icon-maskable-512.png","./verses.json","./archive.json","./archive.html","./bulletins/2026-06-21.json","./bulletins/2026-06-14.json"];
+const CACHE_NAME = "naesoo-mobile-5e30f0a3f0";
+const CORE_ASSETS = ["./","./index.html","./manifest.json","./app-icon.svg","./app-icon-192.png","./app-icon-512.png","./app-icon-maskable-512.png","./verses.json","./archive.json","./archive.html","./bulletins/2026-06-28.json","./bulletins/2026-06-21.json","./bulletins/2026-06-14.json"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE_ASSETS)));

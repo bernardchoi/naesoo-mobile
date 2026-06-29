@@ -556,7 +556,7 @@ const searchItems = [
     target: "volunteer",
     type: "봉사위원",
     location: "안내",
-    title: "6월 봉사위원",
+    title: bulletin.volunteer.title || "6월 봉사위원",
     body: [
       ...bulletin.volunteer.guide.flat(),
       ...bulletin.volunteer.meal.flat(),
@@ -3200,7 +3200,7 @@ const html = `<!doctype html>
         </details>
 
         <details class="collapsible-card sub-section" id="volunteer" data-jump-target>
-          <summary>6월 봉사위원</summary>
+          <summary>${bulletin.volunteer.title || "6월 봉사위원"}</summary>
           <article class="list-card">
             <h3>안내위원</h3>
             <div class="table-list">
