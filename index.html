@@ -404,6 +404,7 @@
 
     .settings-button:active,
     .home-card:active,
+    .quick-link:active,
     .home-news-item:active,
     .action-link:active,
     .text-action:active,
@@ -441,8 +442,10 @@
     }
 
     .home-card::before,
+    .quick-finder::before,
     .search-panel::before,
     .install-card::before,
+    .sermon-feature::before,
     .list-card::before,
     .meeting-card::before,
     .card::before {
@@ -460,8 +463,10 @@
     }
 
     .home-card > *,
+    .quick-finder > *,
     .search-panel > *,
     .install-card > *,
+    .sermon-feature > *,
     .list-card > *,
     .meeting-card > *,
     .card > * {
@@ -489,17 +494,94 @@
       line-height: 1.35;
     }
 
+    .home-card.is-worship {
+      grid-column: 1 / -1;
+      min-height: 104px;
+      align-content: center;
+      border-color: var(--green-border);
+    }
+
+    .home-card.is-sermon {
+      grid-column: 1 / -1;
+      min-height: 104px;
+      align-content: center;
+      border-color: var(--accent-border);
+      background:
+        linear-gradient(135deg, rgba(242, 117, 34, .12), rgba(19, 130, 63, .08)),
+        var(--glass);
+    }
+
+    .home-card.is-sermon strong {
+      color: var(--red);
+      font-size: 16px;
+    }
+
+    .home-card.is-sermon span {
+      font-size: 17px;
+      line-height: 1.38;
+    }
+
     .home-service-times {
       display: grid;
-      gap: 3px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 7px;
       align-self: end;
     }
 
     .home-service-times span {
+      display: grid;
+      place-items: center;
+      min-height: 34px;
+      padding: 6px 5px;
+      border: 1px solid var(--green-border);
+      border-radius: 8px;
+      background: var(--glass-soft);
       color: var(--ink);
+      font-size: 13.5px;
+      font-weight: 600;
+      line-height: 1.2;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .quick-finder {
+      position: relative;
+      display: grid;
+      gap: 10px;
+      padding: 13px;
+      border: 1px solid var(--glass-separator);
+      border-radius: 8px;
+      background: var(--glass-soft);
+      box-shadow: var(--glass-inset), var(--glass-utility-shadow);
+      -webkit-backdrop-filter: blur(20px) saturate(165%);
+      backdrop-filter: blur(20px) saturate(165%);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .quick-finder .section-head {
+      margin-bottom: 0;
+    }
+
+    .quick-link-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    .quick-link {
+      min-height: 40px;
+      padding: 8px 7px;
+      border: 1px solid var(--green-border);
+      border-radius: 8px;
+      background: var(--glass);
+      color: var(--green);
       font-size: 14px;
       font-weight: 600;
-      line-height: 1.3;
+      line-height: 1.25;
+      cursor: pointer;
+      box-shadow: var(--glass-inset);
+      transition: transform .18s ease, border-color .18s ease, background-color .18s ease;
     }
 
     .verse-card {
@@ -651,7 +733,7 @@
 
     .search-result {
       display: grid;
-      gap: 2px;
+      gap: 4px;
       width: 100%;
       padding: 10px;
       border: 1px solid var(--glass-separator);
@@ -669,8 +751,26 @@
     }
 
     .search-result span {
+      justify-self: start;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--surface-soft);
       color: var(--muted);
       font-size: 13px;
+      font-weight: 600;
+    }
+
+    .search-result small {
+      color: var(--body-text);
+      font-size: 13.5px;
+      font-weight: 500;
+      line-height: 1.42;
+    }
+
+    .search-location {
+      color: var(--green);
+      font-size: 13px;
+      font-style: normal;
       font-weight: 600;
     }
 
@@ -744,7 +844,7 @@
     }
 
     .jump-highlight {
-      animation: jumpPulse 1.6s ease;
+      animation: jumpPulse 2.4s ease;
     }
 
     [data-jump-target],
@@ -754,7 +854,7 @@
 
     @keyframes jumpPulse {
       0%, 100% { box-shadow: none; }
-      18%, 72% { box-shadow: 0 0 0 3px rgba(242, 117, 34, .24), var(--shadow); }
+      14%, 78% { box-shadow: 0 0 0 3px rgba(242, 117, 34, .24), var(--shadow); }
     }
 
     @keyframes pageSettle {
@@ -1325,6 +1425,67 @@
       font-weight: 500;
     }
 
+    .sermon-feature {
+      position: relative;
+      display: grid;
+      gap: 12px;
+      padding: 15px;
+      border: 1px solid var(--accent-border);
+      border-left: 4px solid var(--orange);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(242, 117, 34, .10), rgba(19, 130, 63, .06)),
+        var(--glass-strong);
+      box-shadow: var(--glass-inset), var(--glass-card-shadow);
+      -webkit-backdrop-filter: blur(22px) saturate(170%);
+      backdrop-filter: blur(22px) saturate(170%);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .sermon-feature h3 {
+      color: var(--ink);
+      font-size: 21px;
+      font-weight: 700;
+      line-height: 1.34;
+      word-break: keep-all;
+    }
+
+    .sermon-feature-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .sermon-feature-meta span {
+      padding: 4px 8px;
+      border: 1px solid var(--green-border);
+      border-radius: 999px;
+      background: var(--surface-soft);
+      color: var(--green);
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+
+    .sermon-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    .sermon-actions button {
+      min-height: 40px;
+      padding: 8px 10px;
+      border: 1px solid var(--green-border);
+      border-radius: 8px;
+      background: var(--glass);
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--glass-inset);
+    }
+
     .sermon-title {
       display: grid;
       gap: 4px;
@@ -1372,12 +1533,34 @@
       background: var(--surface);
     }
 
+    details.collapsible-card {
+      position: relative;
+      border: 1px solid var(--glass-separator);
+      border-radius: 8px;
+      background: var(--glass-soft);
+      box-shadow: var(--glass-inset), var(--glass-utility-shadow);
+      -webkit-backdrop-filter: blur(16px) saturate(150%);
+      backdrop-filter: blur(16px) saturate(150%);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    details.collapsible-card + details.collapsible-card,
+    details.collapsible-card + .list-card,
+    .list-card + details.collapsible-card {
+      margin-top: 9px;
+    }
+
     summary {
       min-height: 42px;
       padding: 10px 12px;
       color: var(--green);
       font-weight: 700;
       cursor: pointer;
+    }
+
+    summary::marker {
+      color: var(--orange);
     }
 
     .table-list {
@@ -1743,6 +1926,7 @@
     body.large-text .home-card span,
     body.large-text .home-card small,
     body.large-text .home-service-times span,
+    body.large-text .quick-link,
     body.large-text .verse-text,
     body.large-text .home-news-item strong,
     body.large-text .search-input,
@@ -1754,6 +1938,8 @@
     body.large-text .install-card p,
     body.large-text .notice,
     body.large-text .service-times button,
+    body.large-text .sermon-feature-meta span,
+    body.large-text .sermon-actions button,
     body.large-text .worship-label,
     body.large-text .part,
     body.large-text .filter-bar button,
@@ -1778,6 +1964,10 @@
       line-height: 1.55;
     }
 
+    body.large-text .sermon-feature h3 {
+      font-size: 22px;
+    }
+
     body.large-text .verse-text {
       font-size: 19px;
       line-height: 1.62;
@@ -1789,7 +1979,9 @@
     body.large-text .text-action,
     body.large-text .settings-button,
     body.large-text .filter-bar button,
-    body.large-text .card-action {
+    body.large-text .card-action,
+    body.large-text .quick-link,
+    body.large-text .sermon-actions button {
       min-height: 44px;
     }
 
@@ -1808,6 +2000,8 @@
     }
 
     body.large-text .home-card,
+    body.large-text .quick-finder,
+    body.large-text .sermon-feature,
     body.large-text .verse-card,
     body.large-text .home-news-item,
     body.large-text .search-panel,
@@ -1861,11 +2055,18 @@
     }
 
     @media (max-width: 380px) {
+      .quick-link-grid,
+      .sermon-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .theme-options {
         grid-template-columns: 1fr;
       }
 
       body.large-text .home-grid,
+      body.large-text .quick-link-grid,
+      body.large-text .sermon-actions,
       body.large-text .action-grid {
         grid-template-columns: 1fr;
       }
@@ -2053,13 +2254,13 @@
               <div class="home-date">2026년 6월 21일<br />제73권 25호</div>
             </div>
             <div class="home-grid">
-              <button class="home-card" type="button" data-tab="worship">
+              <button class="home-card is-worship" type="button" data-tab="worship">
                 <strong>주일예배</strong>
                 <div class="home-service-times">
-                  <span>1부 오전 9:00</span><span>2부 오전 11:00</span><span>3부 오후 1:30</span>
+                  <span>1부 9:00</span><span>2부 11:00</span><span>3부 1:30</span>
                 </div>
               </button>
-              <button class="home-card" type="button" data-tab="sermon">
+              <button class="home-card is-sermon" type="button" data-tab="sermon" data-target="sermon-main">
                 <strong>설교</strong>
                 <span>영광의 무게: 하나님을 가장 무겁게 여기는 삶</span>
                 <small>사무엘상 2:29-30</small>
@@ -2076,6 +2277,18 @@
               </button>
             </div>
           </article>
+
+          <section class="quick-finder" aria-label="자주 찾는 항목">
+            <div class="section-head">
+              <div>
+                <div class="eyebrow">Quick</div>
+                <h2>자주 찾는 항목</h2>
+              </div>
+            </div>
+            <div class="quick-link-grid">
+              <button class="quick-link" type="button" data-tab="sermon" data-target="sermon-main">설교요약</button><button class="quick-link" type="button" data-tab="sermon" data-target="sermon-questions">적용질문</button><button class="quick-link" type="button" data-tab="sermon" data-target="district">구역교회</button><button class="quick-link" type="button" data-tab="news" data-target="news-1">오늘 소식</button><button class="quick-link" type="button" data-tab="guide" data-target="guide-3">주차</button><button class="quick-link" type="button" data-tab="guide" data-target="volunteer">봉사위원</button>
+            </div>
+          </section>
 
           <section class="verse-card" aria-label="오늘의 말씀">
             <div class="section-head">
@@ -2414,9 +2627,16 @@
             <h2>주일설교요약</h2>
           </div>
         </div>
-        <div class="page-context">
-          <strong>사무엘상 2:29-30</strong>
-          <span>윤주남 목사</span>
+        <div class="sermon-feature">
+          <div class="sermon-feature-meta">
+            <span>사무엘상 2:29-30</span>
+            <span>윤주남 목사</span>
+          </div>
+          <h3>영광의 무게: 하나님을 가장 무겁게 여기는 삶</h3>
+          <div class="sermon-actions">
+            <button type="button" data-scroll-target="sermon-main">설교요약 보기</button>
+            <button type="button" data-scroll-target="sermon-questions">적용질문 보기</button>
+          </div>
         </div>
         <article class="card" id="sermon-main" data-jump-target>
           <div class="sermon-title">
@@ -2426,7 +2646,7 @@
           <div class="summary-list">
             <p>하나님은 ‘나를 존중히 여기는 자를 내가 존중히 여기고’라고 말씀하십니다. 여기서 ‘존중히 여기다’는 히브리어 카베드로 ‘무겁게 여기다, 중하게 여기다’라는 뜻입니다. 또 ‘영광’이라는 말, 카보드도 같은 뿌리에서 나온 단어입니다.</p><p>그러므로 성경이 말하는 ‘영광’은 단지 빛나고 화려한 모습이 아니라 ‘하나님의 존귀하심과 거룩한 무게’를 뜻합니다. 하나님을 존중한다는 것은 단순히 믿는다고 말하는 것이 아니라, 내 삶의 저울에서 하나님을 가장 무거운 분으로 모시는 것입니다.</p><p>엘리의 문제는 하나님을 모른 것이 아니라, 하나님보다 아들들을 더 중히 여겼다는 데 있었습니다. 하나님보다 더 무겁게 여기는 것이 있다면 그것이 곧 우상입니다. 반면 한나는 눈물로 얻은 아들 사무엘을 하나님께 다시 드림으로 응답보다 하나님을 더 귀하게 여기는 믿음을 보여 주었습니다. 이러한 믿음은 하나님께서 먼저 독생자 예수 그리스도를 우리를 위해 내어주신 십자가의 은혜를 아는 데서 나옵니다.</p><p>하나님은 하나님을 카베드, 곧 무겁게 여기며 존중하는 사람을 귀하게 여기십니다. 그러므로 우리도 예배와 말씀과 기도를 소중히 여기며 하나님의 카보드, 곧 영광의 무게를 아는 성도로 살아가야 합니다. 하나님을 가장 무겁게 여기는 삶이 가정을 살리고, 자녀를 살리고, 교회를 세우는 은혜의 통로가 됩니다.</p>
           </div>
-          <details open>
+          <details id="sermon-questions" data-jump-target open>
             <summary>본문 질문과 적용 질문</summary>
             <ul><li>하나님께서 엘리에게 ‘네 아들들을 나보다 더 중히 여겼다’고 책망하신 이유는 무엇입니까? 엘리의 모습 속에서 하나님보다 더 무겁게 여기는 것이 있을 때, 신앙과 가정에 어떤 문제가 일어나는지 함께 나누어 봅시다.</li><li>한나는 눈물로 얻은 사무엘을 다시 하나님께 드렸습니다. 한나의 이 모습은 ‘하나님을 가장 무겁게 여기는 믿음’을 어떻게 보여 줍니까? 또 이 믿음이 십자가의 은혜와 어떻게 연결되는지 생각해 봅시다.</li><li>내 삶의 저울에서 지금 하나님보다 더 무겁게 자리 잡고 있는 것은 무엇입니까? 가정, 자녀, 물질, 인정, 계획, 염려 가운데 내가 하나님보다 더 붙들고 있는 것이 있다면 무엇인지 정직하게 돌아보고 나누어 봅시다.</li><li>하나님을 가장 무겁게 여기는 삶은 말이 아니라, 예배와 말씀과 기도의 우선순위로 드러납니다. 이번 한 주 동안 내가 하나님을 가장 귀하게 여긴다는 것을 실제로 나타내기 위해 어떤 결단을 할 수 있겠습니까?</li></ul>
           </details>
@@ -2444,7 +2664,7 @@
             <strong>영광의 무게: 하나님을 가장 무겁게 여기는 삶</strong>
             <span class="muted">구역교회 모임 순서와 시간</span>
           </div>
-          <details open>
+          <details class="collapsible-card">
             <summary>환영과 찬양</summary>
             <div class="card-pad district-detail">
               <p><strong>구역원들을 환영</strong><br />서로 인사하며 지난 주 언약 맺기 실천한 내용을 나누기</p>
@@ -2485,14 +2705,14 @@
               </div>
             
           </div>
-          <details>
+          <details class="collapsible-card">
             <summary>기도와 사역</summary>
             <div class="card-pad district-detail">
               <p><strong>회원들 간의 기도와 섬김</strong><br />기도제목 나누기, 교회와 다음세대를 위해, 태신자를 위한 기도</p>
               <p><strong>모든 구역원들의 사역에 참여</strong><br />교회에서 맡은 섬김 나누기</p>
             </div>
           </details>
-          <details open>
+          <details class="collapsible-card">
             <summary>마무리와 암송</summary>
             <p class="card-pad">돌아가며 말씀을 토대로 한 주간 실천하고자 하는 사항들을 함께 나누고 실천을 약속합니다.<br /><br />성경암송: 사무엘상 2:30 - 그러므로 이스라엘의 하나님 나 여호와가 말하노라 내가 전에 네 집과 네 조상의 집이 내 앞에 영원히 행하리라 하였으나 이제 나 여호와가 말하노니 결단코 그렇게 하지 아니하리라 나를 존중히 여기는 자를 내가 존중히 여기고 나를 멸시하는 자를 내가 경멸하리라</p>
           </details>
@@ -2671,20 +2891,20 @@
         </div>
         <div class="grid">
           
-            <article class="card mini" id="guide-1" data-jump-target>
-              <h3>지하철</h3>
-              <p>5호선 광화문역 8번 출구 하차, 서울지방경찰청 방향 도보 10분. 3호선 경복궁역 7번 출구 하차, 서울지방경찰청 방향 도보 10분.</p>
-            </article>
+            <details class="collapsible-card mini" id="guide-1" data-jump-target>
+              <summary>지하철</summary>
+              <p class="card-pad">5호선 광화문역 8번 출구 하차, 서울지방경찰청 방향 도보 10분. 3호선 경복궁역 7번 출구 하차, 서울지방경찰청 방향 도보 10분.</p>
+            </details>
           
-            <article class="card mini" id="guide-2" data-jump-target>
-              <h3>버스</h3>
-              <p>세종문화회관 하차 후 서울지방경찰청 방향 도보 10분. 사직공원 앞 하차 후 교회 방향으로 이동.</p>
-            </article>
+            <details class="collapsible-card mini" id="guide-2" data-jump-target>
+              <summary>버스</summary>
+              <p class="card-pad">세종문화회관 하차 후 서울지방경찰청 방향 도보 10분. 사직공원 앞 하차 후 교회 방향으로 이동.</p>
+            </details>
           
-            <article class="card mini" id="guide-3" data-jump-target>
-              <h3>주차</h3>
-              <p>주차권은 사무실로 문의. 국민카드 지하주차장, 경희궁의아침 3단지 오피스텔, 경희궁의아침 4단지 오피스텔 이용 가능.</p>
-            </article>
+            <details class="collapsible-card mini" id="guide-3" data-jump-target>
+              <summary>주차</summary>
+              <p class="card-pad">주차권은 사무실로 문의. 국민카드 지하주차장, 경희궁의아침 3단지 오피스텔, 경희궁의아침 4단지 오피스텔 이용 가능.</p>
+            </details>
           
         </div>
         <article class="card card-pad contact">
@@ -2702,87 +2922,59 @@
           </div>
         </article>
 
-        <div class="sub-section" id="serve">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">Serve</div>
-            <h2>섬기는 사람들</h2>
-          </div>
-        </div>
-        <div class="grid">
-          
+        <details class="collapsible-card sub-section" id="serve" data-jump-target>
+          <summary>섬기는 사람들</summary>
+          <div class="grid card-pad">
             <article class="card mini">
               <h3>원로목사</h3>
               <p>박희천</p>
-            </article>
-          
-            <article class="card mini">
+            </article><article class="card mini">
               <h3>담임목사</h3>
               <p>박지웅</p>
-            </article>
-          
-            <article class="card mini">
+            </article><article class="card mini">
               <h3>부목사</h3>
               <p>윤주남 김진웅 이정우 연한흠 조계웅 전홍구 오신영 최정현 고민영 김재달</p>
-            </article>
-          
-            <article class="card mini">
+            </article><article class="card mini">
               <h3>협동목사</h3>
               <p>이동화</p>
-            </article>
-          
-            <article class="card mini">
+            </article><article class="card mini">
               <h3>교육전도사</h3>
               <p>김지현 서희지 임예희</p>
-            </article>
-          
-            <article class="card mini">
+            </article><article class="card mini">
               <h3>원로장로</h3>
               <p>이상하 배수봉</p>
-            </article>
-          
-            <article class="card mini">
+            </article><article class="card mini">
               <h3>시무장로</h3>
               <p>박진수 고병식 김홍주 김종민 신성현 이종응</p>
-            </article>
-          
-            <article class="card mini">
+            </article><article class="card mini">
               <h3>휴직장로</h3>
               <p>박무열</p>
-            </article>
-          
-            <article class="card mini">
+            </article><article class="card mini">
               <h3>은퇴장로</h3>
               <p>김봉선 한성희 차승철 김일룡 한수부 유복식 서영석 정영호 홍종일 성덕수 안주태</p>
             </article>
-          
-        </div>
-        </div>
+          </div>
+        </details>
 
-        <div class="sub-section" id="volunteer">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">Volunteer</div>
-            <h2>6월 봉사위원</h2>
-          </div>
-        </div>
-        <article class="list-card">
-          <h3>안내위원</h3>
-          <div class="table-list">
-            <div class="table-item"><strong>1부 2층</strong><div>이창송A 박옥순 황완숙 배윤경</div></div><div class="table-item"><strong>1부 3층</strong><div>문선희 오윤경 이선주 정덕우</div></div><div class="table-item"><strong>2부 2층</strong><div>김완준 이수진D 이경호 윤종헌 노현미 이정희D</div></div><div class="table-item"><strong>2부 3층</strong><div>유승화 장성희 반소영 박윤제</div></div><div class="table-item"><strong>3부 2·3층</strong><div>대학, 청년부</div></div>
-          </div>
-        </article>
-        <article class="list-card">
-          <h3>식당 봉사 교구</h3>
-          <div class="table-list">
-            <div class="table-item"><strong>1주</strong><div>40세대(소그룹3) 50세대(부부12) 60세대(부부4) 시니어(여성10)</div></div><div class="table-item"><strong>2주</strong><div>40세대(소그룹4) 50세대(여성1) 60세대(부부5) 시니어(부부1)</div></div><div class="table-item"><strong>3주</strong><div>신혼(부부1) 40세대(소그룹5) 50세대(여성2) 60세대(부부6) 시니어(부부2)</div></div><div class="table-item"><strong>4주</strong><div>신혼(부부2) 40세대(소그룹6) 50세대(여성3) 시니어(부부3)</div></div>
-          </div>
-        </article>
-        <article class="list-card">
-          <h3>주차봉사</h3>
-          <p>김현문 곽대성 권형필 김일문 노영식 심규호 오선철 이선국 임덕우 장형진 조재민 조한진 한종서</p>
-        </article>
-        </div>
+        <details class="collapsible-card sub-section" id="volunteer" data-jump-target>
+          <summary>6월 봉사위원</summary>
+          <article class="list-card">
+            <h3>안내위원</h3>
+            <div class="table-list">
+              <div class="table-item"><strong>1부 2층</strong><div>이창송A 박옥순 황완숙 배윤경</div></div><div class="table-item"><strong>1부 3층</strong><div>문선희 오윤경 이선주 정덕우</div></div><div class="table-item"><strong>2부 2층</strong><div>김완준 이수진D 이경호 윤종헌 노현미 이정희D</div></div><div class="table-item"><strong>2부 3층</strong><div>유승화 장성희 반소영 박윤제</div></div><div class="table-item"><strong>3부 2·3층</strong><div>대학, 청년부</div></div>
+            </div>
+          </article>
+          <article class="list-card">
+            <h3>식당 봉사 교구</h3>
+            <div class="table-list">
+              <div class="table-item"><strong>1주</strong><div>40세대(소그룹3) 50세대(부부12) 60세대(부부4) 시니어(여성10)</div></div><div class="table-item"><strong>2주</strong><div>40세대(소그룹4) 50세대(여성1) 60세대(부부5) 시니어(부부1)</div></div><div class="table-item"><strong>3주</strong><div>신혼(부부1) 40세대(소그룹5) 50세대(여성2) 60세대(부부6) 시니어(부부2)</div></div><div class="table-item"><strong>4주</strong><div>신혼(부부2) 40세대(소그룹6) 50세대(여성3) 시니어(부부3)</div></div>
+            </div>
+          </article>
+          <article class="list-card">
+            <h3>주차봉사</h3>
+            <p>김현문 곽대성 권형필 김일문 노영식 심규호 오선철 이선국 임덕우 장형진 조재민 조한진 한종서</p>
+          </article>
+        </details>
       </section>
     </main>
 
@@ -2929,7 +3121,7 @@
     const newsVisibleCount = document.querySelector("[data-news-visible-count]");
     const worshipPartButtons = [...document.querySelectorAll("[data-worship-part]")];
     const worshipRows = [...document.querySelectorAll("[data-worship-row]")];
-    const searchItems = [{"tab":"worship","target":"worship-1","type":"예배","title":"사회","body":"김재달 목사 김재달 목사 "},{"tab":"worship","target":"worship-2","type":"예배","title":"입례송 / 신앙고백","body":"고개 들어 / 사도신경 고개 들어 / 사도신경 "},{"tab":"worship","target":"worship-3","type":"예배","title":"찬양","body":"경배와 찬양 경배와 찬양 경배와 찬양"},{"tab":"worship","target":"worship-4","type":"예배","title":"대표기도","body":"신성현 장로 김현문 안수집사 "},{"tab":"worship","target":"worship-5","type":"예배","title":"찬양","body":"임마누엘 찬양대\n주를 앙모하는 자 글로리아 찬양대\n임재 "},{"tab":"worship","target":"worship-6","type":"예배","title":"성경본문","body":"사무엘상 2:29-30 사무엘상 2:29-30 요한복음 4:21-26"},{"tab":"worship","target":"worship-7","type":"예배","title":"설교","body":"영광의 무게: 하나님을 가장 무겁게 여기는 삶\n윤주남 목사 영광의 무게: 하나님을 가장 무겁게 여기는 삶\n윤주남 목사 참예배\n이정우 목사"},{"tab":"worship","target":"worship-8","type":"예배","title":"찬송","body":"찬송가 94장, 주 예수보다 더 귀한 것은 없네\n복음성가, 내 눈 주의 영광을 보네 찬송가 94장, 주 예수보다 더 귀한 것은 없네\n복음성가, 내 눈 주의 영광을 보네 주님을 예배하는 것"},{"tab":"worship","target":"worship-9","type":"예배","title":"축도","body":"하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서! 하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서! 하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서!"},{"tab":"worship","target":"weekly-1","type":"주중예배","title":"새벽예배","body":"월~금 오전 5:30 월 윤주남 목사 · 화 최정현 목사 · 수 김재달 목사 · 목 이정우 목사 · 금 고민영 목사"},{"tab":"worship","target":"weekly-2","type":"주중예배","title":"수요 오전예배","body":"오전 10:30 조계웅 목사"},{"tab":"worship","target":"weekly-3","type":"주중예배","title":"수요 저녁예배","body":"오후 7:00 주를 기쁘시게 하기 위해 · 에베소서 5:8-14 · 고민영 목사"},{"tab":"worship","target":"weekly-4","type":"주중예배","title":"Center Worship","body":"오후 8:00 이정우 목사"},{"tab":"worship","target":"weekly-5","type":"주중예배","title":"금요부흥집회","body":"오후 8:00 윤주남 목사"},{"tab":"news","target":"news-1","type":"오늘","title":"2026년도 중직자(장로) 선거 공동의회(3차 투표) 결과","body":"지난 주일, 본 교회 직분관리규정(제4조 선출직)에 의거해 실시한 중직자(장로) 선거 공동의회(3차 투표) 결과를 다음과 같이 공지합니다. 총 투표수: 1,060표(유효투표수 1,035표, 무효(기권)표 25표) 확정 당선표: 708표 확정 당선자: 곽성림, 윤청호, 이기동, 이영호, 조한진(이상 안수집사) 피택 중직자들은 일정 기간의 훈련과 준비 과정을 거친 후 임직하게 되며, 교회의 덕과 질서를 위해 임직 전까지는 현재의 직분명을 사용합니다."},{"tab":"news","target":"news-2","type":"일정","title":"하계 특별새벽예배 안내","body":"2026년 하계 특별새벽예배는 대학·청년부 주관으로 드려집니다. 새벽이슬 같은 청년들이 말씀으로 깨어나고 받은 사명에 다시 뜨거워질 수 있도록 기도와 참여를 부탁드립니다. 주제: 사명 - 처음 그 소원, 끝까지 그 길(빌 2:13) 일시/장소: 6월 29일(월)~7월 4일(토) 오전 5시 20분, 본당 대상: 모든 성도 평일에는 예배 후 간식이 제공되며, 토요일에는 자원하신 성도님들께서 식사를 준비해 주십니다."},{"tab":"news","target":"news-3","type":"일정","title":"새가족 환영회","body":"상반기에 등록한 새가족을 위한 환영회가 열립니다. 새로 등록하신 성도님들의 많은 참여를 바랍니다. 일시/장소: 7월 5일(주일) 오후 12시 30분, 샬롬홀(별관 2층) 대상자: 작년 12월부터 현재까지 등록하신 성도"},{"tab":"news","target":"news-4","type":"일정","title":"목양국 사역 일정","body":"60세대 공동체 수련회: 6월 27일(토)~6월 28일(주일), 김회수양관 전체 국장·마을장·목자 중간모임: 7월 11일(토) 오전 9시 30분~12시, 본당 구역 종강모임: 7월 12일(주일)~7월 18일(토)"},{"tab":"news","target":"news-5","type":"신청","title":"세대별 공동체·구역 모임 사연 접수","body":"세대별 공동체 상반기 종강 모임을 맞아 7월 5일(주일)까지 사연을 접수합니다. 위 내용 중 한 가지 이상을 엽서에 적어 사연함에 넣어 주세요. 참여해 주신 모든 분께 쉼만한물가 아메리카노 쿠폰 2매를 드립니다. 상반기 세대별 공동체·구역 모임을 마친 소감 구역 모임을 통해 받은 은혜 구역 소개 및 자랑(리더, 목자, 구역원, 구역, 기타 등) 사연함과 엽서는 2층 본당 앞 주보대에 비치되어 있습니다."},{"tab":"news","target":"news-6","type":"일정","title":"2026년도 상반기 정기 회계감사 실시","body":"기간: 6월 14일(주일)~6월 28일(주일) 내용: 예산 집행 및 회계 처리 실태 기타: 각 부서 및 전체 감사는 하반기 실시 예정입니다."},{"tab":"news","target":"news-7","type":"신청","title":"2026년 하반기 주일 지정주차 신청","body":"36개월 이하 유아 동반 다자녀 가정과 장애인 및 노약자들을 위한 2026년 하반기 본관 지정주차 신청을 받습니다. 우선순위에 따라 배정될 예정입니다. 신청 기간: 오늘까지 기존 주일 지정주차카드를 가지고 계신 분들도 다시 신청하고 배정받아야 합니다. 주일에는 지정주차카드가 있는 차량에 한해 본관/뉴문 주차장 이용이 가능합니다."},{"tab":"news","target":"news-8","type":"동정","title":"전도회","body":"안나여전도회(66년생~56년생): 오늘 2부 예배 후 본관 5층 찬양대실"},{"tab":"news","target":"news-9","type":"동정","title":"결혼","body":"강민욱 형제 · 윤희수 자매(청년부) 6월 27일(토) 오전 11시 20분, 더파티움 여의도 조제영 형제(청년부) · 지혜린 자매(청년부) 6월 27일(토) 오후 3시 30분, 지타워컨벤션 임재성 형제 · 홍서경 자매(한소환 성도 자녀) 6월 27일(토) 오후 5시, 노블발렌티 삼성 김진훈A 형제(김명기 집사 · 임희선 권사) · 김주희 자매 7월 4일(토) 오후 6시 30분, 아펠가모 광화문 LL층(지하 2층)"},{"tab":"news","target":"news-10","type":"동정","title":"새가족 등록","body":"따뜻한 환영과 교제 가운데 잘 정착하도록 성도님들의 관심과 기도를 부탁드립니다. 23) 이홍만 성도 24) 이다연 성도"},{"tab":"sermon","target":"sermon-main","type":"말씀","title":"영광의 무게: 하나님을 가장 무겁게 여기는 삶","body":"사무엘상 2:29-30 윤주남 목사 하나님은 ‘나를 존중히 여기는 자를 내가 존중히 여기고’라고 말씀하십니다. 여기서 ‘존중히 여기다’는 히브리어 카베드로 ‘무겁게 여기다, 중하게 여기다’라는 뜻입니다. 또 ‘영광’이라는 말, 카보드도 같은 뿌리에서 나온 단어입니다. 그러므로 성경이 말하는 ‘영광’은 단지 빛나고 화려한 모습이 아니라 ‘하나님의 존귀하심과 거룩한 무게’를 뜻합니다. 하나님을 존중한다는 것은 단순히 믿는다고 말하는 것이 아니라, 내 삶의 저울에서 하나님을 가장 무거운 분으로 모시는 것입니다. 엘리의 문제는 하나님을 모른 것이 아니라, 하나님보다 아들들을 더 중히 여겼다는 데 있었습니다. 하나님보다 더 무겁게 여기는 것이 있다면 그것이 곧 우상입니다. 반면 한나는 눈물로 얻은 아들 사무엘을 하나님께 다시 드림으로 응답보다 하나님을 더 귀하게 여기는 믿음을 보여 주었습니다. 이러한 믿음은 하나님께서 먼저 독생자 예수 그리스도를 우리를 위해 내어주신 십자가의 은혜를 아는 데서 나옵니다. 하나님은 하나님을 카베드, 곧 무겁게 여기며 존중하는 사람을 귀하게 여기십니다. 그러므로 우리도 예배와 말씀과 기도를 소중히 여기며 하나님의 카보드, 곧 영광의 무게를 아는 성도로 살아가야 합니다. 하나님을 가장 무겁게 여기는 삶이 가정을 살리고, 자녀를 살리고, 교회를 세우는 은혜의 통로가 됩니다. 하나님께서 엘리에게 ‘네 아들들을 나보다 더 중히 여겼다’고 책망하신 이유는 무엇입니까? 엘리의 모습 속에서 하나님보다 더 무겁게 여기는 것이 있을 때, 신앙과 가정에 어떤 문제가 일어나는지 함께 나누어 봅시다. 한나는 눈물로 얻은 사무엘을 다시 하나님께 드렸습니다. 한나의 이 모습은 ‘하나님을 가장 무겁게 여기는 믿음’을 어떻게 보여 줍니까? 또 이 믿음이 십자가의 은혜와 어떻게 연결되는지 생각해 봅시다. 내 삶의 저울에서 지금 하나님보다 더 무겁게 자리 잡고 있는 것은 무엇입니까? 가정, 자녀, 물질, 인정, 계획, 염려 가운데 내가 하나님보다 더 붙들고 있는 것이 있다면 무엇인지 정직하게 돌아보고 나누어 봅시다. 하나님을 가장 무겁게 여기는 삶은 말이 아니라, 예배와 말씀과 기도의 우선순위로 드러납니다. 이번 한 주 동안 내가 하나님을 가장 귀하게 여긴다는 것을 실제로 나타내기 위해 어떤 결단을 할 수 있겠습니까?"},{"tab":"meeting","target":"meeting-1","type":"모임","title":"유아부(2~4세)","body":"오전 11:00 본관 4층/유아부실"},{"tab":"meeting","target":"meeting-2","type":"모임","title":"유치부(5~7세)","body":"오전 11:00 본관 5층/유치부실"},{"tab":"meeting","target":"meeting-3","type":"모임","title":"유년부(1~3학년)","body":"오전 11:00 교육관 2층/유년부실"},{"tab":"meeting","target":"meeting-4","type":"모임","title":"초등부(4~6학년)","body":"1부 오전 9:00 / 2부 오전 11:00 본관 4층/비전홀"},{"tab":"meeting","target":"meeting-5","type":"모임","title":"어와나(10~13세)","body":"오후 12:50 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-6","type":"모임","title":"중등부","body":"오전 9:00 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-7","type":"모임","title":"고등부","body":"오전 9:00 교육관 4층/고등부실"},{"tab":"meeting","target":"meeting-8","type":"모임","title":"대학부","body":"오후 2:50 교육관 3층/대학부실"},{"tab":"meeting","target":"meeting-9","type":"모임","title":"청년부","body":"오후 2:50 본관 2층/본당"},{"tab":"meeting","target":"meeting-10","type":"모임","title":"신혼교구","body":"오후 1:30 비전센터"},{"tab":"meeting","target":"meeting-11","type":"모임","title":"30세대 공동체","body":"오후 1:30 본관 4층/유아부실"},{"tab":"meeting","target":"meeting-12","type":"모임","title":"40세대 공동체","body":"오후 1:30 본관 5층/유치부실"},{"tab":"meeting","target":"meeting-13","type":"모임","title":"50세대 공동체","body":"오후 1:00 (첫째 주) 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-14","type":"모임","title":"60세대 공동체","body":"오후 1:00 (셋째 주) 교육관 3층/중등부실"},{"tab":"meeting","target":"meeting-15","type":"모임","title":"시니어 공동체","body":"오전 10:30 (수) 본관 2층/본당"},{"tab":"guide","target":"guide-1","type":"안내","title":"지하철","body":"5호선 광화문역 8번 출구 하차, 서울지방경찰청 방향 도보 10분. 3호선 경복궁역 7번 출구 하차, 서울지방경찰청 방향 도보 10분."},{"tab":"guide","target":"guide-2","type":"안내","title":"버스","body":"세종문화회관 하차 후 서울지방경찰청 방향 도보 10분. 사직공원 앞 하차 후 교회 방향으로 이동."},{"tab":"guide","target":"guide-3","type":"안내","title":"주차","body":"주차권은 사무실로 문의. 국민카드 지하주차장, 경희궁의아침 3단지 오피스텔, 경희궁의아침 4단지 오피스텔 이용 가능."}];
+    const searchItems = [{"tab":"worship","target":"worship-1","type":"예배","location":"주일예배","title":"사회","body":"김재달 목사 김재달 목사 ","keywords":"예배 순서 주일예배","rank":1},{"tab":"worship","target":"worship-2","type":"예배","location":"주일예배","title":"입례송 / 신앙고백","body":"고개 들어 / 사도신경 고개 들어 / 사도신경 ","keywords":"예배 순서 주일예배","rank":1},{"tab":"worship","target":"worship-3","type":"예배","location":"주일예배","title":"찬양","body":"경배와 찬양 경배와 찬양 경배와 찬양","keywords":"예배 순서 주일예배","rank":1},{"tab":"worship","target":"worship-4","type":"예배","location":"주일예배","title":"대표기도","body":"신성현 장로 김현문 안수집사 ","keywords":"예배 순서 주일예배","rank":1},{"tab":"worship","target":"worship-5","type":"예배","location":"주일예배","title":"찬양","body":"임마누엘 찬양대\n주를 앙모하는 자 글로리아 찬양대\n임재 ","keywords":"예배 순서 주일예배","rank":1},{"tab":"worship","target":"worship-6","type":"예배","location":"주일예배","title":"성경본문","body":"사무엘상 2:29-30 사무엘상 2:29-30 요한복음 4:21-26","keywords":"예배 순서 주일예배","rank":3},{"tab":"worship","target":"worship-7","type":"예배","location":"주일예배","title":"설교","body":"영광의 무게: 하나님을 가장 무겁게 여기는 삶\n윤주남 목사 영광의 무게: 하나님을 가장 무겁게 여기는 삶\n윤주남 목사 참예배\n이정우 목사","keywords":"예배 순서 주일예배","rank":3},{"tab":"worship","target":"worship-8","type":"예배","location":"주일예배","title":"찬송","body":"찬송가 94장, 주 예수보다 더 귀한 것은 없네\n복음성가, 내 눈 주의 영광을 보네 찬송가 94장, 주 예수보다 더 귀한 것은 없네\n복음성가, 내 눈 주의 영광을 보네 주님을 예배하는 것","keywords":"예배 순서 주일예배","rank":1},{"tab":"worship","target":"worship-9","type":"예배","location":"주일예배","title":"축도","body":"하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서! 하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서! 하나님의 나라 확장을 위한 우리 교회 공동체가 되게 하시고 성령이 충만하여 세상을 향하여 섬기는 삶 되게 하소서!","keywords":"예배 순서 주일예배","rank":1},{"tab":"worship","target":"weekly-1","type":"주중예배","location":"예배","title":"새벽예배","body":"월~금 오전 5:30 월 윤주남 목사 · 화 최정현 목사 · 수 김재달 목사 · 목 이정우 목사 · 금 고민영 목사","keywords":"예배 주중 수요 새벽 금요","rank":1},{"tab":"worship","target":"weekly-2","type":"주중예배","location":"예배","title":"수요 오전예배","body":"오전 10:30 조계웅 목사","keywords":"예배 주중 수요 새벽 금요","rank":1},{"tab":"worship","target":"weekly-3","type":"주중예배","location":"예배","title":"수요 저녁예배","body":"오후 7:00 주를 기쁘시게 하기 위해 · 에베소서 5:8-14 · 고민영 목사","keywords":"예배 주중 수요 새벽 금요","rank":1},{"tab":"worship","target":"weekly-4","type":"주중예배","location":"예배","title":"Center Worship","body":"오후 8:00 이정우 목사","keywords":"예배 주중 수요 새벽 금요","rank":1},{"tab":"worship","target":"weekly-5","type":"주중예배","location":"예배","title":"금요부흥집회","body":"오후 8:00 윤주남 목사","keywords":"예배 주중 수요 새벽 금요","rank":1},{"tab":"news","target":"news-1","type":"오늘","location":"교회소식","title":"2026년도 중직자(장로) 선거 공동의회(3차 투표) 결과","body":"지난 주일, 본 교회 직분관리규정(제4조 선출직)에 의거해 실시한 중직자(장로) 선거 공동의회(3차 투표) 결과를 다음과 같이 공지합니다. 총 투표수: 1,060표(유효투표수 1,035표, 무효(기권)표 25표) 확정 당선표: 708표 확정 당선자: 곽성림, 윤청호, 이기동, 이영호, 조한진(이상 안수집사) 피택 중직자들은 일정 기간의 훈련과 준비 과정을 거친 후 임직하게 되며, 교회의 덕과 질서를 위해 임직 전까지는 현재의 직분명을 사용합니다.","keywords":"결과 today 오늘","rank":3},{"tab":"news","target":"news-2","type":"일정","location":"교회소식","title":"하계 특별새벽예배 안내","body":"2026년 하계 특별새벽예배는 대학·청년부 주관으로 드려집니다. 새벽이슬 같은 청년들이 말씀으로 깨어나고 받은 사명에 다시 뜨거워질 수 있도록 기도와 참여를 부탁드립니다. 주제: 사명 - 처음 그 소원, 끝까지 그 길(빌 2:13) 일시/장소: 6월 29일(월)~7월 4일(토) 오전 5시 20분, 본당 대상: 모든 성도 평일에는 예배 후 간식이 제공되며, 토요일에는 자원하신 성도님들께서 식사를 준비해 주십니다. 6월 29일(월) 박지웅 담임목사 6월 30일(화)~7월 2일(목) 문현진 목사 · 강원도 영월 옥광교회 담임 7월 3일(금) 이정우 목사 7월 4일(토) 연한흠 목사","keywords":"일정 schedule 일정","rank":1},{"tab":"news","target":"news-3","type":"일정","location":"교회소식","title":"새가족 환영회","body":"상반기에 등록한 새가족을 위한 환영회가 열립니다. 새로 등록하신 성도님들의 많은 참여를 바랍니다. 일시/장소: 7월 5일(주일) 오후 12시 30분, 샬롬홀(별관 2층) 대상자: 작년 12월부터 현재까지 등록하신 성도","keywords":"일정 schedule 일정","rank":1},{"tab":"news","target":"news-4","type":"일정","location":"교회소식","title":"목양국 사역 일정","body":"60세대 공동체 수련회: 6월 27일(토)~6월 28일(주일), 김회수양관 전체 국장·마을장·목자 중간모임: 7월 11일(토) 오전 9시 30분~12시, 본당 구역 종강모임: 7월 12일(주일)~7월 18일(토)","keywords":"일정 schedule 일정","rank":1},{"tab":"news","target":"news-5","type":"신청","location":"교회소식","title":"세대별 공동체·구역 모임 사연 접수","body":"세대별 공동체 상반기 종강 모임을 맞아 7월 5일(주일)까지 사연을 접수합니다. 위 내용 중 한 가지 이상을 엽서에 적어 사연함에 넣어 주세요. 참여해 주신 모든 분께 쉼만한물가 아메리카노 쿠폰 2매를 드립니다. 상반기 세대별 공동체·구역 모임을 마친 소감 구역 모임을 통해 받은 은혜 구역 소개 및 자랑(리더, 목자, 구역원, 구역, 기타 등) 사연함과 엽서는 2층 본당 앞 주보대에 비치되어 있습니다.","keywords":"접수 apply 신청","rank":1},{"tab":"news","target":"news-6","type":"일정","location":"교회소식","title":"2026년도 상반기 정기 회계감사 실시","body":"기간: 6월 14일(주일)~6월 28일(주일) 내용: 예산 집행 및 회계 처리 실태 기타: 각 부서 및 전체 감사는 하반기 실시 예정입니다.","keywords":"확인 schedule 일정","rank":1},{"tab":"news","target":"news-7","type":"신청","location":"교회소식","title":"2026년 하반기 주일 지정주차 신청","body":"36개월 이하 유아 동반 다자녀 가정과 장애인 및 노약자들을 위한 2026년 하반기 본관 지정주차 신청을 받습니다. 우선순위에 따라 배정될 예정입니다. 신청 기간: 오늘까지 기존 주일 지정주차카드를 가지고 계신 분들도 다시 신청하고 배정받아야 합니다. 주일에는 지정주차카드가 있는 차량에 한해 본관/뉴문 주차장 이용이 가능합니다.","keywords":"신청 apply 신청","rank":1},{"tab":"news","target":"news-8","type":"동정","location":"교회소식","title":"전도회","body":"안나여전도회(66년생~56년생): 오늘 2부 예배 후 본관 5층 찬양대실","keywords":"모임 care 동정","rank":1},{"tab":"news","target":"news-9","type":"동정","location":"교회소식","title":"결혼","body":"강민욱 형제 · 윤희수 자매(청년부) 6월 27일(토) 오전 11시 20분, 더파티움 여의도 조제영 형제(청년부) · 지혜린 자매(청년부) 6월 27일(토) 오후 3시 30분, 지타워컨벤션 임재성 형제 · 홍서경 자매(한소환 성도 자녀) 6월 27일(토) 오후 5시, 노블발렌티 삼성 김진훈A 형제(김명기 집사 · 임희선 권사) · 김주희 자매 7월 4일(토) 오후 6시 30분, 아펠가모 광화문 LL층(지하 2층)","keywords":"일정 care 동정","rank":1},{"tab":"news","target":"news-10","type":"동정","location":"교회소식","title":"새가족 등록","body":"따뜻한 환영과 교제 가운데 잘 정착하도록 성도님들의 관심과 기도를 부탁드립니다. 23) 이홍만 성도 24) 이다연 성도","keywords":"환영 care 동정","rank":1},{"tab":"sermon","target":"sermon-main","type":"말씀","location":"주일설교요약","title":"영광의 무게: 하나님을 가장 무겁게 여기는 삶","body":"사무엘상 2:29-30 윤주남 목사 하나님은 ‘나를 존중히 여기는 자를 내가 존중히 여기고’라고 말씀하십니다. 여기서 ‘존중히 여기다’는 히브리어 카베드로 ‘무겁게 여기다, 중하게 여기다’라는 뜻입니다. 또 ‘영광’이라는 말, 카보드도 같은 뿌리에서 나온 단어입니다. 그러므로 성경이 말하는 ‘영광’은 단지 빛나고 화려한 모습이 아니라 ‘하나님의 존귀하심과 거룩한 무게’를 뜻합니다. 하나님을 존중한다는 것은 단순히 믿는다고 말하는 것이 아니라, 내 삶의 저울에서 하나님을 가장 무거운 분으로 모시는 것입니다. 엘리의 문제는 하나님을 모른 것이 아니라, 하나님보다 아들들을 더 중히 여겼다는 데 있었습니다. 하나님보다 더 무겁게 여기는 것이 있다면 그것이 곧 우상입니다. 반면 한나는 눈물로 얻은 아들 사무엘을 하나님께 다시 드림으로 응답보다 하나님을 더 귀하게 여기는 믿음을 보여 주었습니다. 이러한 믿음은 하나님께서 먼저 독생자 예수 그리스도를 우리를 위해 내어주신 십자가의 은혜를 아는 데서 나옵니다. 하나님은 하나님을 카베드, 곧 무겁게 여기며 존중하는 사람을 귀하게 여기십니다. 그러므로 우리도 예배와 말씀과 기도를 소중히 여기며 하나님의 카보드, 곧 영광의 무게를 아는 성도로 살아가야 합니다. 하나님을 가장 무겁게 여기는 삶이 가정을 살리고, 자녀를 살리고, 교회를 세우는 은혜의 통로가 됩니다. 하나님께서 엘리에게 ‘네 아들들을 나보다 더 중히 여겼다’고 책망하신 이유는 무엇입니까? 엘리의 모습 속에서 하나님보다 더 무겁게 여기는 것이 있을 때, 신앙과 가정에 어떤 문제가 일어나는지 함께 나누어 봅시다. 한나는 눈물로 얻은 사무엘을 다시 하나님께 드렸습니다. 한나의 이 모습은 ‘하나님을 가장 무겁게 여기는 믿음’을 어떻게 보여 줍니까? 또 이 믿음이 십자가의 은혜와 어떻게 연결되는지 생각해 봅시다. 내 삶의 저울에서 지금 하나님보다 더 무겁게 자리 잡고 있는 것은 무엇입니까? 가정, 자녀, 물질, 인정, 계획, 염려 가운데 내가 하나님보다 더 붙들고 있는 것이 있다면 무엇인지 정직하게 돌아보고 나누어 봅시다. 하나님을 가장 무겁게 여기는 삶은 말이 아니라, 예배와 말씀과 기도의 우선순위로 드러납니다. 이번 한 주 동안 내가 하나님을 가장 귀하게 여긴다는 것을 실제로 나타내기 위해 어떤 결단을 할 수 있겠습니까?","keywords":"설교 말씀 요약 본문 적용 질문 구역교회","rank":5},{"tab":"sermon","target":"sermon-questions","type":"적용질문","location":"주일설교요약","title":"본문 질문과 적용 질문","body":"하나님께서 엘리에게 ‘네 아들들을 나보다 더 중히 여겼다’고 책망하신 이유는 무엇입니까? 엘리의 모습 속에서 하나님보다 더 무겁게 여기는 것이 있을 때, 신앙과 가정에 어떤 문제가 일어나는지 함께 나누어 봅시다. 한나는 눈물로 얻은 사무엘을 다시 하나님께 드렸습니다. 한나의 이 모습은 ‘하나님을 가장 무겁게 여기는 믿음’을 어떻게 보여 줍니까? 또 이 믿음이 십자가의 은혜와 어떻게 연결되는지 생각해 봅시다. 내 삶의 저울에서 지금 하나님보다 더 무겁게 자리 잡고 있는 것은 무엇입니까? 가정, 자녀, 물질, 인정, 계획, 염려 가운데 내가 하나님보다 더 붙들고 있는 것이 있다면 무엇인지 정직하게 돌아보고 나누어 봅시다. 하나님을 가장 무겁게 여기는 삶은 말이 아니라, 예배와 말씀과 기도의 우선순위로 드러납니다. 이번 한 주 동안 내가 하나님을 가장 귀하게 여긴다는 것을 실제로 나타내기 위해 어떤 결단을 할 수 있겠습니까?","keywords":"적용 질문 나눔 묵상 구역교회","rank":5},{"tab":"sermon","target":"district","type":"구역교회","location":"말씀","title":"구역교회 모임 순서와 시간","body":"영광의 무게: 하나님을 가장 무겁게 여기는 삶 서로 인사하며 지난 주 언약 맺기 실천한 내용을 나누기 요즘 내 일상에서 가장 마음이 많이 가는 것은 무엇인지를 나눠봅시다. 찬송가 94장, 주 예수보다 더 귀한 것은 없네 복음성가, 내 눈 주의 영광을 보네 기도제목 나누기, 교회와 다음세대를 위해, 태신자를 위한 기도 교회에서 맡은 섬김 나누기 돌아가며 말씀을 토대로 한 주간 실천하고자 하는 사항들을 함께 나누고 실천을 약속합니다. 성경암송: 사무엘상 2:30 - 그러므로 이스라엘의 하나님 나 여호와가 말하노라 내가 전에 네 집과 네 조상의 집이 내 앞에 영원히 행하리라 하였으나 이제 나 여호와가 말하노니 결단코 그렇게 하지 아니하리라 나를 존중히 여기는 자를 내가 존중히 여기고 나를 멸시하는 자를 내가 경멸하리라","keywords":"구역 교회 구역교회 모임 순서 찬양 기도 사역 암송","rank":4},{"tab":"meeting","target":"meeting-1","type":"모임","location":"예배 및 모임 안내","title":"유아부(2~4세)","body":"오전 11:00 본관 4층/유아부실","keywords":"모임 부서 공동체 예배","rank":1},{"tab":"meeting","target":"meeting-2","type":"모임","location":"예배 및 모임 안내","title":"유치부(5~7세)","body":"오전 11:00 본관 5층/유치부실","keywords":"모임 부서 공동체 예배","rank":1},{"tab":"meeting","target":"meeting-3","type":"모임","location":"예배 및 모임 안내","title":"유년부(1~3학년)","body":"오전 11:00 교육관 2층/유년부실","keywords":"모임 부서 공동체 예배","rank":1},{"tab":"meeting","target":"meeting-4","type":"모임","location":"예배 및 모임 안내","title":"초등부(4~6학년)","body":"1부 오전 9:00 / 2부 오전 11:00 본관 4층/비전홀","keywords":"모임 부서 공동체 예배","rank":1},{"tab":"meeting","target":"meeting-5","type":"모임","location":"예배 및 모임 안내","title":"어와나(10~13세)","body":"오후 12:50 교육관 3층/중등부실","keywords":"모임 부서 공동체 예배","rank":1},{"tab":"meeting","target":"meeting-6","type":"모임","location":"예배 및 모임 안내","title":"중등부","body":"오전 9:00 교육관 3층/중등부실","keywords":"모임 부서 공동체 예배","rank":1},{"tab":"meeting","target":"meeting-7","type":"모임","location":"예배 및 모임 안내","title":"고등부","body":"오전 9:00 교육관 4층/고등부실","keywords":"모임 부서 공동체 예배","rank":1},{"tab":"meeting","target":"meeting-8","type":"모임","location":"예배 및 모임 안내","title":"대학부","body":"오후 2:50 교육관 3층/대학부실","keywords":"모임 부서 공동체 예배","rank":1},{"tab":"meeting","target":"meeting-9","type":"모임","location":"예배 및 모임 안내","title":"청년부","body":"오후 2:50 본관 2층/본당","keywords":"모임 부서 공동체 예배","rank":1},{"tab":"meeting","target":"meeting-10","type":"모임","location":"예배 및 모임 안내","title":"신혼교구","body":"오후 1:30 비전센터","keywords":"모임 부서 공동체 예배","rank":1},{"tab":"meeting","target":"meeting-11","type":"모임","location":"예배 및 모임 안내","title":"30세대 공동체","body":"오후 1:30 본관 4층/유아부실","keywords":"모임 부서 공동체 예배","rank":1},{"tab":"meeting","target":"meeting-12","type":"모임","location":"예배 및 모임 안내","title":"40세대 공동체","body":"오후 1:30 본관 5층/유치부실","keywords":"모임 부서 공동체 예배","rank":1},{"tab":"meeting","target":"meeting-13","type":"모임","location":"예배 및 모임 안내","title":"50세대 공동체","body":"오후 1:00 (첫째 주) 교육관 3층/중등부실","keywords":"모임 부서 공동체 예배","rank":1},{"tab":"meeting","target":"meeting-14","type":"모임","location":"예배 및 모임 안내","title":"60세대 공동체","body":"오후 1:00 (셋째 주) 교육관 3층/중등부실","keywords":"모임 부서 공동체 예배","rank":1},{"tab":"meeting","target":"meeting-15","type":"모임","location":"예배 및 모임 안내","title":"시니어 공동체","body":"오전 10:30 (수) 본관 2층/본당","keywords":"모임 부서 공동체 예배","rank":1},{"tab":"guide","target":"guide-1","type":"안내","location":"오시는 길","title":"지하철","body":"5호선 광화문역 8번 출구 하차, 서울지방경찰청 방향 도보 10분. 3호선 경복궁역 7번 출구 하차, 서울지방경찰청 방향 도보 10분.","keywords":"길 위치 교통 주차 지하철 버스 지도","rank":2},{"tab":"guide","target":"guide-2","type":"안내","location":"오시는 길","title":"버스","body":"세종문화회관 하차 후 서울지방경찰청 방향 도보 10분. 사직공원 앞 하차 후 교회 방향으로 이동.","keywords":"길 위치 교통 주차 지하철 버스 지도","rank":2},{"tab":"guide","target":"guide-3","type":"안내","location":"오시는 길","title":"주차","body":"주차권은 사무실로 문의. 국민카드 지하주차장, 경희궁의아침 3단지 오피스텔, 경희궁의아침 4단지 오피스텔 이용 가능.","keywords":"길 위치 교통 주차 지하철 버스 지도","rank":4},{"tab":"guide","target":"serve","type":"섬기는 사람들","location":"안내","title":"원로목사","body":"박희천","keywords":"섬기는 사람들 교역자 장로 목사","rank":1},{"tab":"guide","target":"serve","type":"섬기는 사람들","location":"안내","title":"담임목사","body":"박지웅","keywords":"섬기는 사람들 교역자 장로 목사","rank":1},{"tab":"guide","target":"serve","type":"섬기는 사람들","location":"안내","title":"부목사","body":"윤주남 김진웅 이정우 연한흠 조계웅 전홍구 오신영 최정현 고민영 김재달","keywords":"섬기는 사람들 교역자 장로 목사","rank":1},{"tab":"guide","target":"serve","type":"섬기는 사람들","location":"안내","title":"협동목사","body":"이동화","keywords":"섬기는 사람들 교역자 장로 목사","rank":1},{"tab":"guide","target":"serve","type":"섬기는 사람들","location":"안내","title":"교육전도사","body":"김지현 서희지 임예희","keywords":"섬기는 사람들 교역자 장로 목사","rank":1},{"tab":"guide","target":"serve","type":"섬기는 사람들","location":"안내","title":"원로장로","body":"이상하 배수봉","keywords":"섬기는 사람들 교역자 장로 목사","rank":1},{"tab":"guide","target":"serve","type":"섬기는 사람들","location":"안내","title":"시무장로","body":"박진수 고병식 김홍주 김종민 신성현 이종응","keywords":"섬기는 사람들 교역자 장로 목사","rank":1},{"tab":"guide","target":"serve","type":"섬기는 사람들","location":"안내","title":"휴직장로","body":"박무열","keywords":"섬기는 사람들 교역자 장로 목사","rank":1},{"tab":"guide","target":"serve","type":"섬기는 사람들","location":"안내","title":"은퇴장로","body":"김봉선 한성희 차승철 김일룡 한수부 유복식 서영석 정영호 홍종일 성덕수 안주태","keywords":"섬기는 사람들 교역자 장로 목사","rank":1},{"tab":"guide","target":"volunteer","type":"봉사위원","location":"안내","title":"6월 봉사위원","body":"1부 2층 이창송A 박옥순 황완숙 배윤경 1부 3층 문선희 오윤경 이선주 정덕우 2부 2층 김완준 이수진D 이경호 윤종헌 노현미 이정희D 2부 3층 유승화 장성희 반소영 박윤제 3부 2·3층 대학, 청년부 1주 40세대(소그룹3) 50세대(부부12) 60세대(부부4) 시니어(여성10) 2주 40세대(소그룹4) 50세대(여성1) 60세대(부부5) 시니어(부부1) 3주 신혼(부부1) 40세대(소그룹5) 50세대(여성2) 60세대(부부6) 시니어(부부2) 4주 신혼(부부2) 40세대(소그룹6) 50세대(여성3) 시니어(부부3) 김현문 곽대성 권형필 김일문 노영식 심규호 오선철 이선국 임덕우 장형진 조재민 조한진 한종서","keywords":"봉사위원 안내위원 식당 봉사 교구 주차봉사 주차","rank":4}];
     const calendarEvents = [{"title":"내수동교회 하계 특별새벽예배","start":"2026-06-29T05:20:00+09:00","end":"2026-07-04T06:20:00+09:00","location":"내수동교회 본당","description":"주제: 사명 - 처음 그 소원, 끝까지 그 길(빌 2:13)","sourceIndex":1,"sourceTitle":"하계 특별새벽예배 안내"},{"title":"내수동교회 새가족 환영회","start":"2026-07-05T12:30:00+09:00","end":"2026-07-05T14:00:00+09:00","location":"내수동교회 샬롬홀(별관 2층)","description":"상반기에 등록한 새가족을 위한 환영회입니다.","sourceIndex":2,"sourceTitle":"새가족 환영회"}];
     const fallbackScriptureVerses = [{"reference":"시편 23:1","text":"여호와는 나의 목자시니 내게 부족함이 없으리로다"},{"reference":"시편 27:1","text":"여호와는 나의 빛이요 나의 구원이시니 내가 누구를 두려워하리요"},{"reference":"시편 46:1","text":"하나님은 우리의 피난처시요 힘이시니 환난 중에 만날 큰 도움이시라"},{"reference":"시편 73:28","text":"하나님께 가까이 함이 내게 복이라"},{"reference":"시편 119:105","text":"주의 말씀은 내 발에 등이요 내 길에 빛이니이다"}];
     const searchInput = document.querySelector("[data-search-input]");
@@ -3045,10 +3237,14 @@
       if (!targetId) return;
       const target = document.getElementById(targetId);
       if (!target) return;
+      const detailTarget = target.tagName === "DETAILS" ? target : target.closest("details");
+      if (detailTarget) {
+        detailTarget.open = true;
+      }
       target.scrollIntoView({ behavior: "smooth", block: "start" });
       target.classList.remove("jump-highlight");
       window.setTimeout(() => target.classList.add("jump-highlight"), 120);
-      window.setTimeout(() => target.classList.remove("jump-highlight"), 1900);
+      window.setTimeout(() => target.classList.remove("jump-highlight"), 2800);
     }
 
     function getWorshipPartValue(row, part) {
@@ -3323,19 +3519,28 @@
       const results = searchItems
         .map((item) => ({
           ...item,
-          haystack: [item.type, item.title, item.body].join(" ").toLowerCase(),
+          haystack: [item.type, item.location, item.title, item.body, item.keywords].join(" ").toLowerCase(),
         }))
         .filter((item) => item.haystack.includes(normalized))
+        .map((item) => {
+          const titleHit = String(item.title || "").toLowerCase().includes(normalized) ? 6 : 0;
+          const typeHit = String(item.type || "").toLowerCase().includes(normalized) ? 4 : 0;
+          const keywordHit = String(item.keywords || "").toLowerCase().includes(normalized) ? 3 : 0;
+          const bodyHit = String(item.body || "").toLowerCase().includes(normalized) ? 1 : 0;
+          return { ...item, score: (item.rank || 0) + titleHit + typeHit + keywordHit + bodyHit };
+        })
+        .sort((a, b) => b.score - a.score)
         .slice(0, 8);
       if (results.length === 0) {
         searchResults.innerHTML = '<p class="search-count">검색 결과 0건</p><p class="search-empty">검색 결과가 없습니다. 다른 단어로 찾아보세요.</p>';
         return;
       }
       searchResults.innerHTML = '<p class="search-count">검색 결과 ' + results.length + '건</p>' + results.map((item) => {
-        const snippet = item.body.length > 58 ? item.body.slice(0, 58) + "..." : item.body;
+        const snippet = item.body.length > 72 ? item.body.slice(0, 72) + "..." : item.body;
         return '<button class="search-result" type="button" data-result-tab="' + item.tab + '" data-result-target="' + item.target + '">' +
           '<span>' + escapeClientHtml(item.type) + '</span>' +
           '<strong>' + highlightClientText(item.title, normalized) + '</strong>' +
+          '<em class="search-location">' + escapeClientHtml(item.location || getViewLabel(item.tab)) + '</em>' +
           '<small>' + highlightClientText(snippet, normalized) + '</small>' +
         '</button>';
       }).join("");

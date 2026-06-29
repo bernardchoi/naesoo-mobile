@@ -456,46 +456,125 @@ const searchItems = [
     tab: "worship",
     target: targetId("worship", index),
     type: "예배",
+    location: "주일예배",
     title: row.label,
     body: resolveWorshipValues(row).map(([, value]) => value).join(" "),
+    keywords: "예배 순서 주일예배",
+    rank: row.label.includes("설교") || row.label.includes("성경") ? 3 : 1,
   })),
   ...bulletin.weekly.map((item, index) => ({
     tab: "worship",
     target: targetId("weekly", index),
     type: "주중예배",
+    location: "예배",
     title: item.title,
     body: `${item.time} ${item.body}`,
+    keywords: "예배 주중 수요 새벽 금요",
+    rank: 1,
   })),
   ...bulletin.news.map((item, index) => ({
     tab: "news",
     target: targetId("news", index),
     type: categoryLabels[item.category] || "소식",
+    location: "교회소식",
     title: item.title,
-    body: [item.body, ...(item.bullets || [])].filter(Boolean).join(" "),
+    body: [item.body, ...(item.bullets || []), ...(item.speakerSchedule || []).flat()].filter(Boolean).join(" "),
+    keywords: [item.priority, item.category, categoryLabels[item.category]].filter(Boolean).join(" "),
+    rank: item.category === "today" ? 3 : 1,
   })),
   {
     tab: "sermon",
     target: "sermon-main",
     type: "말씀",
+    location: "주일설교요약",
     title: bulletin.sermon.title,
     body: [bulletin.sermon.passage, bulletin.sermon.preacher, ...bulletin.sermon.summary, ...bulletin.sermon.questions].join(" "),
+    keywords: "설교 말씀 요약 본문 적용 질문 구역교회",
+    rank: 5,
+  },
+  {
+    tab: "sermon",
+    target: "sermon-questions",
+    type: "적용질문",
+    location: "주일설교요약",
+    title: "본문 질문과 적용 질문",
+    body: bulletin.sermon.questions.join(" "),
+    keywords: "적용 질문 나눔 묵상 구역교회",
+    rank: 5,
+  },
+  {
+    tab: "sermon",
+    target: "district",
+    type: "구역교회",
+    location: "말씀",
+    title: bulletin.district.title,
+    body: [
+      bulletin.district.theme,
+      bulletin.district.welcome,
+      bulletin.district.icebreaker,
+      ...bulletin.district.praise,
+      bulletin.district.prayer,
+      bulletin.district.ministry,
+      bulletin.district.closing,
+      bulletin.district.song,
+    ].join(" "),
+    keywords: "구역 교회 구역교회 모임 순서 찬양 기도 사역 암송",
+    rank: 4,
   },
   ...bulletin.meetings.map(([name, time, place], index) => ({
     tab: "meeting",
     target: targetId("meeting", index),
     type: "모임",
+    location: "예배 및 모임 안내",
     title: name,
     body: `${time} ${place}`,
+    keywords: "모임 부서 공동체 예배",
+    rank: 1,
   })),
   ...bulletin.directions.map((item, index) => ({
     tab: "guide",
     target: targetId("guide", index),
     type: "안내",
+    location: "오시는 길",
     title: item.title,
     body: item.body,
+    keywords: "길 위치 교통 주차 지하철 버스 지도",
+    rank: item.title.includes("주차") ? 4 : 2,
   })),
+  ...bulletin.servants.map((item) => ({
+    tab: "guide",
+    target: "serve",
+    type: "섬기는 사람들",
+    location: "안내",
+    title: item.label,
+    body: item.names,
+    keywords: "섬기는 사람들 교역자 장로 목사",
+    rank: 1,
+  })),
+  {
+    tab: "guide",
+    target: "volunteer",
+    type: "봉사위원",
+    location: "안내",
+    title: "6월 봉사위원",
+    body: [
+      ...bulletin.volunteer.guide.flat(),
+      ...bulletin.volunteer.meal.flat(),
+      bulletin.volunteer.parking,
+    ].join(" "),
+    keywords: "봉사위원 안내위원 식당 봉사 교구 주차봉사 주차",
+    rank: 4,
+  },
 ];
 const featuredNews = bulletin.news.filter((item) => ["today", "apply", "schedule"].includes(item.category)).slice(0, 3);
+const quickLinks = [
+  { label: "설교요약", tab: "sermon", target: "sermon-main" },
+  { label: "적용질문", tab: "sermon", target: "sermon-questions" },
+  { label: "구역교회", tab: "sermon", target: "district" },
+  { label: "오늘 소식", tab: "news", target: targetId("news", 0) },
+  { label: "주차", tab: "guide", target: targetId("guide", 2) },
+  { label: "봉사위원", tab: "guide", target: "volunteer" },
+];
 
 const navIcons = {
   home: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 10.6 12 3.4l8.5 7.2"/><path d="M5.4 9.7V20h13.2V9.7"/><path d="M9.2 20v-6h5.6v6"/></svg>`,
@@ -511,6 +590,12 @@ function renderNavButton(tab, label, selected = false) {
         <span class="nav-icon" aria-hidden="true">${navIcons[tab]}</span>
         <span class="nav-label">${label}</span>
       </button>`;
+}
+
+function formatHomeServiceTime(time) {
+  return time
+    .replace(" 오전 ", " ")
+    .replace(" 오후 ", " ");
 }
 
 const html = `<!doctype html>
@@ -919,6 +1004,7 @@ const html = `<!doctype html>
 
     .settings-button:active,
     .home-card:active,
+    .quick-link:active,
     .home-news-item:active,
     .action-link:active,
     .text-action:active,
@@ -956,8 +1042,10 @@ const html = `<!doctype html>
     }
 
     .home-card::before,
+    .quick-finder::before,
     .search-panel::before,
     .install-card::before,
+    .sermon-feature::before,
     .list-card::before,
     .meeting-card::before,
     .card::before {
@@ -975,8 +1063,10 @@ const html = `<!doctype html>
     }
 
     .home-card > *,
+    .quick-finder > *,
     .search-panel > *,
     .install-card > *,
+    .sermon-feature > *,
     .list-card > *,
     .meeting-card > *,
     .card > * {
@@ -1004,17 +1094,94 @@ const html = `<!doctype html>
       line-height: 1.35;
     }
 
+    .home-card.is-worship {
+      grid-column: 1 / -1;
+      min-height: 104px;
+      align-content: center;
+      border-color: var(--green-border);
+    }
+
+    .home-card.is-sermon {
+      grid-column: 1 / -1;
+      min-height: 104px;
+      align-content: center;
+      border-color: var(--accent-border);
+      background:
+        linear-gradient(135deg, rgba(242, 117, 34, .12), rgba(19, 130, 63, .08)),
+        var(--glass);
+    }
+
+    .home-card.is-sermon strong {
+      color: var(--red);
+      font-size: 16px;
+    }
+
+    .home-card.is-sermon span {
+      font-size: 17px;
+      line-height: 1.38;
+    }
+
     .home-service-times {
       display: grid;
-      gap: 3px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 7px;
       align-self: end;
     }
 
     .home-service-times span {
+      display: grid;
+      place-items: center;
+      min-height: 34px;
+      padding: 6px 5px;
+      border: 1px solid var(--green-border);
+      border-radius: 8px;
+      background: var(--glass-soft);
       color: var(--ink);
+      font-size: 13.5px;
+      font-weight: 600;
+      line-height: 1.2;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .quick-finder {
+      position: relative;
+      display: grid;
+      gap: 10px;
+      padding: 13px;
+      border: 1px solid var(--glass-separator);
+      border-radius: 8px;
+      background: var(--glass-soft);
+      box-shadow: var(--glass-inset), var(--glass-utility-shadow);
+      -webkit-backdrop-filter: blur(20px) saturate(165%);
+      backdrop-filter: blur(20px) saturate(165%);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .quick-finder .section-head {
+      margin-bottom: 0;
+    }
+
+    .quick-link-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    .quick-link {
+      min-height: 40px;
+      padding: 8px 7px;
+      border: 1px solid var(--green-border);
+      border-radius: 8px;
+      background: var(--glass);
+      color: var(--green);
       font-size: 14px;
       font-weight: 600;
-      line-height: 1.3;
+      line-height: 1.25;
+      cursor: pointer;
+      box-shadow: var(--glass-inset);
+      transition: transform .18s ease, border-color .18s ease, background-color .18s ease;
     }
 
     .verse-card {
@@ -1166,7 +1333,7 @@ const html = `<!doctype html>
 
     .search-result {
       display: grid;
-      gap: 2px;
+      gap: 4px;
       width: 100%;
       padding: 10px;
       border: 1px solid var(--glass-separator);
@@ -1184,8 +1351,26 @@ const html = `<!doctype html>
     }
 
     .search-result span {
+      justify-self: start;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--surface-soft);
       color: var(--muted);
       font-size: 13px;
+      font-weight: 600;
+    }
+
+    .search-result small {
+      color: var(--body-text);
+      font-size: 13.5px;
+      font-weight: 500;
+      line-height: 1.42;
+    }
+
+    .search-location {
+      color: var(--green);
+      font-size: 13px;
+      font-style: normal;
       font-weight: 600;
     }
 
@@ -1259,7 +1444,7 @@ const html = `<!doctype html>
     }
 
     .jump-highlight {
-      animation: jumpPulse 1.6s ease;
+      animation: jumpPulse 2.4s ease;
     }
 
     [data-jump-target],
@@ -1269,7 +1454,7 @@ const html = `<!doctype html>
 
     @keyframes jumpPulse {
       0%, 100% { box-shadow: none; }
-      18%, 72% { box-shadow: 0 0 0 3px rgba(242, 117, 34, .24), var(--shadow); }
+      14%, 78% { box-shadow: 0 0 0 3px rgba(242, 117, 34, .24), var(--shadow); }
     }
 
     @keyframes pageSettle {
@@ -1840,6 +2025,67 @@ const html = `<!doctype html>
       font-weight: 500;
     }
 
+    .sermon-feature {
+      position: relative;
+      display: grid;
+      gap: 12px;
+      padding: 15px;
+      border: 1px solid var(--accent-border);
+      border-left: 4px solid var(--orange);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(242, 117, 34, .10), rgba(19, 130, 63, .06)),
+        var(--glass-strong);
+      box-shadow: var(--glass-inset), var(--glass-card-shadow);
+      -webkit-backdrop-filter: blur(22px) saturate(170%);
+      backdrop-filter: blur(22px) saturate(170%);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .sermon-feature h3 {
+      color: var(--ink);
+      font-size: 21px;
+      font-weight: 700;
+      line-height: 1.34;
+      word-break: keep-all;
+    }
+
+    .sermon-feature-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .sermon-feature-meta span {
+      padding: 4px 8px;
+      border: 1px solid var(--green-border);
+      border-radius: 999px;
+      background: var(--surface-soft);
+      color: var(--green);
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+
+    .sermon-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    .sermon-actions button {
+      min-height: 40px;
+      padding: 8px 10px;
+      border: 1px solid var(--green-border);
+      border-radius: 8px;
+      background: var(--glass);
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--glass-inset);
+    }
+
     .sermon-title {
       display: grid;
       gap: 4px;
@@ -1887,12 +2133,34 @@ const html = `<!doctype html>
       background: var(--surface);
     }
 
+    details.collapsible-card {
+      position: relative;
+      border: 1px solid var(--glass-separator);
+      border-radius: 8px;
+      background: var(--glass-soft);
+      box-shadow: var(--glass-inset), var(--glass-utility-shadow);
+      -webkit-backdrop-filter: blur(16px) saturate(150%);
+      backdrop-filter: blur(16px) saturate(150%);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    details.collapsible-card + details.collapsible-card,
+    details.collapsible-card + .list-card,
+    .list-card + details.collapsible-card {
+      margin-top: 9px;
+    }
+
     summary {
       min-height: 42px;
       padding: 10px 12px;
       color: var(--green);
       font-weight: 700;
       cursor: pointer;
+    }
+
+    summary::marker {
+      color: var(--orange);
     }
 
     .table-list {
@@ -2258,6 +2526,7 @@ const html = `<!doctype html>
     body.large-text .home-card span,
     body.large-text .home-card small,
     body.large-text .home-service-times span,
+    body.large-text .quick-link,
     body.large-text .verse-text,
     body.large-text .home-news-item strong,
     body.large-text .search-input,
@@ -2269,6 +2538,8 @@ const html = `<!doctype html>
     body.large-text .install-card p,
     body.large-text .notice,
     body.large-text .service-times button,
+    body.large-text .sermon-feature-meta span,
+    body.large-text .sermon-actions button,
     body.large-text .worship-label,
     body.large-text .part,
     body.large-text .filter-bar button,
@@ -2293,6 +2564,10 @@ const html = `<!doctype html>
       line-height: 1.55;
     }
 
+    body.large-text .sermon-feature h3 {
+      font-size: 22px;
+    }
+
     body.large-text .verse-text {
       font-size: 19px;
       line-height: 1.62;
@@ -2304,7 +2579,9 @@ const html = `<!doctype html>
     body.large-text .text-action,
     body.large-text .settings-button,
     body.large-text .filter-bar button,
-    body.large-text .card-action {
+    body.large-text .card-action,
+    body.large-text .quick-link,
+    body.large-text .sermon-actions button {
       min-height: 44px;
     }
 
@@ -2323,6 +2600,8 @@ const html = `<!doctype html>
     }
 
     body.large-text .home-card,
+    body.large-text .quick-finder,
+    body.large-text .sermon-feature,
     body.large-text .verse-card,
     body.large-text .home-news-item,
     body.large-text .search-panel,
@@ -2376,11 +2655,18 @@ const html = `<!doctype html>
     }
 
     @media (max-width: 380px) {
+      .quick-link-grid,
+      .sermon-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .theme-options {
         grid-template-columns: 1fr;
       }
 
       body.large-text .home-grid,
+      body.large-text .quick-link-grid,
+      body.large-text .sermon-actions,
       body.large-text .action-grid {
         grid-template-columns: 1fr;
       }
@@ -2568,13 +2854,13 @@ const html = `<!doctype html>
               <div class="home-date">${bulletin.issue.date}<br />${bulletin.issue.volume}</div>
             </div>
             <div class="home-grid">
-              <button class="home-card" type="button" data-tab="worship">
+              <button class="home-card is-worship" type="button" data-tab="worship">
                 <strong>주일예배</strong>
                 <div class="home-service-times">
-                  ${bulletin.worship.times.map((time) => `<span>${time}</span>`).join("")}
+                  ${bulletin.worship.times.map((time) => `<span>${formatHomeServiceTime(time)}</span>`).join("")}
                 </div>
               </button>
-              <button class="home-card" type="button" data-tab="sermon">
+              <button class="home-card is-sermon" type="button" data-tab="sermon" data-target="sermon-main">
                 <strong>설교</strong>
                 <span>${bulletin.sermon.title}</span>
                 <small>${bulletin.sermon.passage}</small>
@@ -2591,6 +2877,18 @@ const html = `<!doctype html>
               </button>
             </div>
           </article>
+
+          <section class="quick-finder" aria-label="자주 찾는 항목">
+            <div class="section-head">
+              <div>
+                <div class="eyebrow">Quick</div>
+                <h2>자주 찾는 항목</h2>
+              </div>
+            </div>
+            <div class="quick-link-grid">
+              ${quickLinks.map((item) => `<button class="quick-link" type="button" data-tab="${item.tab}" data-target="${item.target}">${item.label}</button>`).join("")}
+            </div>
+          </section>
 
           <section class="verse-card" aria-label="오늘의 말씀">
             <div class="section-head">
@@ -2750,9 +3048,16 @@ const html = `<!doctype html>
             <h2>주일설교요약</h2>
           </div>
         </div>
-        <div class="page-context">
-          <strong>${bulletin.sermon.passage}</strong>
-          <span>${bulletin.sermon.preacher}</span>
+        <div class="sermon-feature">
+          <div class="sermon-feature-meta">
+            <span>${bulletin.sermon.passage}</span>
+            <span>${bulletin.sermon.preacher}</span>
+          </div>
+          <h3>${bulletin.sermon.title}</h3>
+          <div class="sermon-actions">
+            <button type="button" data-scroll-target="sermon-main">설교요약 보기</button>
+            <button type="button" data-scroll-target="sermon-questions">적용질문 보기</button>
+          </div>
         </div>
         <article class="card" id="sermon-main" data-jump-target>
           <div class="sermon-title">
@@ -2762,7 +3067,7 @@ const html = `<!doctype html>
           <div class="summary-list">
             ${bulletin.sermon.summary.map((text) => `<p>${text}</p>`).join("")}
           </div>
-          <details open>
+          <details id="sermon-questions" data-jump-target open>
             <summary>본문 질문과 적용 질문</summary>
             <ul>${bulletin.sermon.questions.map((text) => `<li>${text}</li>`).join("")}</ul>
           </details>
@@ -2780,7 +3085,7 @@ const html = `<!doctype html>
             <strong>${bulletin.district.theme}</strong>
             <span class="muted">${bulletin.district.title}</span>
           </div>
-          <details open>
+          <details class="collapsible-card">
             <summary>환영과 찬양</summary>
             <div class="card-pad district-detail">
               <p><strong>구역원들을 환영</strong><br />${bulletin.district.welcome}</p>
@@ -2796,14 +3101,14 @@ const html = `<!doctype html>
               </div>
             `).join("")}
           </div>
-          <details>
+          <details class="collapsible-card">
             <summary>기도와 사역</summary>
             <div class="card-pad district-detail">
               <p><strong>회원들 간의 기도와 섬김</strong><br />${bulletin.district.prayer}</p>
               <p><strong>모든 구역원들의 사역에 참여</strong><br />${bulletin.district.ministry}</p>
             </div>
           </details>
-          <details open>
+          <details class="collapsible-card">
             <summary>마무리와 암송</summary>
             <p class="card-pad">${bulletin.district.closing}<br /><br />${bulletin.district.song}</p>
           </details>
@@ -2863,10 +3168,10 @@ const html = `<!doctype html>
         </div>
         <div class="grid">
           ${bulletin.directions.map((item, index) => `
-            <article class="card mini" id="${targetId("guide", index)}" data-jump-target>
-              <h3>${item.title}</h3>
-              <p>${item.body}</p>
-            </article>
+            <details class="collapsible-card mini" id="${targetId("guide", index)}" data-jump-target>
+              <summary>${item.title}</summary>
+              <p class="card-pad">${item.body}</p>
+            </details>
           `).join("")}
         </div>
         <article class="card card-pad contact">
@@ -2884,47 +3189,35 @@ const html = `<!doctype html>
           </div>
         </article>
 
-        <div class="sub-section" id="serve">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">Serve</div>
-            <h2>섬기는 사람들</h2>
-          </div>
-        </div>
-        <div class="grid">
-          ${bulletin.servants.map((item) => `
-            <article class="card mini">
+        <details class="collapsible-card sub-section" id="serve" data-jump-target>
+          <summary>섬기는 사람들</summary>
+          <div class="grid card-pad">
+            ${bulletin.servants.map((item) => `<article class="card mini">
               <h3>${item.label}</h3>
               <p>${item.names}</p>
-            </article>
-          `).join("")}
-        </div>
-        </div>
+            </article>`).join("")}
+          </div>
+        </details>
 
-        <div class="sub-section" id="volunteer">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">Volunteer</div>
-            <h2>6월 봉사위원</h2>
-          </div>
-        </div>
-        <article class="list-card">
-          <h3>안내위원</h3>
-          <div class="table-list">
-            ${bulletin.volunteer.guide.map(([where, names]) => `<div class="table-item"><strong>${where}</strong><div>${names}</div></div>`).join("")}
-          </div>
-        </article>
-        <article class="list-card">
-          <h3>식당 봉사 교구</h3>
-          <div class="table-list">
-            ${bulletin.volunteer.meal.map(([week, names]) => `<div class="table-item"><strong>${week}</strong><div>${names}</div></div>`).join("")}
-          </div>
-        </article>
-        <article class="list-card">
-          <h3>주차봉사</h3>
-          <p>${bulletin.volunteer.parking}</p>
-        </article>
-        </div>
+        <details class="collapsible-card sub-section" id="volunteer" data-jump-target>
+          <summary>6월 봉사위원</summary>
+          <article class="list-card">
+            <h3>안내위원</h3>
+            <div class="table-list">
+              ${bulletin.volunteer.guide.map(([where, names]) => `<div class="table-item"><strong>${where}</strong><div>${names}</div></div>`).join("")}
+            </div>
+          </article>
+          <article class="list-card">
+            <h3>식당 봉사 교구</h3>
+            <div class="table-list">
+              ${bulletin.volunteer.meal.map(([week, names]) => `<div class="table-item"><strong>${week}</strong><div>${names}</div></div>`).join("")}
+            </div>
+          </article>
+          <article class="list-card">
+            <h3>주차봉사</h3>
+            <p>${bulletin.volunteer.parking}</p>
+          </article>
+        </details>
       </section>
     </main>
 
@@ -3176,10 +3469,14 @@ const html = `<!doctype html>
       if (!targetId) return;
       const target = document.getElementById(targetId);
       if (!target) return;
+      const detailTarget = target.tagName === "DETAILS" ? target : target.closest("details");
+      if (detailTarget) {
+        detailTarget.open = true;
+      }
       target.scrollIntoView({ behavior: "smooth", block: "start" });
       target.classList.remove("jump-highlight");
       window.setTimeout(() => target.classList.add("jump-highlight"), 120);
-      window.setTimeout(() => target.classList.remove("jump-highlight"), 1900);
+      window.setTimeout(() => target.classList.remove("jump-highlight"), 2800);
     }
 
     function getWorshipPartValue(row, part) {
@@ -3454,19 +3751,28 @@ const html = `<!doctype html>
       const results = searchItems
         .map((item) => ({
           ...item,
-          haystack: [item.type, item.title, item.body].join(" ").toLowerCase(),
+          haystack: [item.type, item.location, item.title, item.body, item.keywords].join(" ").toLowerCase(),
         }))
         .filter((item) => item.haystack.includes(normalized))
+        .map((item) => {
+          const titleHit = String(item.title || "").toLowerCase().includes(normalized) ? 6 : 0;
+          const typeHit = String(item.type || "").toLowerCase().includes(normalized) ? 4 : 0;
+          const keywordHit = String(item.keywords || "").toLowerCase().includes(normalized) ? 3 : 0;
+          const bodyHit = String(item.body || "").toLowerCase().includes(normalized) ? 1 : 0;
+          return { ...item, score: (item.rank || 0) + titleHit + typeHit + keywordHit + bodyHit };
+        })
+        .sort((a, b) => b.score - a.score)
         .slice(0, 8);
       if (results.length === 0) {
         searchResults.innerHTML = '<p class="search-count">검색 결과 0건</p><p class="search-empty">검색 결과가 없습니다. 다른 단어로 찾아보세요.</p>';
         return;
       }
       searchResults.innerHTML = '<p class="search-count">검색 결과 ' + results.length + '건</p>' + results.map((item) => {
-        const snippet = item.body.length > 58 ? item.body.slice(0, 58) + "..." : item.body;
+        const snippet = item.body.length > 72 ? item.body.slice(0, 72) + "..." : item.body;
         return '<button class="search-result" type="button" data-result-tab="' + item.tab + '" data-result-target="' + item.target + '">' +
           '<span>' + escapeClientHtml(item.type) + '</span>' +
           '<strong>' + highlightClientText(item.title, normalized) + '</strong>' +
+          '<em class="search-location">' + escapeClientHtml(item.location || getViewLabel(item.tab)) + '</em>' +
           '<small>' + highlightClientText(snippet, normalized) + '</small>' +
         '</button>';
       }).join("");

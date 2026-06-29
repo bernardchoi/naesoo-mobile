@@ -1,4 +1,4 @@
-const CACHE_NAME = "naesoo-mobile-2a0d80d4cd";
+const CACHE_NAME = "naesoo-mobile-697b717651";
 const CORE_ASSETS = ["./","./index.html","./manifest.json","./app-icon.svg","./app-icon-192.png","./app-icon-512.png","./app-icon-maskable-512.png","./verses.json","./archive.json","./archive.html","./bulletins/2026-06-21.json","./bulletins/2026-06-14.json"];
 
 self.addEventListener("install", (event) => {

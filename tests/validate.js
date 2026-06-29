@@ -29,6 +29,10 @@ for (const route of ["home", "worship", "news", "sermon", "meeting", "guide"]) {
 assert(html.includes('aria-live="polite"'), "live regions are required");
 assert(html.includes("history.pushState"), "tab navigation must create browser history");
 assert(html.includes("data-update-notice"), "service-worker update notice is required");
+assert(html.includes("자주 찾는 항목"), "home quick links are required");
+assert(html.includes("data-target=\"sermon-questions\""), "sermon question shortcut is required");
+assert(html.includes("collapsible-card"), "secondary guide content must be collapsible");
+assert(html.includes("search-location"), "search results must show location context");
 assert(sw.includes('event.request.mode === "navigate"'), "offline fallback must be navigation-only");
 assert(archiveHtml.includes("./bulletins/${issue}.json"), "archive must load bulletin JSON dynamically");
 assert(archive.issues.filter((issue) => issue.id !== archive.current).every((issue) => issue.url.includes("archive.html?issue=")), "past issues must use the shared archive shell");
