@@ -1,13 +1,21 @@
 {
-  "current": "2026-06-28",
+  "current": "2026-07-05",
   "issues": [
+    {
+      "id": "2026-07-05",
+      "label": "2026.07.05",
+      "date": "2026년 7월 5일",
+      "volume": "제73권 27호",
+      "json": "./bulletins/2026-07-05.json",
+      "url": "./index.html#home"
+    },
     {
       "id": "2026-06-28",
       "label": "2026.06.28",
       "date": "2026년 6월 28일",
       "volume": "제73권 26호",
       "json": "./bulletins/2026-06-28.json",
-      "url": "./index.html#home"
+      "url": "./archive.html?issue=2026-06-28#home"
     },
     {
       "id": "2026-06-21",
