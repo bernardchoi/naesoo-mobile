@@ -4,6 +4,9 @@
   "scripts": {
     "build": "node scripts/generate-icons.js && node scripts/build.js",
     "validate": "node tests/validate.js",
-    "test": "npm run build && npm run validate"
+    "test": "npm run build && npm run validate",
+    "bulletin:check": "node scripts/fetch-latest-bulletin.js --dry-run",
+    "bulletin:fetch": "node scripts/fetch-latest-bulletin.js",
+    "bulletin:fetch:force": "node scripts/fetch-latest-bulletin.js --force"
   }
 }
