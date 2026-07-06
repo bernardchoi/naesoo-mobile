@@ -607,6 +607,10 @@ const html = `<!doctype html>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="${bulletin.church.name}" />
   <meta name="description" content="${bulletin.issue.date} ${bulletin.church.name} 주일예배와 교회소식" />
+  <meta name="robots" content="noindex, nofollow, noarchive, noimageindex" />
+  <meta name="googlebot" content="noindex, nofollow, noarchive, noimageindex" />
+  <meta name="referrer" content="no-referrer" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; form-action 'none'; upgrade-insecure-requests" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="ko_KR" />
   <meta property="og:title" content="${bulletin.church.name} 모바일 주보 · ${bulletin.issue.date}" />
@@ -2950,10 +2954,10 @@ const html = `<!doctype html>
 
             <section class="action-grid" aria-label="빠른 실행">
               <a class="action-link" href="tel:${bulletin.church.phone.replaceAll("-", "")}">전화</a>
-              <a class="action-link" href="${mapUrl}" target="_blank" rel="noopener">지도</a>
-              <a class="action-link secondary" href="${bulletin.church.youtube}" target="_blank" rel="noopener">유튜브</a>
-              <a class="action-link secondary" href="${bulletin.church.instagram}" target="_blank" rel="noopener">인스타그램</a>
-              <a class="action-link secondary" href="${bulletin.church.website}" target="_blank" rel="noopener">홈페이지</a>
+              <a class="action-link" href="${mapUrl}" target="_blank" rel="noopener noreferrer">지도</a>
+              <a class="action-link secondary" href="${bulletin.church.youtube}" target="_blank" rel="noopener noreferrer">유튜브</a>
+              <a class="action-link secondary" href="${bulletin.church.instagram}" target="_blank" rel="noopener noreferrer">인스타그램</a>
+              <a class="action-link secondary" href="${bulletin.church.website}" target="_blank" rel="noopener noreferrer">홈페이지</a>
               <button class="action-link secondary" type="button" data-share-button>공유</button>
             </section>
 
@@ -3181,10 +3185,10 @@ const html = `<!doctype html>
           <span>${bulletin.church.email}</span>
           <div class="action-grid">
             <a class="action-link" href="tel:${bulletin.church.phone.replaceAll("-", "")}">전화 걸기</a>
-            <a class="action-link" href="${mapUrl}" target="_blank" rel="noopener">지도 열기</a>
-            <a class="action-link secondary" href="${bulletin.church.youtube}" target="_blank" rel="noopener">유튜브</a>
-            <a class="action-link secondary" href="${bulletin.church.instagram}" target="_blank" rel="noopener">인스타그램</a>
-            <a class="action-link secondary" href="${bulletin.church.website}" target="_blank" rel="noopener">홈페이지</a>
+            <a class="action-link" href="${mapUrl}" target="_blank" rel="noopener noreferrer">지도 열기</a>
+            <a class="action-link secondary" href="${bulletin.church.youtube}" target="_blank" rel="noopener noreferrer">유튜브</a>
+            <a class="action-link secondary" href="${bulletin.church.instagram}" target="_blank" rel="noopener noreferrer">인스타그램</a>
+            <a class="action-link secondary" href="${bulletin.church.website}" target="_blank" rel="noopener noreferrer">홈페이지</a>
             <a class="action-link secondary" href="mailto:${bulletin.church.email}">메일 보내기</a>
           </div>
         </article>
@@ -4038,6 +4042,7 @@ const coreAssets = [
   "./app-icon-512.png",
   "./app-icon-maskable-512.png",
   "./verses.json",
+  "./robots.txt",
   "./archive.json",
   "./archive.html",
   ...archiveData.issues.map((issue) => issue.json).filter(Boolean),
