@@ -348,7 +348,7 @@ function renderNewsCard(item, index) {
   const categoryLabel = categoryLabels[item.category] || "소식";
   const calendarIndex = item.calendar ? calendarEvents.findIndex((event) => event.sourceIndex === index) : -1;
   const lines = [
-    `          <article class="list-card" id="${targetId("news", index)}" data-news-category="${item.category || "care"}" data-jump-target>`,
+    `          <article class="list-card" id="${targetId("news", index)}" data-news-category="${item.category || "care"}" data-news-priority="${escapeAttr(item.priority || "")}" data-jump-target>`,
     `            <div class="news-meta">`,
     `              <span class="news-tag">${categoryLabel}</span>`,
   ];
@@ -2921,7 +2921,7 @@ const html = `<!doctype html>
                 <strong>${item.title}</strong>
                 <small class="home-news-meta">${item.calendar ? "일정 추가 가능" : (item.priority || "바로 확인")}</small>
               </button>
-            `;
+            `.trim();
             }).join("")}
           </section>
 
@@ -3726,7 +3726,7 @@ const html = `<!doctype html>
         button.setAttribute("aria-selected", String(button.dataset.newsFilter === name));
       });
       newsCards.forEach((card) => {
-        const visible = name === "all" || card.dataset.newsCategory === name;
+        const visible = name === "all" || card.dataset.newsCategory === name || (name === "today" && card.dataset.newsPriority === "오늘");
         card.classList.toggle("is-hidden", !visible);
         if (visible) visibleCount += 1;
       });
