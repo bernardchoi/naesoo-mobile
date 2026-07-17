@@ -380,6 +380,89 @@ function renderNewsCard(item, index) {
   return lines.join("\n");
 }
 
+function renderSermonQuestions() {
+  const questions = bulletin.sermon.questions || [];
+  if (!questions.length) {
+    return `<details id="sermon-questions" data-jump-target open>
+            <summary>본문 질문과 적용 질문</summary>
+            <p class="card-pad muted">이번 주 원본 주보에는 적용 질문이 포함되지 않았습니다.</p>
+          </details>`;
+  }
+  return `<details id="sermon-questions" data-jump-target open>
+            <summary>본문 질문과 적용 질문</summary>
+            <ul>${questions.map((text) => `<li>${text}</li>`).join("")}</ul>
+          </details>`;
+}
+
+function renderDistrictSection() {
+  const district = bulletin.district || {};
+  if (district.unavailable) {
+    const special = district.specialNotice || {};
+    const specialHtml = special.title ? `<div class="card-pad district-detail">
+            <p><strong>${special.title}</strong><br />${special.body || ""}</p>
+            ${special.bullets ? `<ul>${special.bullets.map((bullet) => `<li>${bullet}</li>`).join("")}</ul>` : ""}
+          </div>` : "";
+    return `<div class="sub-section" id="district">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Group</div>
+            <h2>구역교회</h2>
+          </div>
+        </div>
+        <article class="card">
+          <div class="sermon-title">
+            <strong>${district.theme || "이번 주 구역교회 자료 없음"}</strong>
+            <span class="muted">${district.title || "구역교회"}</span>
+          </div>
+          <p class="card-pad">${district.notice || "이번 주 원본 주보에는 구역교회 자료가 포함되지 않았습니다."}</p>
+          ${specialHtml}
+        </article>
+        </div>`;
+  }
+
+  return `<div class="sub-section" id="district">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Group</div>
+            <h2>구역교회</h2>
+          </div>
+        </div>
+        <article class="card">
+          <div class="sermon-title">
+            <strong>${district.theme}</strong>
+            <span class="muted">${district.title}</span>
+          </div>
+          <details class="collapsible-card">
+            <summary>환영과 찬양</summary>
+            <div class="card-pad district-detail">
+              <p><strong>구역원들을 환영</strong><br />${district.welcome}</p>
+              <p><strong>아이스브레이크</strong><br />${district.icebreaker}</p>
+              <p><strong>역동적인 찬양</strong><br />${district.praise.join("<br />")}</p>
+            </div>
+          </details>
+          <div class="table-list">
+            ${district.order.map(([name, type, time]) => `
+              <div class="table-item">
+                <strong>${time}</strong>
+                <div>${type}<br /><span class="muted">${name}</span></div>
+              </div>
+            `).join("")}
+          </div>
+          <details class="collapsible-card">
+            <summary>기도와 사역</summary>
+            <div class="card-pad district-detail">
+              <p><strong>회원들 간의 기도와 섬김</strong><br />${district.prayer}</p>
+              <p><strong>모든 구역원들의 사역에 참여</strong><br />${district.ministry}</p>
+            </div>
+          </details>
+          <details class="collapsible-card">
+            <summary>마무리와 암송</summary>
+            <p class="card-pad">${district.closing}<br /><br />${district.song}</p>
+          </details>
+        </article>
+        </div>`;
+}
+
 const newsFilters = [
   ["all", "전체"],
   ["today", "오늘"],
@@ -507,16 +590,20 @@ const searchItems = [
     target: "district",
     type: "구역교회",
     location: "말씀",
-    title: bulletin.district.title,
+    title: bulletin.district.title || "구역교회",
     body: [
       bulletin.district.theme,
       bulletin.district.welcome,
       bulletin.district.icebreaker,
-      ...bulletin.district.praise,
+      ...(bulletin.district.praise || []),
       bulletin.district.prayer,
       bulletin.district.ministry,
       bulletin.district.closing,
       bulletin.district.song,
+      bulletin.district.notice,
+      bulletin.district.specialNotice?.title,
+      bulletin.district.specialNotice?.body,
+      ...(bulletin.district.specialNotice?.bullets || []),
     ].join(" "),
     keywords: "구역 교회 구역교회 모임 순서 찬양 기도 사역 암송",
     rank: 4,
@@ -3071,53 +3158,10 @@ const html = `<!doctype html>
           <div class="summary-list">
             ${bulletin.sermon.summary.map((text) => `<p>${text}</p>`).join("")}
           </div>
-          <details id="sermon-questions" data-jump-target open>
-            <summary>본문 질문과 적용 질문</summary>
-            <ul>${bulletin.sermon.questions.map((text) => `<li>${text}</li>`).join("")}</ul>
-          </details>
+          ${renderSermonQuestions()}
         </article>
 
-        <div class="sub-section" id="district">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">Group</div>
-            <h2>구역교회</h2>
-          </div>
-        </div>
-        <article class="card">
-          <div class="sermon-title">
-            <strong>${bulletin.district.theme}</strong>
-            <span class="muted">${bulletin.district.title}</span>
-          </div>
-          <details class="collapsible-card">
-            <summary>환영과 찬양</summary>
-            <div class="card-pad district-detail">
-              <p><strong>구역원들을 환영</strong><br />${bulletin.district.welcome}</p>
-              <p><strong>아이스브레이크</strong><br />${bulletin.district.icebreaker}</p>
-              <p><strong>역동적인 찬양</strong><br />${bulletin.district.praise.join("<br />")}</p>
-            </div>
-          </details>
-          <div class="table-list">
-            ${bulletin.district.order.map(([name, type, time]) => `
-              <div class="table-item">
-                <strong>${time}</strong>
-                <div>${type}<br /><span class="muted">${name}</span></div>
-              </div>
-            `).join("")}
-          </div>
-          <details class="collapsible-card">
-            <summary>기도와 사역</summary>
-            <div class="card-pad district-detail">
-              <p><strong>회원들 간의 기도와 섬김</strong><br />${bulletin.district.prayer}</p>
-              <p><strong>모든 구역원들의 사역에 참여</strong><br />${bulletin.district.ministry}</p>
-            </div>
-          </details>
-          <details class="collapsible-card">
-            <summary>마무리와 암송</summary>
-            <p class="card-pad">${bulletin.district.closing}<br /><br />${bulletin.district.song}</p>
-          </details>
-        </article>
-        </div>
+        ${renderDistrictSection()}
       </section>
 
       <section id="meeting" class="view" data-view="meeting">
