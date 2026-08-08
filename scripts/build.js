@@ -265,6 +265,7 @@ const embeddedBulletin = {
 const bulletin = fs.existsSync(currentBulletinPath)
   ? JSON.parse(fs.readFileSync(currentBulletinPath, "utf8"))
   : embeddedBulletin;
+const bulletinPhotos = Array.isArray(bulletin.photos) ? bulletin.photos : [];
 
 function escapeHtml(value) {
   return String(value)
@@ -380,6 +381,46 @@ function renderNewsCard(item, index) {
   return lines.join("\n");
 }
 
+function renderPhotoCard(photo, index, variant = "news") {
+  const title = photo.title || "사역 사진";
+  const description = photo.description || "";
+  const src = photo.src || "";
+  const alt = photo.alt || title;
+  const isHome = variant === "home";
+  const id = isHome ? `home-${targetId("photo", index)}` : targetId("photo", index);
+  const filterAttrs = isHome ? "" : ` data-news-category="photo" data-news-priority="사진"`;
+  return `
+          <article class="${isHome ? "photo-card is-home" : "photo-card"}" id="${id}"${filterAttrs} data-jump-target>
+            <button class="photo-button" type="button" data-photo-open="${index}" aria-label="${escapeAttr(title)} 크게 보기">
+              <img src="${escapeAttr(src)}" alt="${escapeAttr(alt)}" loading="lazy" decoding="async" />
+            </button>
+            <div class="photo-copy">
+              <span class="news-tag">사진</span>
+              <strong>${escapeHtml(title)}</strong>
+              ${description ? `<p>${escapeHtml(description)}</p>` : ""}
+            </div>
+          </article>
+        `.trim();
+}
+
+function renderPhotoSection() {
+  if (!bulletinPhotos.length) return "";
+  return `
+        <section class="photo-section" aria-label="사역 사진">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Photos</div>
+              <h2>사역 사진</h2>
+            </div>
+            <span class="chip">${bulletinPhotos.length}장</span>
+          </div>
+          <div class="photo-gallery">
+            ${bulletinPhotos.map((photo, index) => renderPhotoCard(photo, index)).join("")}
+          </div>
+        </section>
+      `.trim();
+}
+
 function renderSermonQuestions() {
   const questions = bulletin.sermon.questions || [];
   if (!questions.length) {
@@ -469,6 +510,7 @@ const newsFilters = [
   ["schedule", "일정"],
   ["apply", "신청"],
   ["care", "동정"],
+  ...(bulletinPhotos.length ? [["photo", "사진"]] : []),
 ];
 const meetingGroups = [
   {
@@ -565,6 +607,16 @@ const searchItems = [
     keywords: [item.priority, item.category, categoryLabels[item.category]].filter(Boolean).join(" "),
     rank: item.category === "today" ? 3 : 1,
   })),
+  ...bulletinPhotos.map((photo, index) => ({
+    tab: "news",
+    target: targetId("photo", index),
+    type: "사진",
+    location: "사역 사진",
+    title: photo.title || "사역 사진",
+    body: [photo.description, photo.alt].filter(Boolean).join(" "),
+    keywords: "사진 앨범 사역 기록 성경학교 수련회",
+    rank: 3,
+  })),
   {
     tab: "sermon",
     target: "sermon-main",
@@ -654,11 +706,13 @@ const searchItems = [
   },
 ];
 const featuredNews = bulletin.news.filter((item) => ["today", "apply", "schedule"].includes(item.category)).slice(0, 3);
+const newsItemCount = bulletin.news.length + bulletinPhotos.length;
 const quickLinks = [
   { label: "설교요약", tab: "sermon", target: "sermon-main" },
   { label: "적용질문", tab: "sermon", target: "sermon-questions" },
   { label: "구역교회", tab: "sermon", target: "district" },
   { label: "오늘 소식", tab: "news", target: targetId("news", 0) },
+  ...(bulletinPhotos.length ? [{ label: "사역 사진", tab: "news", target: targetId("photo", 0) }] : []),
   { label: "주차", tab: "guide", target: targetId("guide", 2) },
   { label: "봉사위원", tab: "guide", target: "volunteer" },
 ];
@@ -1926,11 +1980,196 @@ const html = `<!doctype html>
       cursor: pointer;
     }
 
-    .list-card.is-hidden {
+    .photo-section {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .photo-section.is-hidden {
       display: none;
     }
 
-    .app.is-filtering-news .list-card:not(.is-hidden) {
+    .photo-gallery {
+      display: grid;
+      gap: 10px;
+    }
+
+    .photo-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: 118px minmax(0, 1fr);
+      gap: 12px;
+      align-items: stretch;
+      padding: 10px;
+      border: 1px solid var(--glass-separator);
+      border-radius: 8px;
+      background: var(--glass);
+      box-shadow: var(--glass-inset), var(--glass-card-shadow);
+      -webkit-backdrop-filter: blur(18px) saturate(155%);
+      backdrop-filter: blur(18px) saturate(155%);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .photo-card.is-home {
+      grid-template-columns: 1fr;
+      padding: 0;
+    }
+
+    .photo-button {
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 7px;
+      background: var(--surface-soft);
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .photo-button img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 128px;
+      max-height: 220px;
+      object-fit: cover;
+    }
+
+    .photo-card.is-home .photo-button {
+      border-radius: 8px 8px 0 0;
+    }
+
+    .photo-card.is-home .photo-button img {
+      max-height: 260px;
+      object-position: top center;
+    }
+
+    .photo-copy {
+      display: grid;
+      gap: 6px;
+      align-content: start;
+      min-width: 0;
+      padding: 2px 2px 2px 0;
+    }
+
+    .photo-card.is-home .photo-copy {
+      align-content: center;
+      padding: 0 13px 13px;
+    }
+
+    .photo-copy strong {
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.35;
+      word-break: keep-all;
+    }
+
+    .photo-copy p {
+      color: var(--body-text);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .photo-modal[hidden] {
+      display: none;
+    }
+
+    .photo-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      display: grid;
+      place-items: center;
+      padding: max(18px, env(safe-area-inset-top)) 16px max(18px, env(safe-area-inset-bottom));
+    }
+
+    .photo-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, .62);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+    }
+
+    .photo-modal-panel {
+      position: relative;
+      display: grid;
+      gap: 10px;
+      width: min(100%, 520px);
+      max-height: 92vh;
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 14px;
+      background: var(--surface);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .36);
+      overflow: auto;
+    }
+
+    .photo-modal-panel img {
+      display: block;
+      width: 100%;
+      max-height: 74vh;
+      border-radius: 10px;
+      object-fit: contain;
+      background: var(--surface-soft);
+    }
+
+    .photo-modal-close {
+      justify-self: end;
+      min-height: 34px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface-soft);
+      color: var(--body-text);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .photo-modal-copy {
+      display: grid;
+      gap: 4px;
+      padding: 0 2px 4px;
+    }
+
+    .photo-modal-copy strong {
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .photo-modal-copy p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    @media (max-width: 360px) {
+      .photo-card {
+        grid-template-columns: 104px minmax(0, 1fr);
+        gap: 9px;
+      }
+
+      .photo-button img {
+        min-height: 116px;
+      }
+    }
+
+    .list-card.is-hidden,
+    .photo-card.is-hidden {
+      display: none;
+    }
+
+    .app.is-filtering-news .list-card:not(.is-hidden),
+    .app.is-filtering-news .photo-card:not(.is-hidden) {
       animation: filterCardIn .26s cubic-bezier(.2, .8, .2, 1) both;
     }
 
@@ -3012,6 +3251,17 @@ const html = `<!doctype html>
             }).join("")}
           </section>
 
+          ${bulletinPhotos[0] ? `<section class="home-photo" aria-label="이번 주 사역 사진">
+            <div class="section-head">
+              <div>
+                <div class="eyebrow">Photos</div>
+                <h2>이번 주 사역 사진</h2>
+              </div>
+              <button class="text-action" type="button" data-tab="news" data-target="${targetId("photo", 0)}">전체 보기</button>
+            </div>
+            ${renderPhotoCard(bulletinPhotos[0], 0, "home")}
+          </section>` : ""}
+
           <div class="home-tools" aria-label="찾기와 바로가기">
             <section class="search-panel" aria-label="주보 검색">
               <div class="section-head">
@@ -3120,15 +3370,16 @@ const html = `<!doctype html>
             <div class="eyebrow">News</div>
             <h2>교회소식</h2>
           </div>
-          <span class="chip">${bulletin.news.length}건</span>
+          <span class="chip">${newsItemCount}건</span>
         </div>
         <div class="page-context">
           <strong>필터로 필요한 소식만 보기</strong>
-          <span role="status" aria-live="polite" aria-atomic="true" data-news-visible-count>${bulletin.news.length}건</span>
+          <span role="status" aria-live="polite" aria-atomic="true" data-news-visible-count>${newsItemCount}건</span>
         </div>
         <div class="filter-bar" aria-label="교회소식 필터">
           ${newsFilters.map(([key, label]) => `<button type="button" data-news-filter="${key}" aria-selected="${key === "all"}">${label}</button>`).join("")}
         </div>
+        ${renderPhotoSection()}
         ${bulletin.news.map(renderNewsCard).join("")}
       </section>
 
@@ -3328,6 +3579,18 @@ const html = `<!doctype html>
     </nav>
   </div>
 
+  <div class="photo-modal" hidden data-photo-modal>
+    <div class="photo-modal-backdrop" data-photo-modal-close></div>
+    <div class="photo-modal-panel" role="dialog" aria-modal="true" aria-label="사진 크게 보기">
+      <button class="photo-modal-close" type="button" data-photo-modal-close>닫기</button>
+      <img src="" alt="" data-photo-modal-image />
+      <div class="photo-modal-copy">
+        <strong data-photo-modal-title></strong>
+        <p data-photo-modal-desc></p>
+      </div>
+    </div>
+  </div>
+
   <div class="preview-lab" aria-label="디바이스 미리보기">
     <div class="preview-toolbar">
       <div class="preview-title">
@@ -3399,11 +3662,18 @@ const html = `<!doctype html>
     const newsFilterButtons = [...document.querySelectorAll("[data-news-filter]")];
     const newsCards = [...document.querySelectorAll("[data-news-category]")];
     const newsVisibleCount = document.querySelector("[data-news-visible-count]");
+    const photoSections = [...document.querySelectorAll(".photo-section")];
+    const photoButtons = [...document.querySelectorAll("[data-photo-open]")];
+    const photoModal = document.querySelector("[data-photo-modal]");
+    const photoModalImage = document.querySelector("[data-photo-modal-image]");
+    const photoModalTitle = document.querySelector("[data-photo-modal-title]");
+    const photoModalDesc = document.querySelector("[data-photo-modal-desc]");
     const worshipPartButtons = [...document.querySelectorAll("[data-worship-part]")];
     const worshipRows = [...document.querySelectorAll("[data-worship-row]")];
     const searchItems = ${JSON.stringify(searchItems)};
     const calendarEvents = ${JSON.stringify(calendarEvents)};
     const fallbackScriptureVerses = ${JSON.stringify(fallbackScriptureVerses)};
+    const bulletinPhotos = ${JSON.stringify(bulletinPhotos)};
     const searchInput = document.querySelector("[data-search-input]");
     const searchResults = document.querySelector("[data-search-results]");
     const shareButton = document.querySelector("[data-share-button]");
@@ -3511,6 +3781,31 @@ const html = `<!doctype html>
     function setInstallStatus(title, body) {
       if (!installStatus) return;
       installStatus.innerHTML = "<p><strong>" + escapeClientHtml(title) + "</strong></p><p>" + escapeClientHtml(body) + "</p>";
+    }
+
+    function openPhoto(index) {
+      if (!photoModal || !photoModalImage) return;
+      const photo = bulletinPhotos[index];
+      if (!photo || !photo.src) return;
+      photoModalImage.src = photo.src;
+      photoModalImage.alt = photo.alt || photo.title || "사역 사진";
+      if (photoModalTitle) photoModalTitle.textContent = photo.title || "사역 사진";
+      if (photoModalDesc) {
+        photoModalDesc.textContent = photo.description || "";
+        photoModalDesc.hidden = !photo.description;
+      }
+      photoModal.hidden = false;
+      document.body.classList.add("modal-open");
+    }
+
+    function closePhoto() {
+      if (!photoModal) return;
+      photoModal.hidden = true;
+      document.body.classList.remove("modal-open");
+      if (photoModalImage) {
+        photoModalImage.removeAttribute("src");
+        photoModalImage.alt = "";
+      }
     }
 
     function scrollToTarget(targetId) {
@@ -3756,6 +4051,7 @@ const html = `<!doctype html>
     }
 
     function activateNewsFilter(name, options = {}) {
+      const activeName = newsFilterButtons.some((button) => button.dataset.newsFilter === name) ? name : "all";
       let visibleCount = 0;
       if (appShell && options.animate !== false) {
         appShell.classList.remove("is-filtering-news");
@@ -3767,18 +4063,22 @@ const html = `<!doctype html>
         }, 320);
       }
       newsFilterButtons.forEach((button) => {
-        button.setAttribute("aria-selected", String(button.dataset.newsFilter === name));
+        button.setAttribute("aria-selected", String(button.dataset.newsFilter === activeName));
       });
       newsCards.forEach((card) => {
-        const visible = name === "all" || card.dataset.newsCategory === name || (name === "today" && card.dataset.newsPriority === "오늘");
+        const visible = activeName === "all" || card.dataset.newsCategory === activeName || (activeName === "today" && card.dataset.newsPriority === "오늘");
         card.classList.toggle("is-hidden", !visible);
         if (visible) visibleCount += 1;
+      });
+      photoSections.forEach((section) => {
+        const hasVisiblePhoto = [...section.querySelectorAll(".photo-card")].some((card) => !card.classList.contains("is-hidden"));
+        section.classList.toggle("is-hidden", !hasVisiblePhoto);
       });
       if (newsVisibleCount) {
         newsVisibleCount.textContent = visibleCount + "건";
       }
       if (options.save !== false) {
-        writeState({ newsFilter: name });
+        writeState({ newsFilter: activeName });
       }
     }
 
@@ -3833,6 +4133,16 @@ const html = `<!doctype html>
     newsFilterButtons.forEach((button) => {
       button.addEventListener("click", () => activateNewsFilter(button.dataset.newsFilter));
     });
+
+    photoButtons.forEach((button) => {
+      button.addEventListener("click", () => openPhoto(Number(button.dataset.photoOpen)));
+    });
+
+    if (photoModal) {
+      photoModal.addEventListener("click", (event) => {
+        if (event.target.closest("[data-photo-modal-close]")) closePhoto();
+      });
+    }
 
     worshipPartButtons.forEach((button) => {
       button.addEventListener("click", () => activateWorshipPart(button.dataset.worshipPart));
@@ -3931,6 +4241,10 @@ const html = `<!doctype html>
     }
 
     document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && photoModal && !photoModal.hidden) {
+        closePhoto();
+        return;
+      }
       if (event.key === "Escape" && settingsPanel && !settingsPanel.hidden) {
         setSettingsOpen(false);
       }
@@ -4077,6 +4391,7 @@ const appIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512
 </svg>`;
 
 const cacheVersion = crypto.createHash("sha256").update(html).digest("hex").slice(0, 10);
+const photoAssets = bulletinPhotos.map((photo) => photo.src).filter(Boolean);
 const coreAssets = [
   "./",
   "./index.html",
@@ -4090,6 +4405,7 @@ const coreAssets = [
   "./archive.json",
   "./archive.html",
   ...archiveData.issues.map((issue) => issue.json).filter(Boolean),
+  ...photoAssets,
 ];
 const serviceWorker = `const CACHE_NAME = "naesoo-mobile-${cacheVersion}";
 const CORE_ASSETS = ${JSON.stringify(coreAssets)};
