@@ -1,5 +1,5 @@
-const CACHE_NAME = "naesoo-mobile-2386277f39";
-const CORE_ASSETS = ["./","./index.html","./manifest.json","./app-icon.svg","./app-icon-192.png","./app-icon-512.png","./app-icon-maskable-512.png","./verses.json","./robots.txt","./archive.json","./archive.html","./bulletins/2026-08-23.json","./bulletins/2026-08-09.json","./bulletins/2026-08-02.json","./bulletins/2026-07-26.json","./bulletins/2026-07-19.json","./bulletins/2026-07-12.json","./bulletins/2026-07-05.json","./bulletins/2026-06-28.json","./bulletins/2026-06-21.json","./bulletins/2026-06-14.json","./assets/bulletins/2026-08-23/ministry-photos.jpg"];
+const CACHE_NAME = "naesoo-mobile-eb06d8f2fb";
+const CORE_ASSETS = ["./","./index.html","./manifest.json","./app-icon.svg","./app-icon-192.png","./app-icon-512.png","./app-icon-maskable-512.png","./verses.json","./robots.txt","./archive.json","./archive.html","./bulletins/2026-08-30.json","./bulletins/2026-08-23.json","./bulletins/2026-08-09.json","./bulletins/2026-08-02.json","./bulletins/2026-07-26.json","./bulletins/2026-07-19.json","./bulletins/2026-07-12.json","./bulletins/2026-07-05.json","./bulletins/2026-06-28.json","./bulletins/2026-06-21.json","./bulletins/2026-06-14.json","./assets/bulletins/2026-08-30/ministry-photos.jpg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE_ASSETS)));
