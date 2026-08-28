@@ -1,0 +1,135 @@
+name: Weekly Bulletin Check
+
+on:
+  schedule:
+    - cron: "0 8 * * 5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: weekly-bulletin-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: Check latest bulletin
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check church board
+        run: |
+          set -o pipefail
+          npm run bulletin:check | tee bulletin-check.log
+
+      - name: Parse check result
+        id: bulletin
+        run: |
+          node <<'NODE'
+          const fs = require("fs");
+          const log = fs.readFileSync("bulletin-check.log", "utf8");
+          const get = (pattern, fallback = "") => {
+            const match = log.match(pattern);
+            return match ? match[1].trim() : fallback;
+          };
+          const outputs = {
+            latest: get(/^latest=([^\s]+)/m),
+            current: get(/^current=([^\s]+)/m),
+            status: get(/^status=([^\s]+)/m),
+            detail: get(/^detail=(.+)$/m),
+            target: get(/^target=(.+)$/m),
+          };
+          const hasNewIssue = outputs.status !== "already-current";
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `hasNewIssue=${hasNewIssue}\n`);
+          for (const [key, value] of Object.entries(outputs)) {
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, `${key}=${value}\n`);
+          }
+          NODE
+
+      - name: Download original bulletin images
+        if: steps.bulletin.outputs.hasNewIssue == 'true'
+        env:
+          ORIGINAL_DIR: original
+        run: npm run bulletin:fetch
+
+      - name: Upload original bulletin artifact
+        if: steps.bulletin.outputs.hasNewIssue == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: naesoo-bulletin-${{ steps.bulletin.outputs.latest }}-original
+          path: original/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Create draft update pull request
+        if: steps.bulletin.outputs.hasNewIssue == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LATEST: ${{ steps.bulletin.outputs.latest }}
+          DETAIL_URL: ${{ steps.bulletin.outputs.detail }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+
+          branch="weekly-bulletin/${LATEST}"
+          title="[주보 업데이트] ${LATEST} 최신 주보 확인됨"
+
+          if git ls-remote --exit-code --heads origin "${branch}" >/dev/null 2>&1; then
+            echo "branch=${branch} already exists"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git switch -c "${branch}"
+            git commit --allow-empty -m "Start bulletin update for ${LATEST}"
+            git push origin "${branch}"
+          fi
+
+          existing_pr_count="$(gh pr list --head "${branch}" --state open --json number --jq 'length')"
+          if [ "${existing_pr_count}" != "0" ]; then
+            echo "open PR already exists for ${branch}"
+            exit 0
+          fi
+
+          cat > pr-body.md <<EOF
+          최신 주보 게시물이 자동 확인되었습니다.
+
+          - 최신 주보: ${LATEST}
+          - 게시물: ${DETAIL_URL}
+          - 원본 이미지 artifact: ${RUN_URL}
+
+          이 PR은 모바일 주보 업데이트 작업을 시작하기 위한 드래프트 PR입니다.
+          원본 이미지와 내용을 검수한 뒤 실제 변경 커밋을 이 PR에 추가하고, 검수 완료 후 merge합니다.
+
+          처리 순서:
+          1. workflow artifact에서 원본 이미지 확인
+          2. bulletins/${LATEST}.json 생성
+          3. archive.json current 갱신
+          4. npm test 및 로컬 미리보기 검수
+          5. 최종 확인 후 PR merge
+          EOF
+
+          gh pr create \
+            --draft \
+            --base main \
+            --head "${branch}" \
+            --title "${title}" \
+            --body-file pr-body.md
+
+      - name: Write no-op summary
+        if: steps.bulletin.outputs.hasNewIssue != 'true'
+        run: |
+          {
+            echo "현재 최신 주보와 사이트 current가 동일합니다."
+            echo ""
+            echo "- latest: ${{ steps.bulletin.outputs.latest }}"
+            echo "- current: ${{ steps.bulletin.outputs.current }}"
+          } >> "$GITHUB_STEP_SUMMARY"
