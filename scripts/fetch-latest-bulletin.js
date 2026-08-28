@@ -14,12 +14,14 @@ const originalDir = process.env.ORIGINAL_DIR
   : DEFAULT_ORIGINAL_DIR;
 
 function decodeHtml(value) {
-  return value
+  return String(value)
     .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, "\"")
     .replace(/&#39;/g, "'")
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCodePoint(Number.parseInt(hex, 16)))
+    .replace(/&#(\d+);/g, (_, decimal) => String.fromCodePoint(Number.parseInt(decimal, 10)))
     .trim();
 }
 
@@ -45,17 +47,18 @@ function parseKoreanDate(title) {
 }
 
 function parseLatestPost(html) {
-  const postPattern = /<a\s+href=["']([^"']*\/Board\/Detail\/77077\/\d+)["'][^>]*>([^<]*주보[^<]*)<\/a>/gi;
-  const match = postPattern.exec(html);
-  if (!match) {
-    throw new Error("주보 목록에서 최신 게시물을 찾지 못함");
+  const postPattern = /<a\s+href=["']([^"']*\/Board\/Detail\/77077\/\d+)["'][^>]*>(.*?)<\/a>/gis;
+  let match;
+  while ((match = postPattern.exec(html))) {
+    const title = decodeHtml(match[2].replace(/<[^>]+>/g, "")).replace(/\s+/g, " ");
+    if (!title.includes("주보")) continue;
+    return {
+      title,
+      href: absolutize(match[1]),
+      ...parseKoreanDate(title),
+    };
   }
-  const title = decodeHtml(match[2]).replace(/\s+/g, " ");
-  return {
-    title,
-    href: absolutize(match[1]),
-    ...parseKoreanDate(title),
-  };
+  throw new Error("주보 목록에서 최신 게시물을 찾지 못함");
 }
 
 function parseDetailAssets(html) {
