@@ -4390,7 +4390,8 @@ const appIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512
   <path d="M168 130h72v92h85v70h-85v132h-72V292H85v-70h83z" fill="#fff" opacity=".92"/>
 </svg>`;
 
-const cacheVersion = crypto.createHash("sha256").update(html).digest("hex").slice(0, 10);
+const normalizedHtml = html.replace(/[ \t]+$/gm, "");
+const cacheVersion = crypto.createHash("sha256").update(normalizedHtml).digest("hex").slice(0, 10);
 const photoAssets = bulletinPhotos.map((photo) => photo.src).filter(Boolean);
 const coreAssets = [
   "./",
@@ -4447,7 +4448,7 @@ self.addEventListener("fetch", (event) => {
 });
 `;
 
-fs.writeFileSync(outPath, html);
+fs.writeFileSync(outPath, normalizedHtml);
 fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
 fs.writeFileSync(serviceWorkerPath, serviceWorker);
 fs.writeFileSync(appIconSvgPath, appIconSvg);
