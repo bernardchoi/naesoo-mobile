@@ -699,6 +699,7 @@ const searchItems = [
     body: [
       ...bulletin.volunteer.guide.flat(),
       ...bulletin.volunteer.meal.flat(),
+      bulletin.volunteer.mealHelpers,
       bulletin.volunteer.parking,
     ].join(" "),
     keywords: "봉사위원 안내위원 식당 봉사 교구 주차봉사 주차",
@@ -3512,6 +3513,10 @@ const html = `<!doctype html>
               ${bulletin.volunteer.meal.map(([week, names]) => `<div class="table-item"><strong>${week}</strong><div>${names}</div></div>`).join("")}
             </div>
           </article>
+          ${bulletin.volunteer.mealHelpers ? `<article class="list-card">
+            <h3>식당 봉사</h3>
+            <p>${bulletin.volunteer.mealHelpers}</p>
+          </article>` : ""}
           <article class="list-card">
             <h3>주차봉사</h3>
             <p>${bulletin.volunteer.parking}</p>
