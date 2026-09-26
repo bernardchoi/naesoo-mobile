@@ -1,13 +1,21 @@
 {
-  "current": "2026-09-20",
+  "current": "2026-09-27",
   "issues": [
+    {
+      "id": "2026-09-27",
+      "label": "2026.09.27",
+      "date": "2026년 9월 27일",
+      "volume": "제73권 39호",
+      "json": "./bulletins/2026-09-27.json",
+      "url": "./index.html#home"
+    },
     {
       "id": "2026-09-20",
       "label": "2026.09.20",
       "date": "2026년 9월 20일",
       "volume": "제73권 38호",
       "json": "./bulletins/2026-09-20.json",
-      "url": "./index.html#home"
+      "url": "./archive.html?issue=2026-09-20#home"
     },
     {
       "id": "2026-09-13",
