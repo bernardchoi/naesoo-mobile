@@ -279,6 +279,19 @@ function escapeAttr(value) {
   return escapeHtml(value).replaceAll("\n", "&#10;");
 }
 
+function getNewsAction(item) {
+  if (!item.action || typeof item.action !== "object") return null;
+  const label = String(item.action.label || "신청하기").trim();
+  const url = String(item.action.url || "").trim();
+  try {
+    const parsed = new URL(url);
+    if (parsed.protocol !== "https:") return null;
+    return { label, url: parsed.href };
+  } catch {
+    return null;
+  }
+}
+
 function targetId(prefix, index) {
   return `${prefix}-${index + 1}`;
 }
@@ -348,6 +361,7 @@ function renderWorshipRow(row, index) {
 function renderNewsCard(item, index) {
   const categoryLabel = categoryLabels[item.category] || "소식";
   const calendarIndex = item.calendar ? calendarEvents.findIndex((event) => event.sourceIndex === index) : -1;
+  const action = getNewsAction(item);
   const lines = [
     `          <article class="list-card" id="${targetId("news", index)}" data-news-category="${item.category || "care"}" data-news-priority="${escapeAttr(item.priority || "")}" data-jump-target>`,
     `            <div class="news-meta">`,
@@ -374,8 +388,15 @@ function renderNewsCard(item, index) {
       `            </div>`,
     );
   }
-  if (calendarIndex >= 0) {
-    lines.push(`            <div class="card-actions"><button class="card-action" type="button" data-calendar-index="${calendarIndex}">캘린더 추가</button></div>`);
+  if (calendarIndex >= 0 || action) {
+    lines.push(`            <div class="card-actions">`);
+    if (action) {
+      lines.push(`              <a class="card-action" href="${escapeAttr(action.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(action.label)}</a>`);
+    }
+    if (calendarIndex >= 0) {
+      lines.push(`              <button class="card-action" type="button" data-calendar-index="${calendarIndex}">캘린더 추가</button>`);
+    }
+    lines.push(`            </div>`);
   }
   lines.push(`          </article>`);
   return lines.join("\n");
@@ -1971,6 +1992,9 @@ const html = `<!doctype html>
     }
 
     .card-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       min-height: 32px;
       padding: 0 10px;
       border: 1px solid var(--green-border);
@@ -1979,6 +2003,7 @@ const html = `<!doctype html>
       color: var(--green);
       font-size: 13px;
       font-weight: 600;
+      text-decoration: none;
       cursor: pointer;
     }
 

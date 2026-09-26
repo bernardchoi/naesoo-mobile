@@ -8,6 +8,7 @@ const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const manifest = JSON.parse(fs.readFileSync(path.join(root, "manifest.json"), "utf8"));
 const sw = fs.readFileSync(path.join(root, "sw.js"), "utf8");
 const archiveHtml = fs.readFileSync(path.join(root, "archive.html"), "utf8");
+const build = fs.readFileSync(path.join(root, "scripts", "build.js"), "utf8");
 
 assert(Array.isArray(archive.issues) && archive.issues.length > 0, "archive issues are required");
 assert(archive.issues.some((issue) => issue.id === archive.current), "archive current issue is missing");
@@ -21,6 +22,11 @@ for (const issue of archive.issues) {
   }
   assert.strictEqual(bulletin.worship.times.length, 3, `${issue.id}: worship times must have three services`);
   assert(bulletin.worship.rows.every((row) => row.label && Object.hasOwn(row, "first")), `${issue.id}: invalid worship row`);
+  for (const item of bulletin.news) {
+    if (!item.action) continue;
+    assert(typeof item.action.label === "string" && item.action.label.trim(), `${issue.id}: action label is required`);
+    assert(/^https:\/\/.+/.test(item.action.url || ""), `${issue.id}: action URL must use HTTPS`);
+  }
 }
 
 for (const route of ["home", "worship", "news", "sermon", "meeting", "guide"]) {
@@ -33,6 +39,8 @@ assert(html.includes("자주 찾는 항목"), "home quick links are required");
 assert(html.includes("data-target=\"sermon-questions\""), "sermon question shortcut is required");
 assert(html.includes("collapsible-card"), "secondary guide content must be collapsible");
 assert(html.includes("search-location"), "search results must show location context");
+assert(build.includes("function getNewsAction"), "news action rendering is required");
+assert(build.includes('parsed.protocol !== "https:"'), "news action URLs must be HTTPS-only");
 assert(sw.includes('event.request.mode === "navigate"'), "offline fallback must be navigation-only");
 assert(archiveHtml.includes("./bulletins/${issue}.json"), "archive must load bulletin JSON dynamically");
 assert(archive.issues.filter((issue) => issue.id !== archive.current).every((issue) => issue.url.includes("archive.html?issue=")), "past issues must use the shared archive shell");
