@@ -1,12 +1,12 @@
 {
-  "current": "2026-10-04",
+  "current": "2026-10-11",
   "issues": [
     {
-      "id": "2026-10-04",
-      "label": "2026.10.04",
-      "date": "2026년 10월 4일",
-      "volume": "제73권 40호",
-      "json": "./bulletins/2026-10-04.json",
+      "id": "2026-10-11",
+      "label": "2026.10.11",
+      "date": "2026년 10월 11일",
+      "volume": "제73권 41호",
+      "json": "./bulletins/2026-10-11.json",
       "url": "./index.html#home"
     },
     {
